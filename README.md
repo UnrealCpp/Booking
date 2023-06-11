@@ -10,6 +10,7 @@ changed sqlite database to local MySql database connection
 ```bash
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
+SESSION_SECRET=
 ```
 
 # express-passport
