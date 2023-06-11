@@ -109,9 +109,9 @@ passport.serializeUser(function(user, cb) {
     user.id
   ], function(err, rows) {
     if (err) { return next(err); }    
-    //if   
+    
       process.nextTick(function() {
-        cb(null, { id: user.id, username: user.username, name:user.name , roles: rows.map(r=>{return r.rolesID})});
+        cb(null, { id: user.id, username: user.username, name:user.name , roles: rows?.map(r=>{return r.rolesID})});//if rows exists return all usersID->rolesID as new array
       });
   });
 });

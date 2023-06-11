@@ -2,7 +2,8 @@ var express = require('express');
 var ensureLogIn = require('connect-ensure-login').ensureLoggedIn;
 //var db = require('../db');
 var conn = require('../dbmysql');
-
+const fs = require('fs');
+var crypto = require('crypto');
 var ensureLoggedIn = ensureLogIn();
 
 function fetchTodos(req, res, next) {
@@ -30,6 +31,8 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  if(!fs.existsSync("./.env"))
+    return res.render('setup', { randombytes: crypto.randomBytes(16).toString('hex') });
   if (!req.user) { return res.render('home'); }
   next();
 }, fetchTodos, function(req, res, next) {

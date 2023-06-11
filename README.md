@@ -13,6 +13,15 @@ GOOGLE_CLIENT_SECRET=
 SESSION_SECRET=
 ```
 
+
+# watch out for database connection. Auto creates tables inside  database: "booking" and  database: "sessions"
+uses global local database username
+TODO: 
+* a setup page for db configuration...
+* unification of database names
+
+
+
 # express-passport
 
 This app illustrates how to use [Passport](https://www.passportjs.org/) with

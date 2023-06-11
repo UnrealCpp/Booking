@@ -9,6 +9,7 @@ var logger = require('morgan');
 const dotenv = require("dotenv");
 const errorHandler = require("./middleware/errHandle");
 dotenv.config();
+
 // pass the session to the connect sqlite3 module
 // allowing it to inherit from session.Store
 //var SQLiteStore = require('connect-sqlite3')(session);
