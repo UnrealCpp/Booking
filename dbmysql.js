@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 var crypto = require('crypto');
-
+var ROLES = require('./config');
 var con = mysql.createConnection({
   host: "localhost",
   user: "pma",
@@ -11,26 +11,65 @@ var con = mysql.createConnection({
 con.connect(function(err) {
   if (err) throw err;
   //console.log("Connected!");
+  con.query("CREATE TABLE if not exists personal_info ( \
+    id INTEGER  AUTO_INCREMENT PRIMARY KEY, \
+    firstname VARCHAR(50), \
+    surname VARCHAR(50),\
+    gender VARCHAR(10),\
+    birthdate DATE,\
+    address VARCHAR(100)\
+  )", function (err, result) {
+    if (err) throw err;
+    //console.log("Result: " + result);
+  });
+  con.query("CREATE TABLE if not exists users_roles ( \
+    id INTEGER  AUTO_INCREMENT PRIMARY KEY, \
+    usersID INTEGER, \
+    rolesID INTEGER, \
+    UNIQUE (usersID, rolesID) \
+  )", function (err, result) {
+    if (err) throw err;
+    //console.log("Result: " + result);
+  });
+  con.query("CREATE TABLE if not exists roles ( \
+    id INTEGER  AUTO_INCREMENT PRIMARY KEY, \
+    description VARCHAR(20) UNIQUE \
+  )", function (err, result) {
+    if (err) throw err;    
+    //console.log("Result: " + result);
+  });
+  for (var key in ROLES) {
+    // skip loop if the property is from prototype
+    //if (!ROLES.hasOwnProperty(key)) continue;
+    con.query("INSERT IGNORE INTO roles (description) VALUES (?)", [key], function (err, result) {
+      if (err) throw err;
+    });
+  }
 
   con.query("CREATE TABLE if not exists users ( \
     id INTEGER  AUTO_INCREMENT PRIMARY KEY, \
-    username TEXT UNIQUE, \
+    username VARCHAR(50) UNIQUE, \
     hashed_password BLOB, \
     salt BLOB, \
-    name TEXT \
+    name VARCHAR(50), \
+    email VARCHAR(50),\
+    emailvalidation BOOLEAN,\
+    creationdate DATETIME,\
+    passwordrecoverytoken VARCHAR(50),\
+    personal_infoID INTEGER\
   )", function (err, result) {
     if (err) throw err;
-    console.log("Result: " + result);
+    //console.log("Result: " + result);
   });
   
   con.query("CREATE TABLE IF NOT EXISTS todos ( \
     id INTEGER  AUTO_INCREMENT PRIMARY KEY, \
     owner_id INTEGER NOT NULL, \
-    title TEXT NOT NULL, \
+    title VARCHAR(50) NOT NULL, \
     completed INTEGER \
   )", function (err, result) {
     if (err) throw err;
-    console.log("Result: " + result);
+    //console.log("Result: " + result);
   });
   con.query("CREATE TABLE IF NOT EXISTS federated_credentials ( \
     id INTEGER  AUTO_INCREMENT PRIMARY KEY, \
@@ -40,7 +79,7 @@ con.connect(function(err) {
     UNIQUE (provider, subject) \
   )", function (err, result) {
     if (err) throw err;
-    console.log("Result: " + result);
+    //console.log("Result: " + result);
   });
 
   var salt = crypto.randomBytes(16);
@@ -54,7 +93,12 @@ con.connect(function(err) {
   ;
   con.query(sql, values, function (err, result) {
     if (err) throw err;
-    console.log("Number of records inserted: " + result.affectedRows);
+    //console.log("Number of records inserted: " + result.affectedRows);
+    con.query("INSERT IGNORE INTO users_roles (usersID,rolesID) VALUES (?,?)", [result.insertId,3], function (err, res) {
+      if (err) throw err;
+    });
+    console.log("Mysql connected");
+
   });
   
 });

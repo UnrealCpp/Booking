@@ -5,7 +5,7 @@ var crypto = require('crypto');
 var GoogleStrategy = require('passport-google-oidc');
 //var db = require('../db');
 var conn = require('../dbmysql');
-
+var ROLES = require('../config');
 //https://www.passportjs.org/tutorials/google/configure/
 //you registered the app with Google.
 //Then, added the client ID and secret in .env file.
@@ -37,8 +37,15 @@ passport.use(new GoogleStrategy({
           if (err) { return cb(err); }
           var user = {
             id: id,
-            name: profile.displayName
+            name: profile.displayName,
+            role: 3
           };
+          conn.query('INSERT INTO users_roles (usersID, rolesID) VALUES (?, ?)', [
+            id,
+            3
+          ], function(err, rows) {
+            if (err) { return next(err); }             
+          });
           return cb(null, user);
         });
       });
@@ -46,7 +53,6 @@ passport.use(new GoogleStrategy({
       conn.query('SELECT * FROM users WHERE id = ?', [ row[0].user_id ], function(err, row) {
         if (err) { return cb(err); }
         if (!row.length) { return cb(null, false); }
-        console.log(row);
         return cb(null, row[0]);
       });
     }
@@ -97,9 +103,16 @@ passport.use(new LocalStrategy(function verify(username, password, cb) {
  * fetch todo records and render the user element in the navigation bar, that
  * information is stored in the session.
  */
+
 passport.serializeUser(function(user, cb) {
-  process.nextTick(function() {
-    cb(null, { id: user.id, username: user.username, name:user.name });
+  conn.query('SELECT * FROM users_roles WHERE usersID = ?', [
+    user.id
+  ], function(err, rows) {
+    if (err) { return next(err); }    
+    //if   
+      process.nextTick(function() {
+        cb(null, { id: user.id, username: user.username, name:user.name , roles: rows.map(r=>{return r.rolesID})});
+      });
   });
 });
 
@@ -222,9 +235,16 @@ router.post('/signup', function(req, res, next) {
       salt
     ], function(err,result) {
       if (err) { return next(err); }
+      conn.query('INSERT INTO users_roles (usersID, rolesID) VALUES (?, ?)', [
+        result.insertId,
+        3
+      ], function(err, rows) {
+        if (err) { return next(err); }             
+      });
       var user = {
         id: result.insertId,
-        username: req.body.username
+        username: req.body.username,
+        role: 3
       };
       req.login(user, function(err) {
         if (err) { return next(err); }
