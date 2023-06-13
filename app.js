@@ -6,9 +6,9 @@ var session = require('express-session');
 var csrf = require('csurf');
 var passport = require('passport');
 var logger = require('morgan');
-const dotenv = require("dotenv");
+require('dotenv').config();
 const errorHandler = require("./middleware/errHandle");
-dotenv.config();
+
 
 // pass the session to the connect sqlite3 module
 // allowing it to inherit from session.Store

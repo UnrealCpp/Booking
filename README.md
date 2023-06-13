@@ -8,6 +8,7 @@ changed sqlite database to local MySql database connection
 # .env file should be added in to the project to support Google Authentication
 
 ```bash
+NODE_ENV=development
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
 SESSION_SECRET=

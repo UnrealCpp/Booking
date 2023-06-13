@@ -1,16 +1,18 @@
 var mysql = require('mysql');
 var crypto = require('crypto');
 var ROLES = require('./config');
-var con = mysql.createConnection({
+var connPool = mysql.createPool({
+  connectionLimit : 10,
   host: "localhost",
   user: "pma",
   password: "",
   database: "booking"
 });
 
-con.connect(function(err) {
-  if (err) throw err;
-  //console.log("Connected!");
+//changed createConnection to createPool. Now node server doesn't crash when mysql connection is lost (like restart db).  
+
+connPool.getConnection(function(err, con) {
+  if (err) return console.error('Mysql Connection: ' + err.message); // not connected! 
   con.query("CREATE TABLE if not exists personal_info ( \
     id INTEGER  AUTO_INCREMENT PRIMARY KEY, \
     firstname VARCHAR(50), \
@@ -100,7 +102,7 @@ con.connect(function(err) {
     console.log("Mysql connected");
 
   });
-  
+  con.release();
 });
 
-module.exports = con;
+module.exports = connPool;
