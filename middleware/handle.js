@@ -12,7 +12,8 @@ const checkIsInRole = (...roles) => (req, res, next) => {
     //console.log(req.originalUrl);
     
     if (!hasRole.length) {
-        return res.redirect('/login')//res.redirect('back');????
+        res.clearCookie('getSessionReturn');
+        return res.redirect('/')//res.redirect('back');????
     }
     return next()
 }
