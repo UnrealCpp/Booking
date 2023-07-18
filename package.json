@@ -29,7 +29,7 @@
   "license": "Unlicense",
   "scripts": {
     "start": "node ./bin/www",    
-    "dev": "nodemon ./bin/www"
+    "dev": "nodemon ./bin/www -e .js,.ejs app.js"
   },
   "dependencies": {
     "connect-ensure-login": "^0.1.1",

@@ -19,6 +19,7 @@ SESSION_SECRET=
 uses global local database username
 TODO: 
 * a setup page for db configuration...
+* remove "INSERT IGNORE INTO..." querries to setup page only. "IGNORE" creates id gaps in tables. mySql innodb_autoinc_lock_mode=1 for auto_increment lock but it has performance cost. Check if value exists some other way then "INSERT INTO..." if neccesary.https://www.percona.com/blog/avoiding-auto-increment-holes-on-innodb-with-insert-ignore/
 * unification of database names
 
 

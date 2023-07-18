@@ -75,7 +75,7 @@ passport.use(new LocalStrategy(function verify(username, password, cb) {
     if (err) { return cb(err); }
     if (!row.length) { return cb(null, false, { message: 'Incorrect username or password.' }); }
 
-    crypto.pbkdf2(password, row[0].salt, 310000, 32, 'sha256', function(err, hashedPassword) {
+    crypto.pbkdf2(password, row[0].salt, 310000, 64, 'sha512', function(err, hashedPassword) {
       if (err) { return cb(err); }
       if (!crypto.timingSafeEqual(row[0].hashed_password, hashedPassword)) {
         return cb(null, false, { message: 'Incorrect username or password.' });
@@ -105,13 +105,13 @@ passport.use(new LocalStrategy(function verify(username, password, cb) {
  */
 
 passport.serializeUser(function(user, cb) {
-  conn.query('SELECT * FROM users_roles WHERE usersID = ?', [
+  conn.query('SELECT * FROM users_roles INNER JOIN roles ON users_roles.rolesID = roles.id WHERE usersID = ?', [
     user.id
   ], function(err, rows) {
     if (err) { return next(err); }    
     
       process.nextTick(function() {
-        cb(null, { id: user.id, username: user.username, name:user.name , roles: rows?.map(r=>{return r.rolesID})});//if rows exists return all usersID->rolesID as new array
+        cb(null, { id: user.id, username: user.username, name:user.name , roles: rows?.map(r=>{return r.description})});//if rows exists return all usersID->rolesID as new array
       });
   });
 });
@@ -226,8 +226,8 @@ router.get('/signup', function(req, res, next) {
  * successfully created, the user is logged in.
  */
 router.post('/signup', function(req, res, next) {
-  var salt = crypto.randomBytes(16);
-  crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', function(err, hashedPassword) {
+  var salt = crypto.randomBytes(32);
+  crypto.pbkdf2(req.body.password, salt, 310000, 64, 'sha512', function(err, hashedPassword) {
     if (err) { return next(err); }
     conn.query('INSERT INTO users (username, hashed_password, salt) VALUES (?, ?, ?)', [
       req.body.username,
@@ -241,6 +241,11 @@ router.post('/signup', function(req, res, next) {
       ], function(err, rows) {
         if (err) { return next(err); }             
       });
+      // conn.query('SELECT description FROM roles WHERE id=?', [3] , function(err, rows) {
+      //   if (err) { return next(err); }
+
+      // });
+
       var user = {
         id: result.insertId,
         username: req.body.username,

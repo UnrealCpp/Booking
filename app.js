@@ -37,11 +37,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  key: 'session_cookie_name',
+  key: 'express_passport',
   secret: process.env.SESSION_SECRET,
   resave: false, // don't save session if unmodified
   saveUninitialized: false, // don't create session until something stored
   store: new MySQLStore(options)//new SQLiteStore({ db: 'sessions.db', dir: './var/db' })
+  
 }));
 app.use(csrf());
 app.use(passport.authenticate('session'));

@@ -84,12 +84,12 @@ connPool.getConnection(function(err, con) {
     //console.log("Result: " + result);
   });
 
-  var salt = crypto.randomBytes(16);
+  var salt = crypto.randomBytes(32);
   var sql = "INSERT IGNORE INTO users (username, hashed_password, salt) VALUES (?, ?, ?)";
   var values = 
     [
       'alice',
-      crypto.pbkdf2Sync('letmein', salt, 310000, 32, 'sha256'),
+      crypto.pbkdf2Sync('letmein', salt, 310000, 64, 'sha512'),
       salt
     ]
   ;
