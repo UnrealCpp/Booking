@@ -1,12 +1,13 @@
 var mysql = require('mysql');
 var crypto = require('crypto');
 var ROLES = require('./config');
+require('dotenv').config();
 var connPool = mysql.createPool({
   connectionLimit : 10,
   host: "localhost",
   user: "pma",
   password: "",
-  database: "booking"
+  database: "korns_booking"
 });
 
 //changed createConnection to createPool. Now node server doesn't crash when mysql connection is lost (like restart db).  
@@ -88,8 +89,8 @@ connPool.getConnection(function(err, con) {
   var sql = "INSERT IGNORE INTO users (username, hashed_password, salt) VALUES (?, ?, ?)";
   var values = 
     [
-      'alice',
-      crypto.pbkdf2Sync('letmein', salt, 310000, 64, 'sha512'),
+      'Admin',
+      crypto.pbkdf2Sync(process.env.ADMIN_PASS, salt, 310000, 64, 'sha512'),
       salt
     ]
   ;

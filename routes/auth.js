@@ -144,7 +144,13 @@ var router = express.Router();
  *           text/html:
  */
 router.get('/login', function(req, res, next) {
-  res.render('login');
+  var locals = {
+    title: 'KORNS Booking',
+    description: 'Page Description',
+    header: 'Page Header',
+    activeLogin:'active'
+    };
+  res.render('login',locals);
 });
 
 router.get('/login/federated/google', passport.authenticate('google'));

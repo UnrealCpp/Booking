@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title><%= locals.title %></title>
+		<%- include('head.ejs') %>
+	</head>
+	<body>
+        <div class="header">
+			<a href="/" class="logo <%= locals.activeLogo %>" ><img width="236" height="81" src="/KORNS-LOGO-Kupfer-Hori.jpg" class="attachment-full size-full" alt="" decoding="async" loading="lazy"></a>
+			<div class="header-right">
+				<a href="/contact" class="<%= locals.activeContact %>">Contact</a>
+				<a href="/privacy" class="<%= locals.activePriv %>">Privacy Information</a>
+				<a href="/login" class="<%= locals.activeLogin %>"><img src="/fa/user-solid.svg" style="width: 0.8em;">Sign in</a>
+			</div>
+		</div>
+		
+		<%- body %>
+		<%- include('footer.ejs') %>
+
+	</body>
+</html>

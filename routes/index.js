@@ -7,6 +7,18 @@ var crypto = require('crypto');
 const ROLES = require('../config');
 const checkIsInRole= require('../middleware/handle');
 // connect-ensure-login integrates seamlessly with Passport.
+var locals = {
+  title: 'KORNS Booking',
+  description: 'Page Description',
+  header: 'Page Header'
+};
+function user_logged(req){
+  if(req.user?.username)  {
+    locals.layout = "./layouts/layout_logged";
+    locals.user= req.user ;
+  }
+  else locals.layout = "./layouts/layout";
+}
 function ensureLoggedIn(req, res, next){
   ensureLogIn();  
   next();
@@ -39,25 +51,49 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+
   if(!fs.existsSync("./.env"))
     return res.render('setup', { randombytes: crypto.randomBytes(16).toString('hex') });
   if (req.cookies.getSessionReturn) {
     res.clearCookie('getSessionReturn');
     return res.redirect(req.cookies.getSessionReturn);    
   }
-  if (!req.user) { return res.render('home'); }
+  if (!req.user) { 
+    locals.activeLogo = "active";
+    user_logged(req);
+    res.render('home',locals); 
+    locals.activeLogo = "";
+    return;
+  }
   next();
 }, fetchTodos, function(req, res, next) {
-  res.locals.filter = null;
-  res.render('index', { user: req.user });
+  res.locals.filter = null;  
+  user_logged(req);
+  res.render('index', { user: req.user, layout:'./layouts/layout_logged'});
 });
-router.get('/dashboard', function(req, res, next) {
+router.get('/dashboard', function(req, res, next) {  
+  user_logged(req);
   res.cookie('getSessionReturn', "/dashboard");
   next();
 }, ensureLoggedIn,checkIsInRole(ROLES.Admin),function(req, res, next) {      
   res.clearCookie('getSessionReturn');
   res.render('dashboard', { user: req.user });
   console.log(req.cookies)
+});
+router.get('/contact', function(req, res, next) {
+  locals.activeContact = "active";
+  res.render('contact',locals);
+  locals.activeContact = "";
+});
+router.get('/privacy', function(req, res, next) {  
+  locals.activePriv = "active";
+  if(req.user?.username)  {
+    locals.layout = "./layouts/layout_logged";
+    locals.user= req.user ;
+  }
+  else locals.layout = "./layouts/layout";
+  res.render('privacy',locals);
+  locals.activePriv = "";
 });
 router.get('/active', ensureLoggedIn, fetchTodos, function(req, res, next) {
   res.locals.todos = res.locals.todos.filter(function(todo) { return !todo.completed; });

@@ -9,6 +9,7 @@ var logger = require('morgan');
 require('dotenv').config();
 const errorHandler = require("./middleware/errHandle");
 
+const expressLayouts = require("express-ejs-layouts");
 
 // pass the session to the connect sqlite3 module
 // allowing it to inherit from session.Store
@@ -18,13 +19,14 @@ const options = {
   host: "localhost",
   user: "pma",
   password: "",
-  database: "sessions"
+  database: "korns_sessions"
 }
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 
 var app = express();
-
+app.use(expressLayouts);
+app.set('layout','./layouts/layout');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
