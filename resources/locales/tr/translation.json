@@ -1,0 +1,22 @@
+{
+    "greeting": "Merhaba",
+    "homepage": "Hoş geldiniz, burada teknoloji ve ikram dahil olmak üzere toplantı ve konferans odalarını, maliyetlere eksiksiz bir genel bakışla hemen kiralayabilirsiniz.",
+    "you_can_rent":"Beğendiğiniz toplantı odasına ait \"Rezervasyon Yap\" butonuna tıklayarak toplantı odası için rezervasyon oluşturabilirsiniz.",
+    "user": {
+        "name":"Kullanıcı Adı",
+        "pass":"Şifre",
+        "mail":"E-Posta"
+    },
+    "auth":{
+        "signin":"Giriş",
+        "signin_google":"Google ile Giriş",
+        "login":"Giriş",
+        "register":"Kayıt ol",
+        "logout":"Çıkış",
+        "dont_have_acc_q":"Hesabın Yok mu ?",
+        "account":"Hesap Bilgileri",
+        "board":"Pano",
+        "reservations":"Rezervasyonlar"
+    }
+
+}

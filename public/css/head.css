@@ -5,7 +5,16 @@
 	padding: 20px 10px;
 	width: 100%;
   }
-  
+  @media (min-width: 1024px) {
+	.mediawidth {
+		width: 1024px;
+	}
+  }
+  @media (min-width: 1200px) {
+	.mediawidth {
+		width: 1200px;
+	}
+  }
   /* Style the header links */
   .header a {
 	float: left;

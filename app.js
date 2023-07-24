@@ -8,8 +8,10 @@ var passport = require('passport');
 var logger = require('morgan');
 require('dotenv').config();
 const errorHandler = require("./middleware/errHandle");
-
 const expressLayouts = require("express-ejs-layouts");
+const i18next = require('i18next');
+const Backend = require('i18next-node-fs-backend');
+const i18nextMiddleware = require('i18next-http-middleware');
 
 // pass the session to the connect sqlite3 module
 // allowing it to inherit from session.Store
@@ -23,7 +25,17 @@ const options = {
 }
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
-
+i18next
+    .use(Backend)
+    .use(i18nextMiddleware.LanguageDetector)
+    .init({
+      debug: false,
+        backend: {
+            loadPath: __dirname + '/resources/locales/{{lng}}/{{ns}}.json'
+        },
+        fallbackLng: 'de',
+        preload: ['en','de','tr','es','ar','ru-RU','fr']
+    });
 var app = express();
 app.use(expressLayouts);
 app.set('layout','./layouts/layout');
@@ -59,6 +71,7 @@ app.use(function(req, res, next) {
   res.locals.csrfToken = req.csrfToken();
   next();
 });
+app.use(i18nextMiddleware.handle(i18next));
 
 app.use('/', indexRouter);
 app.use('/', authRouter);

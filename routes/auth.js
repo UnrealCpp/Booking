@@ -6,6 +6,7 @@ var GoogleStrategy = require('passport-google-oidc');
 //var db = require('../db');
 var conn = require('../dbmysql');
 var ROLES = require('../config');
+const { locals } = require('../app');
 //https://www.passportjs.org/tutorials/google/configure/
 //you registered the app with Google.
 //Then, added the client ID and secret in .env file.
@@ -122,7 +123,6 @@ passport.deserializeUser(function(user, cb) {
   });
 });
 
-
 var router = express.Router();
 
 /** GET /login
@@ -148,7 +148,16 @@ router.get('/login', function(req, res, next) {
     title: 'KORNS Booking',
     description: 'Page Description',
     header: 'Page Header',
-    activeLogin:'active'
+    activeLogin:'active',
+    signin: req.t("auth.signin"),
+    you_can_rent: req.t("you_can_rent"),
+    login: req.t("auth.login"),
+    register: req.t("auth.register"),
+    logout: req.t("auth.logout"),
+    homepage : req.t("homepage"),
+    account:req.t("auth.account"),
+    board:req.t("auth.board"),
+    reservations:req.t("auth.reservations")
     };
   res.render('login',locals);
 });
@@ -219,7 +228,19 @@ router.post('/logout', function(req, res, next) {
  * will be sent to the `POST /signup` route.
  */
 router.get('/signup', function(req, res, next) {
-  res.render('signup');
+  var locals={
+    signin: req.t("auth.signin"),
+    you_can_rent: req.t("you_can_rent"),
+    login: req.t("auth.login"),
+    register: req.t("auth.register"),
+    logout: req.t("auth.logout"),
+    homepage : req.t("homepage"),
+    account:req.t("auth.account"),
+    board:req.t("auth.board"),
+    reservations:req.t("auth.reservations")
+  }
+
+  res.render('signup',locals);
 });
 
 /* POST /signup

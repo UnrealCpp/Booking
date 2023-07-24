@@ -1,0 +1,22 @@
+{
+    "greeting": "Hallo",
+    "homepage": "Herzlich willkommen, hier können Sie ab sofort Tagungs- und Konferenzräume inklusive Technik und Catering mit kompletter Kostenübersicht mieten.",
+    "you_can_rent":"Sie können eine Reservierung für den Besprechungsraum erstellen, indem Sie auf die Schaltfläche \"Reservieren\" des gewünschten Besprechungsraums klicken.",
+    "user": {
+        "name":"Benutzername",
+        "pass":"Passwort",
+        "mail":"E-Mail"
+    },
+    "auth":{
+        "signin":"Anmelden",
+        "signin_google":"Mit Google anmelden",
+        "login":"Anmeldung",
+        "register":"Registrieren",
+        "logout":"Abmelden",
+        "dont_have_acc_q":"Sie haben kein Konto ?",
+        "account":"Konto",
+        "board":"Panel",
+        "reservations":"Reservierung"
+    }
+
+}

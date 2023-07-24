@@ -48,10 +48,17 @@ function fetchTodos(req, res, next) {
 }
 
 var router = express.Router();
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
-
+  locals.signin= req.t("auth.signin");
+  locals.you_can_rent= req.t("you_can_rent");
+  locals.login= req.t("auth.login");
+  locals.register= req.t("auth.register");
+  locals.logout= req.t("auth.logout");
+  locals.homepage = req.t("homepage");
+  locals.account=req.t("auth.account");
+  locals.board=req.t("auth.board");
+  locals.reservations=req.t("auth.reservations");
   if(!fs.existsSync("./.env"))
     return res.render('setup', { randombytes: crypto.randomBytes(16).toString('hex') });
   if (req.cookies.getSessionReturn) {
@@ -61,6 +68,7 @@ router.get('/', function(req, res, next) {
   if (!req.user) { 
     locals.activeLogo = "active";
     user_logged(req);
+
     res.render('home',locals); 
     locals.activeLogo = "";
     return;
@@ -69,7 +77,7 @@ router.get('/', function(req, res, next) {
 }, fetchTodos, function(req, res, next) {
   res.locals.filter = null;  
   user_logged(req);
-  res.render('index', { user: req.user, layout:'./layouts/layout_logged'});
+  res.render('index', { locals,user: req.user, layout:'./layouts/layout_logged'});
 });
 router.get('/dashboard', function(req, res, next) {  
   user_logged(req);
@@ -81,6 +89,7 @@ router.get('/dashboard', function(req, res, next) {
   console.log(req.cookies)
 });
 router.get('/contact', function(req, res, next) {
+  locals.translation = req.t('greeting');
   locals.activeContact = "active";
   res.render('contact',locals);
   locals.activeContact = "";

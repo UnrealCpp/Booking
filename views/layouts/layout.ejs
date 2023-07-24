@@ -7,15 +7,44 @@
 		<%- include('head.ejs') %>
 	</head>
 	<body>
-        <div class="header">
+        <!-- <div class="header">
 			<a href="/" class="logo <%= locals.activeLogo %>" ><img width="236" height="81" src="/KORNS-LOGO-Kupfer-Hori.jpg" class="attachment-full size-full" alt="" decoding="async" loading="lazy"></a>
 			<div class="header-right">
 				<a href="/contact" class="<%= locals.activeContact %>">Contact</a>
 				<a href="/privacy" class="<%= locals.activePriv %>">Privacy Information</a>
 				<a href="/login" class="<%= locals.activeLogin %>"><img src="/fa/user-solid.svg" style="width: 0.8em;">Sign in</a>
 			</div>
-		</div>
-		
+		</div> -->
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container-fluid mediawidth">
+			  <a class="navbar-brand <%= locals.activeLogo %>" href="/"><img width="236" height="81" src="/KORNS-LOGO-Kupfer-Hori.jpg" alt="" decoding="async" loading="lazy"></a>
+			  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			  </button>
+			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				  <li class="nav-item">
+					<a class="nav-link <%= locals.activeContact %>" aria-current="page" href="/contact">Contact</a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link <%= locals.activePriv %>" href="/privacy">Privacy</a>
+				  </li>
+				</ul>
+				  <ul class="navbar-nav dropstart">
+				  <li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<img src="/fa/user-solid.svg" style="width: 0.75em;"> <%= locals.signin %>
+					</a>
+					<ul class="dropdown-menu">
+					  <li><a class="dropdown-item" href="/login"><%= locals.login %></a></li>
+					  <li><a class="dropdown-item" href="/signup"><%= locals.register %></a></li>
+					</ul>
+				  </li>
+				</ul>
+			  </div>
+			</div>
+		  </nav>
+		  
 		<%- body %>
 		<%- include('footer.ejs') %>
 
