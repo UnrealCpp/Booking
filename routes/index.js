@@ -12,6 +12,7 @@ var locals = {
   description: 'Page Description',
   header: 'Page Header'
 };
+let lang = "tr";//test
 function user_logged(req){
   if(req.user?.username)  {
     locals.layout = "./layouts/layout_logged";
@@ -50,15 +51,7 @@ function fetchTodos(req, res, next) {
 var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  locals.signin= req.t("auth.signin");
-  locals.you_can_rent= req.t("you_can_rent");
-  locals.login= req.t("auth.login");
-  locals.register= req.t("auth.register");
-  locals.logout= req.t("auth.logout");
-  locals.homepage = req.t("homepage");
-  locals.account=req.t("auth.account");
-  locals.board=req.t("auth.board");
-  locals.reservations=req.t("auth.reservations");
+  req.i18n.changeLanguage(lang);
   if(!fs.existsSync("./.env"))
     return res.render('setup', { randombytes: crypto.randomBytes(16).toString('hex') });
   if (req.cookies.getSessionReturn) {
@@ -89,12 +82,14 @@ router.get('/dashboard', function(req, res, next) {
   console.log(req.cookies)
 });
 router.get('/contact', function(req, res, next) {
+  req.i18n.changeLanguage(lang);
   locals.translation = req.t('greeting');
   locals.activeContact = "active";
   res.render('contact',locals);
   locals.activeContact = "";
 });
 router.get('/privacy', function(req, res, next) {  
+  req.i18n.changeLanguage(lang);
   locals.activePriv = "active";
   if(req.user?.username)  {
     locals.layout = "./layouts/layout_logged";

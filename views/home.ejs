@@ -1,5 +1,34 @@
-<h2><%= locals.homepage %></h2>
+<div class="container mediawidth">
+    <div class="row">
+        <h2><%= t("homepage") %></h2>
+    </div>
+    <div class="row">
+        <h3><%= t("you_can_rent") %></h3>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card" style="width:300px">
+                <div class="card-body">
+                    <h5 class="card-title"><%= t("search_room") %></h5>
+                    <p class="card-text"><%= t("date") %></p>
+                    <p class="card-text"><%= t("time") %></p>
+                    <a href="#" class="btn btn-primary"><%= t("btn_search_room") %></a>
+                    <p class="card-text"><%= t("room_properties") %></p>
+                    <p class="card-text"><%= t("select") %></p>
+                    <ul>
+                        <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
+                        <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
+                        <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
+                        <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col">
 
-<h3><%= locals.you_can_rent %></h3>
+        </div>
+    </div>
+</div>
+
 
 

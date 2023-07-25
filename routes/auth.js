@@ -144,22 +144,14 @@ var router = express.Router();
  *           text/html:
  */
 router.get('/login', function(req, res, next) {
-  var locals = {
-    title: 'KORNS Booking',
-    description: 'Page Description',
-    header: 'Page Header',
-    activeLogin:'active',
-    signin: req.t("auth.signin"),
-    you_can_rent: req.t("you_can_rent"),
-    login: req.t("auth.login"),
-    register: req.t("auth.register"),
-    logout: req.t("auth.logout"),
-    homepage : req.t("homepage"),
-    account:req.t("auth.account"),
-    board:req.t("auth.board"),
-    reservations:req.t("auth.reservations")
-    };
-  res.render('login',locals);
+  req.i18n.changeLanguage("tr");
+  // var locals = {
+  //   title: 'KORNS Booking',
+  //   description: 'Page Description',
+  //   header: 'Page Header',
+  //   activeLogin:'active'
+  //   };
+  res.render('login');
 });
 
 router.get('/login/federated/google', passport.authenticate('google'));

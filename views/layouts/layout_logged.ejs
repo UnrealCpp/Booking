@@ -22,7 +22,7 @@
 				
 			</div>
 		</div> -->
-		<nav class="navbar navbar-expand-lg bg-body-tertiary">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container-fluid mediawidth">
 			  <a class="navbar-brand  <%= locals.activeLogo %>" href="/"><img width="236" height="81" src="/KORNS-LOGO-Kupfer-Hori.jpg" alt="" decoding="async" loading="lazy"></a>
 			  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,13 +44,13 @@
 					</a>
 
 					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="#"><%= locals.board %></a></li>
-						<li><a class="dropdown-item" href="#"><%= locals.account %></a></li>
-						<li><a class="dropdown-item" href="#"><%= locals.reservations %></a></li>
+						<li><a class="dropdown-item" href="#"><%= t("auth.board") %></a></li>
+						<li><a class="dropdown-item" href="#"><%= t("auth.account") %></a></li>
+						<li><a class="dropdown-item" href="#"><%= t("auth.reservations") %></a></li>
 						<li><hr class="dropdown-divider"></li>
 						<li>					
 							<form action="/logout" method="post">
-								<button class="dropdown-item" type="submit"><%= locals.logout %></button>
+								<button class="dropdown-item" type="submit"><%= t("auth.logout") %></button>
 								<input type="hidden" name="_csrf" value="<%= csrfToken %>">
 							</form>
 						</li>

@@ -2,6 +2,13 @@
     "greeting": "Merhaba",
     "homepage": "Hoş geldiniz, burada teknoloji ve ikram dahil olmak üzere toplantı ve konferans odalarını, maliyetlere eksiksiz bir genel bakışla hemen kiralayabilirsiniz.",
     "you_can_rent":"Beğendiğiniz toplantı odasına ait \"Rezervasyon Yap\" butonuna tıklayarak toplantı odası için rezervasyon oluşturabilirsiniz.",
+    "search_room":"Toplantı Odası Ara.",
+    "date":"Tarih",
+    "time":"Saat",
+    "btn_search_room":"Boş Odaları Getir",
+    "room_properties":"Oda Özellikleri",
+    "select":"Seç",
+    "prop_i":"Projeksiyon",
     "user": {
         "name":"Kullanıcı Adı",
         "pass":"Şifre",

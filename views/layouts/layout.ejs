@@ -33,11 +33,11 @@
 				  <ul class="navbar-nav dropstart">
 				  <li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						<img src="/fa/user-solid.svg" style="width: 0.75em;"> <%= locals.signin %>
+						<img src="/fa/user-solid.svg" style="width: 0.75em;"> <%= t("auth.signin") %>
 					</a>
 					<ul class="dropdown-menu">
-					  <li><a class="dropdown-item" href="/login"><%= locals.login %></a></li>
-					  <li><a class="dropdown-item" href="/signup"><%= locals.register %></a></li>
+					  <li><a class="dropdown-item" href="/login"><%= t("auth.login") %></a></li>
+					  <li><a class="dropdown-item" href="/signup"><%= t("auth.register") %></a></li>
 					</ul>
 				  </li>
 				</ul>
