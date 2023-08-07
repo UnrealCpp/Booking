@@ -7,6 +7,13 @@
     "time":"Time",
     "btn_search_room":"Bring Available Rooms",
     "room_properties":"Room Properties",
+    "room":{
+        "name":"Room Name",
+        "capacity":"Max persons",
+        "hourly_price":"Cost per Hour",
+        "btn_reserve":"Reserve",
+        "property_name":"Property Name"
+    },
     "select":"Select.",
     "prop_i":"Projection",
     "user": {

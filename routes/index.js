@@ -12,9 +12,9 @@ var locals = {
   description: 'Page Description',
   header: 'Page Header'
 };
-let lang = "tr";//test
+let lang = "en";//test
 function user_logged(req){
-  if(req.user?.username)  {
+  if(req.user?.username|| req.user?.name)  {
     locals.layout = "./layouts/layout_logged";
     locals.user= req.user ;
   }
@@ -79,7 +79,7 @@ router.get('/dashboard', function(req, res, next) {
 }, ensureLoggedIn,checkIsInRole(ROLES.Admin),function(req, res, next) {      
   res.clearCookie('getSessionReturn');
   res.render('dashboard', { user: req.user });
-  console.log(req.cookies)
+  //console.log(req.cookies)
 });
 router.get('/contact', function(req, res, next) {
   req.i18n.changeLanguage(lang);
@@ -110,7 +110,9 @@ router.get('/completed', ensureLoggedIn, fetchTodos, function(req, res, next) {
   res.locals.filter = 'completed';
   res.render('index', { user: req.user });
 });
-
+router.get('/setup', function(req, res, next) {
+  return res.render('setup', { randombytes: crypto.randomBytes(16).toString('hex') });
+});
 router.post('/', ensureLoggedIn, function(req, res, next) {
   req.body.title = req.body.title.trim();
   next();

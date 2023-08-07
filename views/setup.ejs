@@ -34,10 +34,32 @@ NODE_ENV=development
 GOOGLE_CLIENT_ID= 
 GOOGLE_CLIENT_SECRET=
 SESSION_SECRET=<%= randombytes %>
+ADMIN_PASS=
+MYSQL_HOST=localhost
+MYSQL_USER=pma
+MYSQL_PASS=
+MYSQL_DB_NAME=booking
+SESSION_DB_NAME=sessions
 			</pre>
 			<h3>For first time setup create database named "booking" and "sessions"</h3>
-			<h3>Then setup app.js-> options variable to your database username and url</h3>
-			<h3>Then setup dbmysql.js-> mysql.createConnection() function to your database username password and url. Database name could be changed here too...</h3>
+			<h3>Then setup app.js-> options variable to your database username and host</h3>
+			<h3>Then setup dbmysql.js-> mysql.createConnection() function to your database username password and host. Database name could be changed here too...</h3>
+			<h3>After running the app once required tables should be created. Check if tables are ready, then enter these trigger commands from your mysql server.</h3>
+			<pre class="mycode">
+DELIMITER $$
+CREATE TRIGGER ins_cost AFTER INSERT ON room FOR EACH ROW BEGIN
+INSERT INTO report_room (log, log_time, roomId, cost_room, cost_room_vat, cost_person, cost_person_vat)
+VALUES('insert', NOW(), NEW.id, NEW.cost_room, NEW.cost_room_vat, NEW.cost_person, NEW.cost_person_vat);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER upd_cost AFTER UPDATE ON room FOR EACH ROW BEGIN
+INSERT INTO report_room (log, log_time, roomId, cost_room, cost_room_vat, cost_person, cost_person_vat)
+VALUES('update', NOW(), NEW.id, NEW.cost_room, NEW.cost_room_vat, NEW.cost_person, NEW.cost_person_vat);
+END$$
+DELIMITER ;
+			</pre>			
 			<h3>Below form not working yet</h3>
 			<form action="/setup" method="post" >
 			<div class="form-group row" >

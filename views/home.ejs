@@ -1,31 +1,86 @@
 <div class="container mediawidth">
     <div class="row">
-        <h2><%= t("homepage") %></h2>
+        <h5><%= t("homepage") %></h5>
     </div>
     <div class="row">
-        <h3><%= t("you_can_rent") %></h3>
+        <h5><%= t("you_can_rent") %></h5>
     </div>
-    <div class="row">
-        <div class="col">
-            <div class="card" style="width:300px">
-                <div class="card-body">
-                    <h5 class="card-title"><%= t("search_room") %></h5>
-                    <p class="card-text"><%= t("date") %></p>
-                    <p class="card-text"><%= t("time") %></p>
-                    <a href="#" class="btn btn-primary"><%= t("btn_search_room") %></a>
-                    <p class="card-text"><%= t("room_properties") %></p>
-                    <p class="card-text"><%= t("select") %></p>
-                    <ul>
-                        <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
-                        <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
-                        <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
-                        <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
-                    </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4" style="min-width:240px">
+                <div class="row mt-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= t("search_room") %></h5>
+                            <p class="card-text"><%= t("date") %></p>
+                            <p class="card-text"><%= t("time") %></p>
+                            <a href="#" class="btn btn-primary"><%= t("btn_search_room") %></a>
+                            <p class="card-text"><%= t("room_properties") %></p>
+                            <p class="card-text"><%= t("select") %></p>
+                            <ul>
+                                <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
+                                <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
+                                <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
+                                <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-
+            <div class="col-lg-8" style="min-width:313px">
+                <div class="row mt-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-3">image</div>
+                                <div class="col">
+                                    <div class="row">
+                                        <h5 class="card-title"><%= t("room.name") %></h5>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p class="card-text"><%= t("room.capacity") %></p>
+                                            <p class="card-text"><%= t("room.hourly_price") %></p>
+                                        </div>
+                                        <div class="col-6">
+                                            <%= t("prop_i") %>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <a href="#" class="btn btn-primary"><%= t("room.btn_reserve") %></a>
+                                    </div>                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-3">image</div>
+                                <div class="col">
+                                    <div class="row">
+                                        <h5 class="card-title"><%= t("room.name") %></h5>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p class="card-text"><%= t("room.capacity") %></p>
+                                            <p class="card-text"><%= t("room.hourly_price") %></p>
+                                        </div>
+                                        <div class="col-6">
+                                            <%= t("prop_i") %> <%= t("prop_i") %>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <a href="#" class="btn btn-primary"><%= t("room.btn_reserve") %></a>
+                                    </div>                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

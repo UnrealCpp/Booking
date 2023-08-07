@@ -18,10 +18,10 @@ const i18nextMiddleware = require('i18next-http-middleware');
 //var SQLiteStore = require('connect-sqlite3')(session);
 const MySQLStore = require('express-mysql-session')(session);
 const options = {
-  host: "localhost",
-  user: "pma",
-  password: "",
-  database: "korns_sessions"
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASS,
+  database: process.env.SESSION_DB_NAME
 }
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
