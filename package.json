@@ -1,35 +1,32 @@
 {
-  "name": "todos-express-password",
-  "version": "0.0.0",
+  "name": "booking",
+  "version": "0.0.1",
   "private": true,
-  "description": "Todo app using Express and Passport for sign in with username and password.",
+  "license": "UNLICENSED",
+  "description": "Booking app with authorization and room services",
   "keywords": [
-    "example",
-    "express",
-    "passport",
-    "sqlite"
+    "book",
+    "calendar",
+    "reservation",
+    "hotel"
   ],
   "author": {
-    "name": "Jared Hanson",
-    "email": "jaredhanson@gmail.com",
-    "url": "https://www.jaredhanson.me/"
+    "name": "Burak Dogmus",
+    "email": "burakdogmus@gmail.com",
+    "url": "https://github.com/burakdogmus/"
   },
-  "homepage": "https://github.com/passport/todos-express-password",
+  "homepage": "https://github.com/UnrealCpp/Booking",
   "repository": {
     "type": "git",
-    "url": "git://github.com/passport/todos-express-password.git"
+    "url": "https://github.com/UnrealCpp/Booking.git"
   },
   "bugs": {
-    "url": "https://github.com/passport/todos-express-password/issues"
+    "url": "https://github.com/UnrealCpp/Booking/issues"
   },
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/jaredhanson"
-  },
-  "license": "Unlicense",
   "scripts": {
-    "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www -e .js,.ejs app.js"
+    "start": "node  ./bin/www",
+    "dev": "nodemon ./bin/www -e .js,.ejs app.js",
+    "devtr": "nodemon --trace-warnings ./bin/www -e .js,.ejs app.js"
   },
   "dependencies": {
     "bootstrap": "^5.3.0",

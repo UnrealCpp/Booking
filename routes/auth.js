@@ -6,7 +6,7 @@ var GoogleStrategy = require('passport-google-oidc');
 //var db = require('../db');
 var conn = require('../dbmysql');
 var ROLES = require('../config');
-const { locals } = require('../app');
+//const { locals } = require('../app');
 //https://www.passportjs.org/tutorials/google/configure/
 //you registered the app with Google.
 //Then, added the client ID and secret in .env file.
