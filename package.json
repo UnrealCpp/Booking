@@ -1,6 +1,6 @@
 {
   "name": "booking",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "license": "UNLICENSED",
   "description": "Booking app with authorization and room services",
