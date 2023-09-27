@@ -1,0 +1,19 @@
+{
+  "main.js": {
+    "dynamicImports": [
+      "template1.css?used"
+    ],
+    "file": "main.js",
+    "isEntry": true,
+    "src": "main.js"
+  },
+  "style.css": {
+    "file": "style.css",
+    "src": "style.css"
+  },
+  "template1.css?used": {
+    "file": "template1-1017fb33.js",
+    "isDynamicEntry": true,
+    "src": "template1.css?used"
+  }
+}

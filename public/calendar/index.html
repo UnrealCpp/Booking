@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modular Calendar</title>    
+    <link rel="icon" type="image/svg+xml" href="vite.svg" />
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&family=Lexend:wght@300;500&display=swap" rel="stylesheet" type="text/css">
+
+    <script type="module" crossorigin src="./main.js"></script>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <!-- <body style="background:#232d3b;"> -->
+  <body>
+    <div id="app"></div>
+    <div id ="container">
+      <div id ="modularCalendar"></div>
+    </div>
+
+
+    <script id="calendar-hbs" type="text/x-handlebars-template">
+      <div class="calTop">
+        <button id="btn-prev" type="button" style="float: left; width:10%;"><</button>
+        <div id="mc-title" class="calTitle" style = "float: left; width:80%">{{date}}</div>
+        <button id="btn-next" type="button" style="float: left; width:10%;">></button>
+    </div>
+    {{#each weeks}}
+    <div class="calWeek">{{this}}</div>
+    {{/each}}
+    <div class="calBody">
+        {{#each days}}
+            <div class="day{{iftoday t}}"><p>{{d}}</p></div>
+        {{/each}}
+    </div>
+    <div class="calFoot">
+        This is  {{#bold}}Handlebars helpers function{{/bold}} main.js sonuna eklenince Sadece resize olunca gozukuo o yuzden baslangıcta import ettim
+    </div>
+    </script>
+
+  </body>
+</html>

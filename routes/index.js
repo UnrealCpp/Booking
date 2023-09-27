@@ -4,15 +4,16 @@ var conn = require('../dbmysql');
 const fs = require('fs');
 var crypto = require('crypto');
 //import ROLES from '../config';
-const ROLES = require('../config');
+const {ROLES,calendar} = require('../config');
 const checkIsInRole= require('../middleware/handle');
 // connect-ensure-login integrates seamlessly with Passport.
+
 var locals = {
   title: 'KORNS Booking',
   description: 'Page Description',
   header: 'Page Header'
 };
-let lang = "en";//test
+let lang = "tr";//test
 function user_logged(req){
   if(req.user?.username|| req.user?.name)  {
     locals.layout = "./layouts/layout_logged";
@@ -61,7 +62,6 @@ router.get('/', function(req, res, next) {
   if (!req.user) { 
     locals.activeLogo = "active";
     user_logged(req);
-
     res.render('home',locals); 
     locals.activeLogo = "";
     return;
@@ -112,6 +112,19 @@ router.get('/completed', ensureLoggedIn, fetchTodos, function(req, res, next) {
 });
 router.get('/setup', function(req, res, next) {
   return res.render('setup', { randombytes: crypto.randomBytes(16).toString('hex') });
+});
+
+router.get('/calendarconf', function(req, res, next) { 
+  //console.log(calendar.month); 
+  res.json(calendar);
+});
+router.get('/calendarconf/:year/:month', function(req, res, next) { 
+  //console.log(calendar.month); 
+  let cal  = JSON.parse(JSON.stringify(calendar));
+  cal.month.startYear=req.params.year;
+  cal.month.startMonth=req.params.month;
+  console.log(cal);
+  res.json(cal);
 });
 router.post('/', ensureLoggedIn, function(req, res, next) {
   req.body.title = req.body.title.trim();
