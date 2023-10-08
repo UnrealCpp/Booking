@@ -13,7 +13,7 @@ var locals = {
   description: 'Page Description',
   header: 'Page Header'
 };
-let lang = "tr";//test
+let lang = null;//test
 function user_logged(req){
   if(req.user?.username|| req.user?.name)  {
     locals.layout = "./layouts/layout_logged";
@@ -52,7 +52,7 @@ function fetchTodos(req, res, next) {
 var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  req.i18n.changeLanguage(lang);
+  //req.i18n.changeLanguage(lang);
   if(!fs.existsSync("./.env"))
     return res.render('setup', { randombytes: crypto.randomBytes(16).toString('hex') });
   if (req.cookies.getSessionReturn) {
@@ -70,7 +70,7 @@ router.get('/', function(req, res, next) {
 }, fetchTodos, function(req, res, next) {
   res.locals.filter = null;  
   user_logged(req);
-  res.render('index', { locals,user: req.user, layout:'./layouts/layout_logged'});
+  res.render('home', { locals,user: req.user, layout:'./layouts/layout_logged'});
 });
 router.get('/dashboard', function(req, res, next) {  
   user_logged(req);
@@ -82,14 +82,14 @@ router.get('/dashboard', function(req, res, next) {
   //console.log(req.cookies)
 });
 router.get('/contact', function(req, res, next) {
-  req.i18n.changeLanguage(lang);
+  //req.i18n.changeLanguage(lang);
   locals.translation = req.t('greeting');
   locals.activeContact = "active";
   res.render('contact',locals);
   locals.activeContact = "";
 });
 router.get('/privacy', function(req, res, next) {  
-  req.i18n.changeLanguage(lang);
+  //req.i18n.changeLanguage(lang);
   locals.activePriv = "active";
   if(req.user?.username)  {
     locals.layout = "./layouts/layout_logged";
@@ -118,6 +118,10 @@ router.get('/calendarconf', function(req, res, next) {
   //console.log(calendar.month); 
   res.json(calendar);
 });
+router.get('/change/:lang', function(req, res, next) { 
+    locals.lang=req.params.lang;
+    res.redirect(req.get('referer'));
+});
 router.get('/calendarconf/:year/:month', function(req, res, next) { 
   //console.log(calendar.month); 
   let cal  = JSON.parse(JSON.stringify(calendar));
@@ -126,6 +130,7 @@ router.get('/calendarconf/:year/:month', function(req, res, next) {
   console.log(cal);
   res.json(cal);
 });
+
 router.post('/', ensureLoggedIn, function(req, res, next) {
   req.body.title = req.body.title.trim();
   next();
@@ -197,4 +202,4 @@ router.post('/clear-completed', ensureLoggedIn, function(req, res, next) {
   });
 });
 
-module.exports = router;
+module.exports = {router,locals};

@@ -5,6 +5,7 @@ require('dotenv').config();
 var connPool = mysql.createPool({
   connectionLimit : 10,
   host: process.env.MYSQL_HOST,
+  port: process.env.MYSQL_PORT,
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASS,
   database: process.env.MYSQL_DB_NAME
@@ -21,7 +22,7 @@ connPool.getConnection(function(err, con) {
     gender VARCHAR(10),\
     birthdate DATE,\
     address VARCHAR(100)\
-  )", function (err, result) {
+  ) ENGINE = InnoDB;", function (err, result) {
     if (err) throw err;
     //console.log("Result: " + result);
   });
@@ -30,14 +31,14 @@ connPool.getConnection(function(err, con) {
     usersID INTEGER, \
     rolesID INTEGER, \
     UNIQUE (usersID, rolesID) \
-  )", function (err, result) {
+  ) ENGINE = InnoDB;", function (err, result) {
     if (err) throw err;
     //console.log("Result: " + result);
   });
   con.query("CREATE TABLE if not exists roles ( \
     id INTEGER AUTO_INCREMENT PRIMARY KEY, \
     description VARCHAR(20) UNIQUE \
-  )", function (err, result) {
+  ) ENGINE=InnoDB;", function (err, result) {
     if (err) throw err;    
     //console.log("Result: " + result);
   });
@@ -59,8 +60,8 @@ connPool.getConnection(function(err, con) {
     emailvalidation BOOLEAN,\
     creationdate DATETIME,\
     passwordrecoverytoken VARCHAR(50),\
-    personal_infoID INTEGER\
-  )", function (err, result) {
+    personal_infoID INTEGER \
+  ) ENGINE=InnoDB;", function (err, result) {
     if (err) throw err;
     //console.log("Result: " + result);
   });
@@ -70,7 +71,7 @@ connPool.getConnection(function(err, con) {
     owner_id INTEGER NOT NULL, \
     title VARCHAR(50) NOT NULL, \
     completed INTEGER \
-  )", function (err, result) {
+  ) ENGINE=InnoDB;", function (err, result) {
     if (err) throw err;
     //console.log("Result: " + result);
   });
@@ -84,7 +85,7 @@ connPool.getConnection(function(err, con) {
     cost_person INTEGER DEFAULT 0, \
     cost_person_vat INTEGER DEFAULT 0, \
     prep_minute INTEGER DEFAULT 30 \
-  )", function (err, result) {
+  ) ENGINE=InnoDB;", function (err, result) {
     if (err) throw err;
     //console.log("Result: " + result);
   });
@@ -97,7 +98,7 @@ connPool.getConnection(function(err, con) {
     cost_room_vat INTEGER, \
     cost_person INTEGER, \
     cost_person_vat INTEGER \
-  )", function (err, result) {
+  ) ENGINE=InnoDB;", function (err, result) {
     if (err) throw err;
     //console.log("Result: " + result);
   });
@@ -127,10 +128,10 @@ connPool.getConnection(function(err, con) {
   con.query("CREATE TABLE IF NOT EXISTS federated_credentials ( \
     id INTEGER AUTO_INCREMENT PRIMARY KEY, \
     user_id INTEGER NOT NULL, \
-    provider TEXT NOT NULL, \
-    subject TEXT NOT NULL, \
+    provider VARCHAR(100) NOT NULL, \
+    subject VARCHAR(100) NOT NULL, \
     UNIQUE (provider, subject) \
-  )", function (err, result) {
+  ) ENGINE=InnoDB;", function (err, result) {
     if (err) throw err;
     //console.log("Result: " + result);
   });

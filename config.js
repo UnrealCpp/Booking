@@ -7,8 +7,8 @@ const ROLES = {
 var calendar = {
   month: {
       tempDesign: 0,
-      startMonth: 7,
-      startYear:2023,
+      // startMonth: 7,
+      // startYear:2023,
       divId:"modularCalendar",
       width:"800px",
       locale:"tr",

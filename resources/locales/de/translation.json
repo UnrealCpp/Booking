@@ -1,5 +1,7 @@
 {
     "greeting": "Hallo",
+    "contact":"Kontakt",
+    "privacy":"Privatsphäre",
     "homepage": "Herzlich willkommen, hier können Sie ab sofort Tagungs- und Konferenzräume inklusive Technik und Catering mit kompletter Kostenübersicht mieten.",
     "you_can_rent":"Sie können eine Reservierung für den Besprechungsraum erstellen, indem Sie auf die Schaltfläche \"Reservieren\" des gewünschten Besprechungsraums klicken.",
     "search_room":"Suchraum.",
@@ -7,6 +9,13 @@
     "time":"Zeit",
     "btn_search_room":"Verfügbare Zimmer",
     "room_properties":"Raumeigenschaften",
+    "room":{
+        "name":"dbRaumname",
+        "capacity":"Maximale Personenzahl: ",
+        "hourly_price":"Kosten pro Stunde: ",
+        "btn_reserve":"Reservieren",
+        "property_name":"dbGerät1"
+    },
     "select":"Wählen",
     "prop_i":"Projektion",
     "user": {

@@ -12,7 +12,11 @@
     function onclickRedraw(y=null,m=null){
          redraw(y,m);
     }
+    function getEvents(y=null,m=null){
+
+    }
   </script>
+<link rel="stylesheet" href="/css/home.css">
 <link rel="stylesheet" href="/calendar/style.css">
 <div class="container">
     <div class="row text-center my-2 my-md-5">
@@ -21,27 +25,35 @@
     <div class="row text-center my-2 my-md-5">
         <h5><%= t("you_can_rent") %></h5>
     </div>
-    <div class="row text-center my-2 my-md-5">
-        <h5><svg xmlns="http://www.w3.org/2000/svg" width="1.5em" fill="currentColor" class="bi bi-wifi" viewBox="0 0 16 16">
+    <div class="row text-center my-2 my-md-5 flex">
+        <h5>
+            <div class="btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" fill="currentColor" class="bi bi-wifi" viewBox="0 0 16 16">
             <path d="M15.384 6.115a.485.485 0 0 0-.047-.736A12.444 12.444 0 0 0 8 3C5.259 3 2.723 3.882.663 5.379a.485.485 0 0 0-.048.736.518.518 0 0 0 .668.05A11.448 11.448 0 0 1 8 4c2.507 0 4.827.802 6.716 2.164.205.148.49.13.668-.049z"/>
             <path d="M13.229 8.271a.482.482 0 0 0-.063-.745A9.455 9.455 0 0 0 8 6c-1.905 0-3.68.56-5.166 1.526a.48.48 0 0 0-.063.745.525.525 0 0 0 .652.065A8.46 8.46 0 0 1 8 7a8.46 8.46 0 0 1 4.576 1.336c.206.132.48.108.653-.065zm-2.183 2.183c.226-.226.185-.605-.1-.75A6.473 6.473 0 0 0 8 9c-1.06 0-2.062.254-2.946.704-.285.145-.326.524-.1.75l.015.015c.16.16.407.19.611.09A5.478 5.478 0 0 1 8 10c.868 0 1.69.201 2.42.56.203.1.45.07.61-.091l.016-.015zM9.06 12.44c.196-.196.198-.52-.04-.66A1.99 1.99 0 0 0 8 11.5a1.99 1.99 0 0 0-1.02.28c-.238.14-.236.464-.04.66l.706.706a.5.5 0 0 0 .707 0l.707-.707z"/>
-          </svg> Ücretsiz kablosuz internet <br>
-            <img src="fa/paw.jpg" width="50em" alt="">Evcil hayvan dostu <br>
-            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M224 0c17.7 0 32 14.3 32 32V62.1l15-15c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-49 49v70.3l61.4-35.8 17.7-66.1c3.4-12.8 16.6-20.4 29.4-17s20.4 16.6 17 29.4l-5.2 19.3 23.6-13.8c15.3-8.9 34.9-3.7 43.8 11.5s3.8 34.9-11.5 43.8l-25.3 14.8 21.7 5.8c12.8 3.4 20.4 16.6 17 29.4s-16.6 20.4-29.4 17l-67.7-18.1L287.5 256l60.9 35.5 67.7-18.1c12.8-3.4 26 4.2 29.4 17s-4.2 26-17 29.4l-21.7 5.8 25.3 14.8c15.3 8.9 20.4 28.5 11.5 43.8s-28.5 20.4-43.8 11.5l-23.6-13.8 5.2 19.3c3.4 12.8-4.2 26-17 29.4s-26-4.2-29.4-17l-17.7-66.1L256 311.7v70.3l49 49c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-15-15V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V449.9l-15 15c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l49-49V311.7l-61.4 35.8-17.7 66.1c-3.4 12.8-16.6 20.4-29.4 17s-20.4-16.6-17-29.4l5.2-19.3L48.1 395.6c-15.3 8.9-34.9 3.7-43.8-11.5s-3.7-34.9 11.5-43.8l25.3-14.8-21.7-5.8c-12.8-3.4-20.4-16.6-17-29.4s16.6-20.4 29.4-17l67.7 18.1L160.5 256 99.6 220.5 31.9 238.6c-12.8 3.4-26-4.2-29.4-17s4.2-26 17-29.4l21.7-5.8L15.9 171.6C.6 162.7-4.5 143.1 4.4 127.9s28.5-20.4 43.8-11.5l23.6 13.8-5.2-19.3c-3.4-12.8 4.2-26 17-29.4s26 4.2 29.4 17l17.7 66.1L192 200.3V129.9L143 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l15 15V32c0-17.7 14.3-32 32-32z"/></svg> Klima <br>
-            Otopark  <br>
-            Spor salonu  <br>
-            Restoran  <br> 
-            6 oda <br> 
-            3 katlı bina</h5>
+                </svg> Ücretsiz kablosuz internet
+            </div>
+            <div class="btn">
+                <img src="fa/paw.jpg" width="40em" alt="">Evcil hayvan dostu
+            </div>
+            <div class="btn">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1.2em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M224 0c17.7 0 32 14.3 32 32V62.1l15-15c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-49 49v70.3l61.4-35.8 17.7-66.1c3.4-12.8 16.6-20.4 29.4-17s20.4 16.6 17 29.4l-5.2 19.3 23.6-13.8c15.3-8.9 34.9-3.7 43.8 11.5s3.8 34.9-11.5 43.8l-25.3 14.8 21.7 5.8c12.8 3.4 20.4 16.6 17 29.4s-16.6 20.4-29.4 17l-67.7-18.1L287.5 256l60.9 35.5 67.7-18.1c12.8-3.4 26 4.2 29.4 17s-4.2 26-17 29.4l-21.7 5.8 25.3 14.8c15.3 8.9 20.4 28.5 11.5 43.8s-28.5 20.4-43.8 11.5l-23.6-13.8 5.2 19.3c3.4 12.8-4.2 26-17 29.4s-26-4.2-29.4-17l-17.7-66.1L256 311.7v70.3l49 49c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-15-15V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V449.9l-15 15c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l49-49V311.7l-61.4 35.8-17.7 66.1c-3.4 12.8-16.6 20.4-29.4 17s-20.4-16.6-17-29.4l5.2-19.3L48.1 395.6c-15.3 8.9-34.9 3.7-43.8-11.5s-3.7-34.9 11.5-43.8l25.3-14.8-21.7-5.8c-12.8-3.4-20.4-16.6-17-29.4s16.6-20.4 29.4-17l67.7 18.1L160.5 256 99.6 220.5 31.9 238.6c-12.8 3.4-26-4.2-29.4-17s4.2-26 17-29.4l21.7-5.8L15.9 171.6C.6 162.7-4.5 143.1 4.4 127.9s28.5-20.4 43.8-11.5l23.6 13.8-5.2-19.3c-3.4-12.8 4.2-26 17-29.4s26 4.2 29.4 17l17.7 66.1L192 200.3V129.9L143 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l15 15V32c0-17.7 14.3-32 32-32z"/></svg> Klima
+            </div>
+            <div class="btn">
+                Otopark
+            </div>
+            <div class="btn">
+                Spor salonu
+            </div>
+            <div class="btn">Restoran</div>
+            <div class="btn">6 oda</div>
+        </h5>
     </div>
     <div class="row">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3" style="min-width:240px">
-                    <div id ="container">
-                        <div id ="modularCalendar"></div>
-                    </div>
-                    <div class="card">
+                    <div class="card mb-3">
                         <div class="card-body">
                             <h5 class="card-title"><%= t("search_room") %></h5>
                             <p class="card-text"><%= t("date") %></p>
@@ -57,40 +69,17 @@
                             </ul>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-8" style="min-width:313px">
-                    <div class="row mt-3 mt-lg-0">
-                        <div class="col-12">
-                            <div class="card col-12">
-                                <div class="card-body">
-                                    <div class="col-3">image</div>
-                                    <div class="col">
-                                        <div class="row">
-                                            <h5 class="card-title"><%= t("room.name") %></h5>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <p class="card-text"><%= t("room.capacity") %></p>
-                                                <p class="card-text"><%= t("room.hourly_price") %></p>
-                                            </div>
-                                            <div class="col-6">
-                                                <%= t("prop_i") %>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <a href="#" onclick="onclickRedraw(2022,1)" class="btn btn-primary bg-gradient"><%= t("room.btn_reserve") %></a>
-                                        </div>                            
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                        
+                    <div id ="container" class="mb-3">
+                        <div id ="modularCalendar"></div>
                     </div>
-                    <div class="row mt-3">                        
+                </div>
+                <div class="col-lg-9" style="min-width:313px">
+                    <div class="row mb-3">                        
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-3">image</div>
+                                        <div class="col-3"><img class="room_image" src="img/751_2_korns1-400x205.png" alt=""></div>
                                         <div class="col">
                                             <div class="row">
                                                 <h5 class="card-title"><%= t("room.name") %></h5>
@@ -101,12 +90,51 @@
                                                     <p class="card-text"><%= t("room.hourly_price") %></p>
                                                 </div>
                                                 <div class="col-6">
-                                                    <%= t("prop_i") %> <%= t("prop_i") %>
+                                                    <div class="row" style="height: 100%">
+                                                        <div class="col">
+                                                                <%= t("prop_i") %> <%= t("prop_i") %>
+                                                        </div>                                                        
+                                                    </div>
+                                                    <div class="row">
+                                                                <a href="#"  onclick="onclickRedraw()"  class="btn btn-primary bg-gradient"><%= t("room.btn_reserve") %></a>
+
+                                                    </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>
+
+                    </div>
+                    <div class="row mb-3">                        
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-3"><img class="room_image" src="img/756_2_2abc-1-400x205.jpg" alt=""></div>
+                                        <div class="col">
                                             <div class="row">
-                                                <a href="#"  onclick="onclickRedraw(2025,1)"  class="btn btn-primary bg-gradient"><%= t("room.btn_reserve") %></a>
-                                            </div>                            
+                                                <h5 class="card-title"><%= t("room.name") %></h5>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <p class="card-text"><%= t("room.capacity") %></p>
+                                                    <p class="card-text"><%= t("room.hourly_price") %></p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="row" style="height: 100%">
+                                                        <div class="col">
+                                                                <%= t("prop_i") %> <%= t("prop_i") %>
+                                                        </div>                                                        
+                                                    </div>
+                                                    <div class="row">
+                                                                <a href="#"  onclick="onclickRedraw()"  class="btn btn-primary bg-gradient"><%= t("room.btn_reserve") %></a>
+
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

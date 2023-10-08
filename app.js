@@ -13,18 +13,21 @@ const i18next = require('i18next');
 const Backend = require('i18next-node-fs-backend');
 const i18nextMiddleware = require('i18next-http-middleware');
 
+
 // pass the session to the connect sqlite3 module
 // allowing it to inherit from session.Store
 //var SQLiteStore = require('connect-sqlite3')(session);
 const MySQLStore = require('express-mysql-session')(session);
 const options = {
   host: process.env.MYSQL_HOST,
+  port: process.env.MYSQL_PORT,
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASS,
   database: process.env.SESSION_DB_NAME
 }
-var indexRouter = require('./routes/index');
+var {router,locals} = require('./routes/index');
 var authRouter = require('./routes/auth');
+const { Console } = require('console');
 i18next
     .use(Backend)
     .use(i18nextMiddleware.LanguageDetector)
@@ -72,8 +75,13 @@ app.use(function(req, res, next) {
   next();
 });
 app.use(i18nextMiddleware.handle(i18next));
-
-app.use('/', indexRouter);
+app.use(function(req, res, next) {
+  if(locals.lang){
+    req.i18n.changeLanguage(locals.lang);
+  }
+  next();
+});
+app.use('/', router);
 app.use('/', authRouter);
 
 // catch 404 and forward to error handler

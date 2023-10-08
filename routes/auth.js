@@ -144,7 +144,7 @@ var router = express.Router();
  *           text/html:
  */
 router.get('/login', function(req, res, next) {
-  req.i18n.changeLanguage("tr");
+  //req.i18n.changeLanguage("tr");
   // var locals = {
   //   title: 'KORNS Booking',
   //   description: 'Page Description',

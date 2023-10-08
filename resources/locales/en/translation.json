@@ -1,5 +1,7 @@
 {
     "greeting": "Hello",
+    "contact":"Contact",
+    "privacy":"Privacy",
     "homepage":"Welcome, here you can immediately rent meeting and conference rooms, including technology and catering with a complete overview of costs.",
     "you_can_rent":"You can create a reservation for the meeting room by clicking the \"Reserve\" button of the meeting room you like.",
     "search_room":"Search Conference Room.",
@@ -8,11 +10,11 @@
     "btn_search_room":"Bring Available Rooms",
     "room_properties":"Room Properties",
     "room":{
-        "name":"Room Name",
-        "capacity":"Max persons",
-        "hourly_price":"Cost per Hour",
+        "name":"dbRoomName",
+        "capacity":"Max persons: ",
+        "hourly_price":"Cost per Hour: ",
         "btn_reserve":"Reserve",
-        "property_name":"Property Name"
+        "property_name":"dbProperty1"
     },
     "select":"Select.",
     "prop_i":"Projection",
