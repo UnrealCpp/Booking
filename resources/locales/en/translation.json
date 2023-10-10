@@ -1,6 +1,8 @@
 {
     "greeting": "Hello",
     "contact":"Contact",
+    "languageDropdown":"English",
+    "lng":"us",
     "privacy":"Privacy",
     "homepage":"Welcome, here you can immediately rent meeting and conference rooms, including technology and catering with a complete overview of costs.",
     "you_can_rent":"You can create a reservation for the meeting room by clicking the \"Reserve\" button of the meeting room you like.",

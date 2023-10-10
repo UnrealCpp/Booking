@@ -1,6 +1,8 @@
 {
     "greeting": "Hallo",
     "contact":"Kontakt",
+    "languageDropdown":"Deutsch",
+    "lng":"de",
     "privacy":"Privatsphäre",
     "homepage": "Herzlich willkommen, hier können Sie ab sofort Tagungs- und Konferenzräume inklusive Technik und Catering mit kompletter Kostenübersicht mieten.",
     "you_can_rent":"Sie können eine Reservierung für den Besprechungsraum erstellen, indem Sie auf die Schaltfläche \"Reservieren\" des gewünschten Besprechungsraums klicken.",

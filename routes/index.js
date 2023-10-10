@@ -121,6 +121,7 @@ router.get('/calendarconf', function(req, res, next) {
 router.get('/change/:lang', function(req, res, next) { 
     locals.lang=req.params.lang;
     res.redirect(req.get('referer'));
+
 });
 router.get('/calendarconf/:year/:month', function(req, res, next) { 
   //console.log(calendar.month); 

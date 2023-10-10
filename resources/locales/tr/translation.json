@@ -1,6 +1,8 @@
 {
     "greeting": "Merhaba",
     "contact":"İletişim",
+    "languageDropdown":"Türkçe",
+    "lng":"tr",
     "privacy":"Gizlilik",
     "homepage": "Hoş geldiniz, burada teknoloji ve ikram dahil olmak üzere toplantı ve konferans odalarını, maliyetlere eksiksiz bir genel bakışla hemen kiralayabilirsiniz.",
     "you_can_rent":"Beğendiğiniz toplantı odasına ait \"Rezervasyon Yap\" butonuna tıklayarak toplantı odası için rezervasyon oluşturabilirsiniz.",

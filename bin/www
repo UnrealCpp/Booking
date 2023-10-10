@@ -25,6 +25,12 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
+// Linux - List node process:
+// $ ps -e|grep node
+
+// Kill the process using
+// $kill -9 XXXX
+
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);

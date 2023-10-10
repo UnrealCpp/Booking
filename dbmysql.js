@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 var crypto = require('crypto');
-var ROLES = require('./config');
+var {ROLES} = require('./config');
 require('dotenv').config();
 var connPool = mysql.createPool({
   connectionLimit : 10,
@@ -148,6 +148,7 @@ connPool.getConnection(function(err, con) {
   con.query(sql, values, function (err, result) {
     if (err) throw err;
     //console.log("Number of records inserted: " + result.affectedRows);
+    if(result.affectedRows)
     con.query("INSERT IGNORE INTO users_roles (usersID,rolesID) VALUES (?,?)", [result.insertId,3], function (err, res) {
       if (err) throw err;
     });
