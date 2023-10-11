@@ -3,6 +3,7 @@
     // Import the redrawCalendar function from the main.js module
     import { redraw } from '/calendar/main.js';
     window.onclickRedraw= onclickRedraw;
+    window.getEvents= getEvents;
     // Example: Call the redrawCalendar function when needed
     // For example, you can call it when a button is clicked
     // const button = document.getElementById("btnRedraw"); // Replace with your actual button element
@@ -11,9 +12,9 @@
     // });
     function onclickRedraw(y=null,m=null){
          redraw(y,m);
-    }
-    function getEvents(y=null,m=null){
-
+        }
+    function getEvents(roomid=null){
+        console.log(roomid);            
     }
   </script>
 <link rel="stylesheet" href="/css/home.css">
@@ -74,74 +75,43 @@
                     </div>
                 </div>
                 <div class="col-lg-9" style="min-width:313px">
-                    <div class="row mb-3">                        
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-3"><img class="room_image" src="img/751_2_korns1-400x205.png" alt=""></div>
-                                        <div class="col">
-                                            <div class="row">
-                                                <h5 class="card-title"><%= t("room.name") %></h5>
+                    <% rooms.forEach(element => { %> 
+                        <div class="card mb-3"> <!-- style="max-width: 540px;" -->
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="img/<%= element.img %>.png" class="img-fluid room-image" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><%= t("room.name"+element.type) + element.name %></h5>
+                                        <div class="room-cont row">
+                                            <div class="col-md-6  mb-3 mb-md-0">
+                                                <p class="card-text"><%= t("room.capacity") + element.capacity%></p>
+                                                <p class="card-text"><%= t("room.hourly_price") %>€ <%= element.cost_room %></p>
+                                                <p class="card-text"><%= t("room.person_price") %>€ <%= element.cost_person %></p>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <p class="card-text"><%= t("room.capacity") %></p>
-                                                    <p class="card-text"><%= t("room.hourly_price") %></p>
+                                            <div class="col-md-6  mb-3 mb-md-0">
+                                                <div class="row">
+                                                    <div class="col" style="height: 100%">
+                                                        <div class="card-text">
+                                                            <small class="text-muted m-2"><%= t("prop_i") %></small>
+                                                            <small class="text-muted m-2"><%= t("prop_i") %></small>
+                                                            <small class="text-muted m-2"><%= t("prop_i") %></small>
+                                                            <small class="text-muted m-2"><%= t("prop_i") %></small>
+                                                            <small class="text-muted m-2"><%= t("prop_i") %></small>
+                                                        
+                                                        </div>
+                                                    </div>                                                        
                                                 </div>
-                                                <div class="col-6">
-                                                    <div class="row" style="height: 100%">
-                                                        <div class="col">
-                                                                <%= t("prop_i") %> <%= t("prop_i") %>
-                                                        </div>                                                        
-                                                    </div>
-                                                    <div class="row">
-                                                                <a href="#"  onclick="onclickRedraw()"  class="btn btn-primary bg-gradient"><%= t("room.btn_reserve") %></a>
 
-                                                    </div>
-                                                </div>
                                             </div>
-                                        </div>
+                                        </div>                                        
+                                        <a href="#"  onclick="onclickRedraw('<%= element.id %>')"  class="btn btn-primary bg-gradient d-block"><%= t("room.btn_reserve") %></a>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
-
-                    </div>
-                    <div class="row mb-3">                        
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-3"><img class="room_image" src="img/756_2_2abc-1-400x205.jpg" alt=""></div>
-                                        <div class="col">
-                                            <div class="row">
-                                                <h5 class="card-title"><%= t("room.name") %></h5>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <p class="card-text"><%= t("room.capacity") %></p>
-                                                    <p class="card-text"><%= t("room.hourly_price") %></p>
-                                                </div>
-                                                <div class="col-6">
-                                                    <div class="row" style="height: 100%">
-                                                        <div class="col">
-                                                                <%= t("prop_i") %> <%= t("prop_i") %>
-                                                        </div>                                                        
-                                                    </div>
-                                                    <div class="row">
-                                                                <a href="#"  onclick="onclickRedraw()"  class="btn btn-primary bg-gradient"><%= t("room.btn_reserve") %></a>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>                            
-                        </div>
-
-                    </div>
+                    <% }) %>
                 </div>
             </div>
         </div>

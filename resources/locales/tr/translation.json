@@ -12,9 +12,12 @@
     "btn_search_room":"Boş Odaları Getir",
     "room_properties":"Oda Özellikleri",
     "room":{
-        "name":"dbOdaAdi",
+        "name1":"Konferans Odası ",
+        "name2":"Konferans Salonu ",
+        "name3":"Birleşik Konferans Salonları ",
         "capacity":"Kişi Kapasitesi: ",
         "hourly_price":"Saatlik Kiralama Fiyatı: ",
+        "person_price":"Kişi Başı Fiyat: ",
         "btn_reserve":"Rezervasyon Yap",
         "property_name":"dbProperty1"
     },

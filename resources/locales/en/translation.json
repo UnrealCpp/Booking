@@ -12,9 +12,12 @@
     "btn_search_room":"Bring Available Rooms",
     "room_properties":"Room Properties",
     "room":{
-        "name":"dbRoomName",
+        "name1":"Conferance Room ",
+        "name2":"Conference Hall ",
+        "name3":"Combined conference rooms ",
         "capacity":"Max persons: ",
         "hourly_price":"Cost per Hour: ",
+        "person_price":"Cost per Person: ",
         "btn_reserve":"Reserve",
         "property_name":"dbProperty1"
     },

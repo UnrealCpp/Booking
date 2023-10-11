@@ -12,9 +12,12 @@
     "btn_search_room":"Verfügbare Zimmer",
     "room_properties":"Raumeigenschaften",
     "room":{
-        "name":"dbRaumname",
+        "name1":"Konferenzraum ",
+        "name2":"Konferenzsaal ",
+        "name3":"Zusammengelegte Konferenzräume ",
         "capacity":"Maximale Personenzahl: ",
         "hourly_price":"Kosten pro Stunde: ",
+        "person_price":"Kosten pro Stunde: ",
         "btn_reserve":"Reservieren",
         "property_name":"dbGerät1"
     },

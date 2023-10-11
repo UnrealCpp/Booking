@@ -5,12 +5,53 @@ img {
     border: 0;
     vertical-align: middle;
 }
-.room_image {
-    height: 9em;
+.room-image {
+    height: 100%;
     object-fit: cover;
-    border-radius: .8em;
+    border-radius: .4em  0  0 .4em;
 }
-
+.room-props,.room-services{
+        min-width: 250px;
+    }
 @media screen and (max-width: 675px) {
-
+    
 }
+@media screen and (max-width: 992px) {
+    .room-props,.room-services{
+        min-width: 250px;
+    }
+    .room-image-cont{
+        min-width: 170px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .room-image {
+    border-radius: .4em .4em 0 0 ;
+    }
+}
+/* 
+@media (min-width: 576px) {
+    .container-sm, .container {
+      max-width: 540px;
+    }
+  }
+  @media (min-width: 768px) {
+    .container-md, .container-sm, .container {
+      max-width: 720px;
+    }
+  }
+  @media (min-width: 992px) {
+    .container-lg, .container-md, .container-sm, .container {
+      max-width: 960px;
+    }
+  }
+  @media (min-width: 1200px) {
+    .container-xl, .container-lg, .container-md, .container-sm, .container {
+      max-width: 1140px;
+    }
+  }
+  @media (min-width: 1400px) {
+    .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
+      max-width: 1320px;
+    }
+  } */

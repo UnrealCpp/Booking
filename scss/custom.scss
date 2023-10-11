@@ -12,6 +12,8 @@ $primary : #C89E85;
 $secondary : #96B6C5;
 $card-border-color:  #e0d5d2;
 $card-border-width: 0.2em;
+$card-title-color:#0e0e0e;
+$card-color:#646464;
 // 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
 @import "../node_modules/bootstrap/scss/functions";
 

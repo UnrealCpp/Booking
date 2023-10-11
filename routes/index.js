@@ -6,6 +6,7 @@ var crypto = require('crypto');
 //import ROLES from '../config';
 const {ROLES,calendar} = require('../config');
 const checkIsInRole= require('../middleware/handle');
+const fetchRooms = require('../src/room');
 // connect-ensure-login integrates seamlessly with Passport.
 
 var locals = {
@@ -51,7 +52,7 @@ function fetchTodos(req, res, next) {
 
 var router = express.Router();
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', fetchRooms, function(req, res, next) {
   //req.i18n.changeLanguage(lang);
   if(!fs.existsSync("./.env"))
     return res.render('setup', { randombytes: crypto.randomBytes(16).toString('hex') });
