@@ -30,7 +30,6 @@ function fetchRooms(req, res, next) {
         }
       });
       res.locals.rooms = rooms;
-      console.log("rooms")
       next();
     });
     console.timeEnd("Select rooms time: ");

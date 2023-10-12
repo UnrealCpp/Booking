@@ -1,0 +1,16 @@
+img {
+    max-width: 100%;
+    height: auto;
+    border: 0;
+    vertical-align: middle;
+}
+.room-image {
+    height: 100%;
+    object-fit: cover;
+    border-radius: .4em  0  0 .4em;
+}
+@media screen and (max-width: 768px) {
+    .room-image {
+    border-radius: .4em .4em 0 0 ;
+    }
+}

@@ -381,10 +381,3 @@ html .clear-completed:active {
 		bottom: 10px;
 	}
 }
-
-:focus,
-.toggle:focus + label,
-.toggle-all:focus + label {
-	box-shadow: 0 0 2px 2px #CF7D7D;
-	outline: 0;
-}

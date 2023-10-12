@@ -48,14 +48,16 @@ connPool.getConnection(function(err, con) {
   ) ENGINE=InnoDB;", function (err, result) {
     if (err) throw err;    
     //console.log("Result: " + result);
+    if(!result.warningCount){
+      for (var key in ROLES) {
+        // skip loop if the property is from prototype
+        //if (!ROLES.hasOwnProperty(key)) continue;
+        con.query("INSERT INTO roles (description) VALUES (?)", [key], function (err, result) {
+          if (err) throw err;
+        });
+      }      
+    }
   });
-  for (var key in ROLES) {
-    // skip loop if the property is from prototype
-    //if (!ROLES.hasOwnProperty(key)) continue;
-    con.query("INSERT IGNORE INTO roles (description) VALUES (?)", [key], function (err, result) {
-      if (err) throw err;
-    });
-  }
 
   con.query("CREATE TABLE if not exists users ( \
     id INTEGER AUTO_INCREMENT PRIMARY KEY, \
@@ -70,7 +72,28 @@ connPool.getConnection(function(err, con) {
     personal_infoID INTEGER \
   ) ENGINE=InnoDB;", function (err, result) {
     if (err) throw err;
-    //console.log("Result: " + result);
+    //create admin user if table just created (no warning message)
+    if(!result.warningCount){
+      var salt = crypto.randomBytes(32);
+      var sql = "INSERT INTO users (username, hashed_password, salt) VALUES (?, ?, ?)";
+      var values = 
+        [
+          'Admin',
+          crypto.pbkdf2Sync(process.env.ADMIN_PASS, salt, 310000, 64, 'sha512'),
+          salt
+        ]
+      ;
+      con.query(sql, values, function (err, result) {
+        if (err) throw err;
+        //console.log("Number of records inserted: " + result.affectedRows);
+        if(result.affectedRows)
+        con.query("INSERT INTO users_roles (usersID,rolesID) VALUES (?,?)", [result.insertId,1], function (err, res) {
+          if (err) throw err;
+        });
+        console.log("Admin User Created");
+    
+      });
+    }
   });
   
   con.query("CREATE TABLE IF NOT EXISTS todos ( \
@@ -149,9 +172,12 @@ connPool.getConnection(function(err, con) {
     if (err) throw err;
     //console.log("Result: " + result);
   });
+  //id 1-en 1-de 1-tr 2-en 2-de..
+  //lang en de ru tr
   con.query("CREATE TABLE IF NOT EXISTS status ( \
-    id INTEGER AUTO_INCREMENT PRIMARY KEY, \
-    name VARCHAR(20) NOT NULL \
+    id INTEGER NOT NULL,\
+    lang VARCHAR(10) NOT NULL, \
+    name VARCHAR(50) NOT NULL \
     ) ENGINE=InnoDB;", function (err, result) {
     if (err) throw err;
     //console.log("Result: " + result);
@@ -214,26 +240,7 @@ connPool.getConnection(function(err, con) {
     if (err) throw err;
     //console.log("Result: " + result);
   });
-
-  var salt = crypto.randomBytes(32);
-  var sql = "INSERT IGNORE INTO users (username, hashed_password, salt) VALUES (?, ?, ?)";
-  var values = 
-    [
-      'Admin',
-      crypto.pbkdf2Sync(process.env.ADMIN_PASS, salt, 310000, 64, 'sha512'),
-      salt
-    ]
-  ;
-  con.query(sql, values, function (err, result) {
-    if (err) throw err;
-    //console.log("Number of records inserted: " + result.affectedRows);
-    if(result.affectedRows)
-    con.query("INSERT IGNORE INTO users_roles (usersID,rolesID) VALUES (?,?)", [result.insertId,1], function (err, res) {
-      if (err) throw err;
-    });
-    console.log("Mysql connected");
-
-  });
+  console.log("Mysql Tables are ready.");
   con.release();
 });
 

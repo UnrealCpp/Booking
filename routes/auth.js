@@ -197,6 +197,7 @@ router.get('/oauth2/redirect/google', passport.authenticate('google', {
 router.post('/login/password', passport.authenticate('local', {
   successReturnToOrRedirect: '/',
   failureRedirect: '/login',
+  keepSessionInfo: true,
   failureMessage: true
 }));
 

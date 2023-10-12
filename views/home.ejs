@@ -10,11 +10,19 @@
     // button.addEventListener("click", () => {
     //     redraw();
     // });
+    var clickedCard = 0;
     function onclickRedraw(y=null,m=null){
          redraw(y,m);
+         
         }
-    function getEvents(roomid=null){
-        console.log(roomid);            
+    function getEvents(roomid=null,div){
+        if (clickedCard) {
+            //document.getElementById("card"+clickedCard).style.backgroundColor = '';
+            document.getElementById("card"+clickedCard).classList.remove("selected-card");
+        }
+        clickedCard=roomid;
+        //div.style.backgroundColor = '#f5edeabb';
+        div.classList.add("selected-card");
     }
   </script>
 <link rel="stylesheet" href="/css/home.css">
@@ -54,32 +62,34 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3" style="min-width:240px">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title"><%= t("search_room") %></h5>
-                            <p class="card-text"><%= t("date") %></p>
-                            <p class="card-text"><%= t("time") %></p>
-                            <a href="#" class="btn btn-primary bg-gradient"><%= t("btn_search_room") %></a>
-                            <p class="card-text"><%= t("room_properties") %></p>
-                            <p class="card-text"><%= t("select") %></p>
-                            <ul>
-                                <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
-                                <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
-                                <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
-                                <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
-                            </ul>
+                    <div class="row">
+                        <div class="card mb-3 col-6 col-lg-12">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= t("search_room") %></h5>
+                                <p class="card-text"><%= t("date") %></p>
+                                <p class="card-text"><%= t("time") %></p>
+                                <a href="#" class="btn btn-primary bg-gradient"><%= t("btn_search_room") %></a>
+                                <p class="card-text"><%= t("room_properties") %></p>
+                                <p class="card-text"><%= t("select") %></p>
+                                <ul>
+                                    <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
+                                    <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
+                                    <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
+                                    <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div id ="container" class="mb-3">
-                        <div id ="modularCalendar"></div>
+                        <div id ="container" class="mb-3 col-6 col-lg-12">
+                            <div id ="modularCalendar"></div>
+                        </div>                    
                     </div>
                 </div>
                 <div class="col-lg-9" style="min-width:313px">
                     <% rooms.forEach(element => { %> 
-                        <div class="card mb-3"> <!-- style="max-width: 540px;" -->
+                        <div class="card mb-3"  onclick="getEvents('<%= element.id %>',this)" id="card<%= element.id %>"> <!-- style="max-width: 540px;" -->
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img src="img/<%= element.img %>.png" class="img-fluid room-image" alt="...">
+                                    <img src="/img/<%= element.img %>.png" class="img-fluid room-image" alt="...">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
@@ -106,7 +116,7 @@
 
                                             </div>
                                         </div>                                        
-                                        <a href="#"  onclick="onclickRedraw('<%= element.id %>')"  class="btn btn-primary bg-gradient d-block"><%= t("room.btn_reserve") %></a>
+                                        <a href="/book/<%= element.id %>" class="btn btn-primary bg-gradient d-block"><%= t("room.btn_reserve") %></a>
                                     </div>
                                 </div>
                             </div>

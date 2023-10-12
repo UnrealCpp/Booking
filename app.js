@@ -27,6 +27,8 @@ const options = {
 }
 var {router,locals} = require('./routes/index');
 var authRouter = require('./routes/auth');
+const roomRouter = require('./routes/room');
+const bookRouter = require('./routes/book');
 const { Console } = require('console');
 i18next
     .use(Backend)
@@ -83,6 +85,8 @@ app.use(function(req, res, next) {
 });
 app.use('/', router);
 app.use('/', authRouter);
+app.use('/room',roomRouter);
+app.use('/book',bookRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

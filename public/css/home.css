@@ -13,6 +13,9 @@ img {
 .room-props,.room-services{
         min-width: 250px;
     }
+.selected-card{
+  background: #fff9f6;
+}
 @media screen and (max-width: 675px) {
     
 }

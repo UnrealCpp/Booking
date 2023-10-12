@@ -1,0 +1,1047 @@
+<link rel="stylesheet" href="/css/reserve.css">
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form action="/book/" method="post">
+                <div class="card mb-3" id="card<%= bookId %>"> <!-- style="max-width: 540px;" -->
+                    <div class="row g-0">
+                        <div class="col-lg-4">
+                            <img src="/img/<%= room.img %>.png" class="img-fluid room-image" alt="...">
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= t("room.name"+room.type) + room.name %></h5>
+                                <div class="room-cont row">
+                                    <div class="col-lg-6  mb-3 mb-lg-0">
+                                        <input type="text" name="rezervasyon_tarihi" id="rezervasyon_tarihi" autocomplete="off" placeholder="Rezervasyon Tarihi" required="" class="hasDatepicker">
+                                    </div>
+                                    <div class="col-lg-6  mb-3 mb-lg-0">
+                                        <div class="row">
+                                            <div class="col" style="height: 100%">
+                                                <div class="card-text">
+                                                    <small class="text-muted m-2"><%= t("prop_i") %></small>
+                                                    <small class="text-muted m-2"><%= t("prop_i") %></small>
+                                                    <small class="text-muted m-2"><%= t("prop_i") %></small>
+                                                    <small class="text-muted m-2"><%= t("prop_i") %></small>
+                                                    <small class="text-muted m-2"><%= t("prop_i") %></small>
+                                                
+                                                </div>
+                                            </div>                                                        
+                                        </div>
+                                    </div>
+                                </div>                  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="section_wrapper oturma_planlari_wrapper">
+            <h3 class="section_title">Oturma Planı</h3>
+            <div class="section_content oturma_planlari">
+                                    <div class="oturma_plani">
+                    <span>Seminar</span>
+                    <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Seminar.jpg" class="oturma_plani_img gd" alt="Plan 1">
+                    <span>40 Personen</span>
+                    <input type="radio" value="Seminer" name="oturma_plani" id="oturma_plani1">
+                </div>
+                <div class="oturma_plani">
+                    <span>Blocktafel</span>
+                    <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Blocktafel.jpg" class="oturma_plani_img gd" alt="Plan 1">
+                    <span>40 Personen</span>
+                    <input type="radio" value="Blocktafel" name="oturma_plani" id="oturma_plani2">
+                </div>
+                <div class="oturma_plani">
+                    <span>U-Form</span>
+                    <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/U-Form.jpg" class="oturma_plani_img gd" alt="Plan 1">
+                    <span>40 Personen</span>
+                    <input type="radio" value="U-Form" name="oturma_plani" id="oturma_plani3">
+                </div>
+                <div class="oturma_plani">
+                    <span>Parlament</span>
+                    <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Parlament.jpg" class="oturma_plani_img gd" alt="Plan 1">
+                    <span>40 Personen</span>
+                    <input type="radio" value="Parlament" name="oturma_plani" id="oturma_plani4">
+                </div>
+                <div class="oturma_plani">
+                    <span>Stuhlreihen</span>
+                    <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Stuhlreihen.jpg" class="oturma_plani_img gd" alt="Plan 1">
+                    <span>40 Personen</span>
+                    <input type="radio" value="Stuhlreihen" name="oturma_plani" id="oturma_plani5">
+                </div>
+                <div class="oturma_plani">
+                    <span>Bankett</span>
+                    <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Bankett.jpg" class="oturma_plani_img gd" alt="Plan 1">
+                    <span>40 Personen</span>
+                    <input type="radio" value="Bankett" name="oturma_plani" id="oturma_plani6">
+                </div>
+                <div class="oturma_plani">
+                    <span>Stuhlkreis</span>
+                    <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Stuhlkreis.jpg" class="oturma_plani_img gd" alt="Plan 1">
+                    <span>40 Personen</span>
+                    <input type="radio" value="Stuhlkreis" name="oturma_plani" id="oturma_plani7">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form id="rezervasyon_yap" method="POST">
+    <input type="hidden" name="the_action">
+    <input type="hidden" name="oda_saatlik_ucreti">
+    <input type="hidden" name="hesaplanan_saat">
+    <input type="hidden" name="sec_saat_fiyati">
+    <input type="hidden" name="ozelliklerin_fiyati">
+    <input type="hidden" name="hizmetlerin_fiyati">
+    <input type="hidden" name="toplam_fiyat">
+    <div class="toplanti_odasi">
+        <div class="toplanti_odasi_image">
+            <img class="room_image" src="https://adrestasarim.com.tr/korn/wp-content/uploads/2023/04/751_2_korns1-400x205.png" alt="Test Odası">
+        </div>
+        <div class="toplanti_odasi_content">
+            <h3 class="room-title">Test Odası</h3>
+            <div class="rezervasyon_tarihi">
+                <label for="rezervasyon_tarihi">Rezervasyon Tarihi</label>
+                <input type="text" name="rezervasyon_tarihi" id="rezervasyon_tarihi" autocomplete="off" placeholder="Rezervasyon Tarihi" required="" class="hasDatepicker">
+                <button class="remove_button"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div class="rezervasyon_saati">
+                <label>Rezervasyon Saati</label>
+                <div class="baslangic_saati timepicker_containers">
+                    <div class="times">
+                        <div class="time_input">
+                            <input disabled="" type="text" autocomplete="off" name="baslangic_saati" id="baslangic_saati" placeholder="Başlangıç Saati">
+                            <button class="remove_button"><i class="fas fa-times"></i></button>
+                        </div>
+                        <span>-</span>
+                        <div class="time_input">
+                            <input disabled="" type="text" autocomplete="off" name="bitis_saati" id="bitis_saati" placeholder="Bitiş Saati">
+                            <button class="remove_button"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="kisi_sayisi">
+                <label>Kişi Sayısı <i id="kisi_basi_fiyat_info" title="Kişi Başı Ücret: 400 -EUR" class="fa-light fa-circle-info"></i></label>
+                <div class="quantity">
+                                                <input type="number" name="kisi_sayisi" max="100" id="kisi_sayisi" min="2" value="100"><div class="quantity-nav"><button tabindex="-1" class="quantity-button quantity-up"></button><button tabindex="-1" class="quantity-button quantity-down"></button></div>
+                </div>
+            </div>
+            <div class="rezervasyon_notu">
+                <label for="rezervasyon_notu">Notunuz</label>
+                <div>
+                    <textarea name="rezervasyon_notu" id="rezervasyon_notu" cols="30" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section_wrapper oturma_planlari_wrapper">
+        <h3 class="section_title">Oturma Planı</h3>
+        <div class="section_content oturma_planlari">
+                                <div class="oturma_plani">
+                <span>Seminar</span>
+                <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Seminar.jpg" class="oturma_plani_img gd" alt="Plan 1">
+                <span>40 Personen</span>
+                <input type="radio" value="Seminer" name="oturma_plani" id="oturma_plani1">
+            </div>
+            <div class="oturma_plani">
+                <span>Blocktafel</span>
+                <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Blocktafel.jpg" class="oturma_plani_img gd" alt="Plan 1">
+                <span>40 Personen</span>
+                <input type="radio" value="Blocktafel" name="oturma_plani" id="oturma_plani2">
+            </div>
+            <div class="oturma_plani">
+                <span>U-Form</span>
+                <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/U-Form.jpg" class="oturma_plani_img gd" alt="Plan 1">
+                <span>40 Personen</span>
+                <input type="radio" value="U-Form" name="oturma_plani" id="oturma_plani3">
+            </div>
+            <div class="oturma_plani">
+                <span>Parlament</span>
+                <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Parlament.jpg" class="oturma_plani_img gd" alt="Plan 1">
+                <span>40 Personen</span>
+                <input type="radio" value="Parlament" name="oturma_plani" id="oturma_plani4">
+            </div>
+            <div class="oturma_plani">
+                <span>Stuhlreihen</span>
+                <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Stuhlreihen.jpg" class="oturma_plani_img gd" alt="Plan 1">
+                <span>40 Personen</span>
+                <input type="radio" value="Stuhlreihen" name="oturma_plani" id="oturma_plani5">
+            </div>
+            <div class="oturma_plani">
+                <span>Bankett</span>
+                <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Bankett.jpg" class="oturma_plani_img gd" alt="Plan 1">
+                <span>40 Personen</span>
+                <input type="radio" value="Bankett" name="oturma_plani" id="oturma_plani6">
+            </div>
+            <div class="oturma_plani">
+                <span>Stuhlkreis</span>
+                <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Stuhlkreis.jpg" class="oturma_plani_img gd" alt="Plan 1">
+                <span>40 Personen</span>
+                <input type="radio" value="Stuhlkreis" name="oturma_plani" id="oturma_plani7">
+            </div>
+        </div>
+    </div>
+    <div class="section_wrapper second_section_wrapper">
+        <h3 class="section_title">Ek Oda Özellikleri</h3>
+        <div class="section_content oda_ozellikleri">                        <h4 class="section_sub_title">İstediğiniz özellik listede yok mu? Aşağıdaki ekleme butonunu kullanarak dilediğiniz kadar özel talepte bulunabilirsiniz.</h4>
+                <div id="eklenen_ozellik_istekleri" class="eklenen_istekler"></div>
+                <div id="yeni_ozellik_ekle" class="yeni_istek_butonu">Özellik Talebi Ekle</div>
+                <div id="ozellik_ekleme_kutusu" class="ozel_istek_ekleme_kutusu_wrapper hidden">
+                    <div class="ozel_istek_ekleme_kutusu">
+                        <div class="group_1">
+                            <label for="ozellik_adi">Eklemek istediğiniz özelliğin adı:</label>
+                            <input type="text" tabindex="0" class="istek_adi" name="ozellik_adi" id="ozellik_adi">
+                            <label for="ozellik_adedi">Bu özellik için miktar belirtin:</label>
+                            <div class="quantity">
+                                <input type="number" tabindex="0" class="istek_adedi" name="ozellik_adedi" id="ozellik_adedi" min="1" value="1"><div class="quantity-nav"><button tabindex="-1" class="quantity-button quantity-up"></button><button tabindex="-1" class="quantity-button quantity-down"></button></div>
+                            </div>
+                        </div>
+                        <div class="group_2">
+                            <label for="ozellik_aciklamasi">Özelliğe ait detaylar:</label>
+                            <textarea tabindex="0" class="istek_aciklamasi" name="ozellik_aciklamasi" id="ozellik_aciklamasi"></textarea>
+                        </div>
+                    </div>
+                    <div id="ozellik_ekleme_error_wrapper" class="hidden"></div>
+                        <input type="hidden" name="ozellik_istekleri" id="ozellik_istekleri">
+                        <button tabindex="0" class="istegi_ekle" value="ozellik" id="ozelligi_ekle">Özelliği Ekle</button>
+                </div>                </div>
+    </div>
+    <div class="section_wrapper">                        <div class="oda_ek_hizmetleri section_content">
+                    <h3>Catering</h3>
+                    <p>Aşağıda listelenen yiyecek seçeneklerini küçük bir ek ücret karşılığında toplantınıza dahil edebilirsiniz.</p>                                <div class="ek_hizmet_accordion_wrapper">                                </div>                        </div>                    <div class="section_content">
+                <h4 class="section_sub_title">İstediğiniz hizmet listede yok mu? Aşağıdaki ekleme butonunu kullanarak dilediğiniz kadar özel hizmet talebinde bulunabilirsiniz.</h4>
+                <div id="eklenen_hizmet_istekleri" class="eklenen_istekler"></div>
+                <div id="yeni_hizmet_ekle" class="yeni_istek_butonu">Hizmet Talebi Ekle</div>
+                <div id="hizmet_ekleme_kutusu" class="ozel_istek_ekleme_kutusu_wrapper hidden">
+                    <div class="ozel_istek_ekleme_kutusu">
+                        <div class="group_1">
+                            <label for="hizmet_adi">Eklemek istediğiniz hizmetin adı:</label>
+                            <input tabindex="0" type="text" class="istek_adi" name="hizmet_adi" id="hizmet_adi">
+                            <label for="hizmet_adedi">Bu hizmet için miktar belirtin:</label>
+                            <div class="quantity">
+                                <input tabindex="0" type="number" class="istek_adedi" name="hizmet_adedi" id="hizmet_adedi" min="1" value="1"><div class="quantity-nav"><button tabindex="-1" class="quantity-button quantity-up"></button><button tabindex="-1" class="quantity-button quantity-down"></button></div>
+                            </div>
+                        </div>
+                        <div class="group_2">
+                            <label for="hizmet_aciklamasi">Hizmete ait detaylar:</label>
+                            <textarea tabindex="0" class="istek_aciklamasi" name="hizmet_aciklamasi" id="hizmet_aciklamasi"></textarea>
+                        </div>
+                    </div>
+                    <div id="hizmet_ekleme_error_wrapper" class="hidden"></div>
+                    <input type="hidden" name="hizmet_istekleri" id="hizmet_istekleri">
+                    <button tabindex="0" id="hizmeti_ekle" value="hizmet" class="istegi_ekle">Özelliği Ekle</button>
+                </div>
+            </div>            </div>
+    <div class="section_wrapper">
+        <h3 class="section_title hesaplanan_fiyat_h3">Seçtiğiniz Kriterlere Göre Hesaplanan Fiyat</h3>
+<div class="section_content hesaplanan_fiyat">
+<span>Oda Saatlik Ücreti</span>:<span class="price"><span id="room_price_per_hours">0</span> -EUR</span>
+<span><span id="selected_duration"></span> Saatlik Ücret</span>:<span class="price"><span id="selected_duration_price">0</span> -EUR</span>
+<span>Oda Özellikleri Toplam Ücret</span>:<span class="price"><span id="room_properties_price">0</span> -EUR</span>
+<span>Oda Ek Hizmetleri Toplam Ücret</span>:<span class="price"><span id="room_services_price">0</span> -EUR</span>
+<span>Toplam KDV Ücreti</span>:<span class="price"><span id="total_kdv">0</span> -EUR</span>
+<hr>
+<span>Toplam</span>:<span class="price"><span id="total_price">0</span> -EUR</span>
+</div>
+        <button id="rezervasyonu_olustur">Rezervasyonu Tamamla</button>
+    </div>
+</form>
+<style>
+    .odalar_wrapper {
+    max-width: 1024px;
+    margin: 0px auto;
+    padding: 10px;
+    width: 100%;
+}
+
+form#rezervasyon_yap {
+    font-family: system-ui;
+}
+.toplanti_odasi {
+    border: 1px solid #ece9e8;
+    padding: 10px 14px;
+    border-radius: 4px;
+    display: grid;
+    grid-template-columns: 300px calc(100% - 334px);
+    gap: 20px;
+}
+.room_image {
+    height: 300px;
+    object-fit: cover;
+    border-radius: 3px;
+}
+h3.room-title {
+    border-bottom: 1px solid #f1f1f1;
+    padding-bottom: 5px;
+    margin-bottom: 12px !important;
+    max-width: 562px;
+}
+.toplanti_odasi_content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.toplanti_odasi_content>div {
+    display: grid;
+    grid-template-columns: 25% calc(75% - 10px);
+    gap: 10px;
+    align-items: center;
+    max-width: 520px;
+}
+.toplanti_odasi_content>div>label {
+    display: block;
+    font-size: .9rem;
+    margin-bottom: 5px;
+    font-weight: 600 !important;
+}
+.toplanti_odasi_content>div input {
+    max-width: 390px !important;
+    height: 35px;
+    border-radius: 3px !important;
+    cursor: pointer;
+    font-weight: 500;
+    text-align: center;
+}
+.timepicker_containers>.times {
+    max-width: 390px !important;
+}
+.timepicker_containers>.times input {
+    height: 35px;
+    line-height: 35px;
+    border-radius: 3px !important;
+    padding-bottom: 3px;
+}
+label[for="rezervasyon_notu"] {
+    height: 100px;
+}
+textarea#rezervasyon_notu {
+    max-width: 390px;
+    border-radius: 3px !important;
+    min-height: 100px !important;
+}
+
+/* Kişi Sayısı */
+.kisi_sayisi h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+#kisi_basi_fiyat_info{
+    font-family: 'Font Awesome 5 Free';
+    color: #955e46;
+    cursor: help;
+}
+.kisi_sayisi .quantity {
+    justify-content: start !important;
+}
+.quantity {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 18px;
+}
+.quantity-nav {
+    float: left;
+    position: relative;
+    height: 31px;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    height: 35px !important;
+    max-width: 80px;
+    border-radius: 3px !important;
+    border: var(--wd-form-brd-width) solid var(--wd-form-brd-color) !important;
+    -moz-appearance: textfield;
+    width: 74% ;
+    text-align: left !important;
+    float: left !important;
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    padding-left: 15px !important;
+    font-size: 1rem !important;
+    border-radius: 4px !important;
+    background-color: #fff !important;
+}
+input[type=number]:focus {
+    outline: 0;
+}
+.quantity-button {
+    position: relative;
+    cursor: pointer;
+    border: none;
+    border-left: 2px solid rgba(0, 0, 0, 0.08);
+    width: 21px;
+    text-align: center;
+    color: #333;
+    font-size: 13px;
+    font-family: "FontAwesome" !important;
+    padding: 0;
+    background: #FAFAFA;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    min-height: unset !important;
+}
+.quantity-button:active {
+    background: #EAEAEA;
+}
+.quantity-button.quantity-up {
+    position: absolute;
+    height: 50%;
+    top: 2px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+    font-family: "FontAwesome";
+    border-radius: 0 4px 0 0;
+    line-height: 1.6;
+    right: -19px;
+}
+.quantity-button.quantity-down {
+    position: absolute;
+    bottom: -2px;
+    height: 50%;
+    font-family: "FontAwesome";
+    border-radius: 0 0 4px 0;
+    right: -19px;
+}
+
+/* Oda özellikleri ve hizmetler */
+.second_section_wrapper {
+    border: 1px solid #ece9e8;
+    border-radius: 4px !important;
+    margin-top: 20px;
+}
+form#rezervasyon_yap h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-family: system-ui;
+    color: #242424;
+    margin: 0;
+    margin-top: 5px;
+}
+.section_wrapper{
+    border: 1px solid #ece9e8;
+    border-radius: 4px !important;
+    margin-top: 20px;
+}
+h3.section_title {
+    font-weight: 600 !important;
+    border-bottom: 1px solid #dddddd;
+    padding: 10px 14px !important;
+    font-size: 1.1rem !important;
+    color: #242424 !important;
+}
+.section_content{
+    padding: 10px 14px;
+}
+h4.section_sub_title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 10px 0 !important;
+}
+.oda_ozellikleri, .oda_ek_hizmetleri {
+    display: flex;
+    padding-top: 0px;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+    gap: 4px;
+}
+.ozelikler_ilk_satir>h3 {
+    font-size: 20px !important;
+    margin: 0px !important;
+    display: inline;
+}
+.ozelikler_sag_taraf {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    margin-right: 18px;
+    font-weight: 500;
+    font-family: system-ui;
+}
+.oda_ozellikleri>label,
+.oda_ek_hizmetleri>label, div.ozel_istek_ekleme_kutusu_wrapper {
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: start;
+    text-transform: capitalize;
+    background: #ECDED5;
+}
+p.ozellik_aciklamasi {
+    font-size: 14px;
+    white-space: pre-wrap;
+    margin: 0px !important;
+    padding-bottom: 4px;
+}
+.ozellik_ilk_satir {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 6% 72% 20%;
+    gap: 1%;
+    align-items: center;
+}
+.ozellik_ilk_satir>h3 {
+    margin: 0px !important;
+}
+.ozellik_son_satir {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 6% 72% 20%;
+    gap: 1%;
+    align-items: baseline;
+}
+.oda_ozellikleri input[type=checkbox],
+.oda_ek_hizmetleri input[type=checkbox] {
+    scale: 1.4;
+    margin-inline-end: 0px !important;
+}
+/* Footer */
+.hesaplanan_fiyat {
+    width: 100% !important;
+    max-width: 500px;
+    margin: 0px auto;
+    margin-bottom: 30px;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 70% 1% 29%;
+}
+h3.section_title.hesaplanan_fiyat_h3 {
+    font-weight: bolder !important;
+    text-align: center;
+    font-size: 1.3rem !important;
+    color: #714a32 !important;
+}
+.hesaplanan_fiyat span {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #c29275;
+}
+.hesaplanan_fiyat span + hr + span {
+    color: #8d5a3c;
+}
+.hesaplanan_fiyat span + hr + span + .price {
+    color: #8d5a3c !important;
+}
+span#total_price {
+    color: #8d5a3c !important;
+}
+span.price {
+    text-align: right;
+    color: #8d5a3c !important;
+}
+.hesaplanan_fiyat hr {
+    width: 100%;
+    max-width: 100%;
+    grid-column: 1 / span 3;
+    color: lightgray;
+    margin: 10px 0;
+}
+#rezervasyonu_olustur {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    background-color: #C89E85;
+    color: #fff;
+    padding: 10px 35px;
+    border: none;
+    border-radius: 3px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .4s;
+}
+#rezervasyonu_olustur:hover {
+    background-color: #8e6953;
+}
+
+/* Zamanlama */
+.tarih_araligi>input, .times>input {
+    background: #FFF;
+    cursor: pointer;
+    padding: 0 10px;
+    font-size: 1rem !important;
+    font-weight: 500;
+    text-align: center;
+}
+input#rezervasyon_tarihi, .times>input {
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 500;
+}
+input#rezervasyon_tarihi::placeholder, .times>input::placeholder {
+    font-size: 1rem;
+    color: #a1a1a1;
+    text-align: center;
+    font-weight: 500;
+}
+/* Ek hizmetler akordiyon yapı */
+.ek_hizmet_accordion_wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 100%;
+}
+.ek_hizmet_accordion-item {
+    border-bottom: none;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.ek_hizmet_accordion-header {
+    color: #3c3c3c;
+    padding: 10px 45px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1em;
+    position: relative;
+}
+.ek_hizmet_accordion-header:before {
+    content: '\002B';
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s;
+    background: #ecded5;
+    color: #FFF;
+    font-weight: bolder;
+    font-size: 1.2rem;
+    width: 32px;
+    height: 32px !important;
+    text-align: center;
+}
+.ek_hizmet_accordion-item.active .ek_hizmet_accordion-header:before {
+    content: '\002D';
+}
+.ek_hizmet_accordion-content {
+    display: none;
+    padding: 0 8px;
+}
+.ek_hizmet_accordion-item.active .ek_hizmet_accordion-content {
+    display: block;
+}
+.ek_hizmet {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #cdcdcd;
+    margin: 10px 38px;
+    padding: 0 15px;
+}
+.ek_hizmet_column {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.oda_ek_hizmetleri p {
+    margin: 0;
+}
+.ek_hizmet h3 {
+    font-size: 1rem !important;
+    margin: 0px !important;
+    font-weight: 500 !important;
+}
+.ek_hizmet input{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #cdcdcd;
+}
+input.oda_ek_hizmet_adedi {
+    width: 100% !important;
+}
+.ek_hizmet .quantity {
+    margin: 3px auto;
+}
+.toplanti_odasi_image {
+    width: fit-content;
+    margin: 0px auto;
+}
+.oturma_planlari_wrapper {
+    border: 1px solid #ece9e8;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+.oturma_planlari {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 40px;
+    row-gap: 10px;
+    justify-content: start;
+}
+.oturma_plani {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 500;
+}
+.oturma_plani>img:hover {
+    cursor: pointer;
+    box-shadow: 0 0 0 2px #7fc9e2;
+    border-radius: 1px;
+}
+@media only screen and (max-width: 750px) {
+    .toplanti_odasi_content {
+        width: fit-content;
+        margin: 0px auto;
+    }
+    .toplanti_odasi {
+        border: 1px solid #ece9e8;
+        padding: 10px 14px;
+        border-radius: 4px;
+        display: block;
+    }
+    .room_image {
+        height: auto;
+        width: auto;
+    }
+    h3.room-title {
+        font-size: 1rem !important;
+        margin-top: 5px;
+        text-align: center;
+    }
+    .toplanti_odasi_content>div {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        align-items: inherit;
+    }
+    label[for="rezervasyon_notu"] {
+        height: auto;
+    }
+    form#rezervasyon_yap h3 {
+        font-size: .9rem;
+        margin-bottom: 0 !important;
+        width: 100% !important;
+        max-width: 100%;
+    }
+    .ozellik_ilk_satir {
+        display: grid;
+        width: 100%;
+        grid-template-columns: 7% 56% auto;
+        gap: 1%;
+        align-items: center;
+    }
+    .ozellik_son_satir {
+        display: grid;
+        width: 100%;
+        grid-template-columns: auto 72% 20%;
+        gap: 10px;
+        align-items: baseline;
+    }
+    .quantity {
+        margin-right: 0 !important;
+    }
+    .ozelikler_sag_taraf {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        margin-right: 0;
+        font-weight: 500;
+        font-family: system-ui;
+        font-size: .9rem !important;
+        white-space: nowrap;
+    }
+    .oda_ozellikleri>label, .oda_ek_hizmetleri>label {
+        padding: 6px;
+    }
+    p.ozellik_aciklamasi {
+        font-size: .74rem;
+        white-space: pre-wrap;
+        margin: 0px !important;
+        padding: 0px 10px;
+        padding-bottom: 4px;
+    }
+    button#rezervasyonu_olustur {
+        font-size: 1rem;
+        padding: 8px 30px !important;
+        min-height: inherit;
+    }
+    .hesaplanan_fiyat {
+        align-items: start;
+        grid-template-columns: 66% 2px auto;
+    }
+    .hesaplanan_fiyat span {
+        font-size: .9rem;
+    }
+    h3.hesaplanan_fiyat_h3 {
+        font-size: .95rem !important;
+    }
+    /* Ek hizmet */
+    .ek_hizmet {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid #cdcdcd;
+        margin: 10px 0px;
+        padding: 0 10px;
+    }
+    .ek_hizmet h3 {
+        font-size: .8rem !important;
+    }
+    .ek_hizmet_accordion-content {
+        padding: 0;
+    }
+}
+
+.rezervasyon_tarihi {
+    position: relative;
+}
+.rezervasyon_tarihi:hover .remove_button, .time_input:hover .remove_button, .time_input:hover .remove_button{
+    display: block;
+}
+.remove_button {
+    display: none;
+    position: absolute;
+    top: 50%;
+    right: 2px;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    min-height: auto !important;
+    height: 100%;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 0px 8px;
+}
+
+.times {
+    display: flex;
+    align-items: center;
+}
+
+.time_input {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.time_input .remove_button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.time_input .remove_button i {
+    color: red;
+    font-size: 14px;
+}
+
+.time_input .remove_button:focus {
+    outline: none;
+}
+/* Oda özelliği Ekleme Formu */
+div.ozel_istek_ekleme_kutusu {
+    width: 100%;
+    display: grid;
+    grid-template-columns: calc(50% - 25px) 50%;
+    gap: 25px;
+    box-sizing: border-box;
+    padding: 0 32px;
+}
+.yeni_istek_butonu {
+    color: #3c3c3c;
+    padding: 10px 45px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1em;
+    position: relative;
+    margin-left: 20px;
+}
+.yeni_istek_butonu:before {
+    content: '\002B';
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s;
+    background: #b79681;
+    color: #FFF;
+    font-weight: bolder;
+    font-size: 1.2rem;
+    width: 32px;
+    height: 32px !important;
+    text-align: center;
+}
+div.ozel_istek_ekleme_kutusu>div {
+    width: 100%;
+}
+div.ozel_istek_ekleme_kutusu>div>label {
+    font-size: .91rem;
+    font-weight: 500;
+    margin-top: 10px;
+}
+.ozel_istek_ekleme_kutusu .quantity {
+    justify-content: flex-start;
+}
+.ozel_istek_ekleme_kutusu .quantity>.quantity-nav {
+    float: left;
+    position: relative;
+    height: 38px;
+}
+input.istek_adedi {
+    width: 100px;
+    min-width: 100px;
+    max-width: unset !important;
+    height: 42px !important;
+    text-align: center !important;
+    padding: 0 !important;
+    padding-right: 15px !important;
+    float: unset !important;
+}
+div.ozel_istek_ekleme_kutusu>div>input {
+    background: white;
+    max-width: 500px;
+}
+textarea.istek_aciklamasi {
+    background: white;
+    max-width: 100%;
+    min-height: 120px !important;
+    max-height: 200px !important;
+}
+button.istegi_ekle {
+    text-transform: capitalize;
+    font-size: 1rem;
+    width: 100%;
+    background: #E91E63;
+    color: white;
+    min-width: 200px !important;
+    max-width: 225px;
+    margin: 0 auto;
+    margin-top: 20px;
+    border-radius: 3px;
+}
+/* İstek ekleme errors */
+div#ozellik_ekleme_error_wrapper, div#hizmet_ekleme_error_wrapper {
+    display: flex;
+    flex-direction: column;
+    background: #FFC107;
+    color: #000000;
+    width: calc(100% - 24px);
+    box-sizing: border-box;
+    padding: 10px 12px;
+    margin: 25px auto;
+    margin-bottom: 0;
+    border-radius: 3px;
+    position: relative;
+    font-weight: 500;
+}
+div#ozellik_ekleme_error_wrapper:after {
+    position: absolute;
+    padding: 0 !important;
+    margin: 0 !important;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    right: 30px;
+    font-family: 'FontAwesome';
+    content: "\f071";
+    color: red;
+    font-size: 3em;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+div#ozellik_ekleme_error_wrapper>span {
+    position: relative;
+    padding-left: 15px;
+    font-size: .9em !important;
+}   
+div#ozellik_ekleme_error_wrapper>span:before {
+    font-family: "Font Awesome 5 Free";
+    color: #cc1818;
+    content: '\f04b';
+    margin-right: 6px;
+    font-weight: bold;
+    font-size: .7em;
+    vertical-align: text-bottom;
+    position: absolute;
+    left: 0px;
+    top: calc(50% + 1px);
+    transform: translateY(-50%);
+}
+/* Eklenen İstekler */
+div.eklenen_istekler {
+    width: 100%;
+    margin-bottom: 15px;
+}
+.ozel_istek {
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: start;
+    text-transform: capitalize;
+    background: #ECDED5;
+}
+.ozel_istek:not(:last-child) {
+    margin-bottom: 10px;
+}
+.ozel_istek input[type=checkbox] {
+    scale: 1.4;
+    margin-inline-end: 0px !important;
+}
+.eklenen_istek_islemleri {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+button.istegi_duzenle {
+    min-width: 150px;
+    border-radius: 3px;
+    min-height: 38px !important;
+    max-height: 38px !important;
+    background: #4c6c85;
+    color: white;
+    font-weight: 600;
+}
+button.istegi_sil {
+    border-radius: 3px;
+    height: 38px !important;
+    min-height: 38px !important;
+    background: #df4d7f;
+    color: white;
+    font-weight: 500;
+}
+@media only screen and (max-width: 630px) {
+    div.ozel_istek_ekleme_kutusu {
+        grid-template-columns: 100%;
+        gap: 0px;
+    }
+}
+</style>

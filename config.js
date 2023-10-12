@@ -2,8 +2,30 @@ const ROLES = {
   Admin: "Admin",
   Customer: "Customer",
   User: "User",
+  PremiumUser: "PremiumUser",
   Manager: "Manager"
 }
+var STATUS = {
+  "en":[
+  "Appointment available",
+  "Booked event",
+  "Current booking",
+  "Current booking (edit)",
+  "Cleaning and preparation",
+  "maintenance",
+  "company holidays",
+  "Not available"
+],"de":[
+  "Termin verfügbar",
+  "Gebuchte Veranstaltung",
+  "Aktuelle Buchung",
+  "Aktuelle Buchung (bearbeiten)",
+  "Reinigung und Vorbereitung",
+  "Instandhaltung",
+  "Betriebsferien",
+  "Nicht verfügbar"
+]};
+
 var calendar = {
   month: {
       tempDesign: 0,
