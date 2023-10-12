@@ -1,4 +1,6 @@
+bin/
 .env
+.zip
 var
 client_secret*.json
 # Node.js

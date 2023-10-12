@@ -29,7 +29,6 @@ var {router,locals} = require('./routes/index');
 var authRouter = require('./routes/auth');
 const roomRouter = require('./routes/room');
 const bookRouter = require('./routes/book');
-const { Console } = require('console');
 i18next
     .use(Backend)
     .use(i18nextMiddleware.LanguageDetector)

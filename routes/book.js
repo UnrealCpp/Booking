@@ -2,28 +2,39 @@ const book = require('express').Router();
 const fetchRooms = require('../src/room');
 var ensureLogIn = require('connect-ensure-login').ensureLoggedIn;
 //...
-
+var locals = {
+  title: 'KORNS Booking',
+  description: 'Page Description',
+  header: 'Page Header'
+};
 // Our app.use in the last file forwards a request to our book router.
 // So this route actually handles `/book` because it's the root route when a request to /book is forwarded to our router.
-book.get('/', ensureLogIn("../login"), function(req, res, next) {
+book.get('/', ensureLogIn("../login"), fetchRooms, function(req, res, next) {
   // res.send() our response here  
-  res.render('room/reserve',{bookId:"1"}); 
+  let room = res.locals.rooms.filter((elem)=> elem.id==1);
+  user_logged(req);
+  res.render('room/reserve',{bookId:"1",room:room[0],layout:locals.layout,user: req?.user}); 
 });
 
 
-// A route to handle requests to any individual album, identified by an album id
-book.get('/:id', fetchRooms, function(req, res, next) {
+// A route to booking
+book.get('/:id',ensureLogIn("../login"), fetchRooms, function(req, res, next) {
   let param = req.params.id;
   let room = res.locals.rooms.filter((elem)=> elem.id==param);
-  res.render('room/reserve',{bookId:param,room:room[0]}); 
-  // get album data from server and res.send() a response here
+  user_logged(req);
+  res.render('room/reserve',{bookId:param,room:room[0],layout:locals.layout,user: req?.user}); 
 });
 book.post('/',ensureLogIn("../login"), function(req, res, next) {
   
   let myId = req.body.rezervasyon_tarihi;
   console.log(req.body.filter);
-    // get album data from server and res.send() a response here
   return res.redirect('/book' + (req.body.filter || ''));
 });
-
+function user_logged(req){
+  if(req.user?.username|| req.user?.name)  {
+    locals.layout = "./layouts/layout_logged";
+    locals.user= req.user ;
+  }
+  else locals.layout = "./layouts/layout";
+}
 module.exports = book;
