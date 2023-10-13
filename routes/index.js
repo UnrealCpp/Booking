@@ -5,15 +5,16 @@ const fs = require('fs');
 var crypto = require('crypto');
 //import ROLES from '../config';
 const {ROLES,calendar} = require('../config');
+var locals = require('../config');
 const checkIsInRole= require('../middleware/handle');
 const fetchRooms = require('../src/room');
 // connect-ensure-login integrates seamlessly with Passport.
 
-var locals = {
-  title: 'KORNS Booking',
-  description: 'Page Description',
-  header: 'Page Header'
-};
+// var locals = {
+//   title: 'KORNS Booking',
+//   description: 'Page Description',
+//   header: 'Page Header'
+// };
 let lang = null;//test
 function user_logged(req){
   if(req.user?.username|| req.user?.name)  {

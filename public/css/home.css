@@ -16,6 +16,32 @@ img {
 .selected-card{
   background: #fff9f6;
 }
+.disappear-768{
+  display:none;
+}
+.colorDiv {
+  text-align: center;
+  color: rgb(15, 15, 15);
+  width: 100%;
+  height: 2em;
+  padding-top: 0.4em;
+  font-size: medium;
+  font-weight: 600;
+  border-radius: 8px;
+  background-color: #d4d4d4;
+  transition: 0.5s;
+  cursor: pointer;
+  /* -webkit-box-shadow: 3px 3px 8px #666;
+  -moz-box-shadow: 3px 3px 8px #666;
+  box-shadow: 3px 3px 8px #888; */
+}
+input:checked ~ .colorDiv {
+  transition: 0.5s;
+  background-color: #C89E85;
+}
+@media screen and (max-width: 400px) {
+
+}
 @media screen and (max-width: 675px) {
     
 }
@@ -31,7 +57,19 @@ img {
     .room-image {
     border-radius: .4em .4em 0 0 ;
     }
+
+    .appear-768{
+      display: none;
+    }
+    .disappear-768{
+      display: contents;      
+    }
+    #container{
+      width: 100%;
+    }
+
 }
+
 /* 
 @media (min-width: 576px) {
     .container-sm, .container {

@@ -7,6 +7,8 @@
     "homepage":"Welcome, here you can immediately rent meeting and conference rooms, including technology and catering with a complete overview of costs.",
     "you_can_rent":"You can create a reservation for the meeting room by clicking the \"Reserve\" button of the meeting room you like.",
     "search_room":"Search Conference Room.",
+    "search_by_properties":"Search By Service :",
+    "search_by_date":"Search by Date : ",
     "date":"Date",
     "time":"Time",
     "btn_search_room":"Bring Available Rooms",

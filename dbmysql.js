@@ -182,7 +182,36 @@ connPool.getConnection(function(err, con) {
     if (err) throw err;
     //console.log("Result: " + result);
   });
+
+
+  //capacity differs from room to room
+  con.query("CREATE TABLE IF NOT EXISTS seat_plans_room ( \
+    seat_plansID INTEGER, \
+    roomID INTEGER, \
+    capacity_room INTEGER DEFAULT 1, \
+    cost_room INTEGER DEFAULT 0, \
+    cost_room_vat INTEGER DEFAULT 0 \
+    ) ENGINE=InnoDB;", function (err, result) {
+      if (err) throw err;
+      //console.log("Result: " + result);
+  });
+
+  //description is default name before localization
+  //i18name is key for localization  
+  con.query("CREATE TABLE IF NOT EXISTS seat_plans ( \
+    id INTEGER AUTO_INCREMENT PRIMARY KEY, \
+    i18name varchar(20),\
+    description VARCHAR(20), \
+    picture VARCHAR(50), \
+    min_capacity INTEGER DEFAULT 1, \
+    cost INTEGER DEFAULT 0, \
+    cost_vat INTEGER DEFAULT 0 \
+    ) ENGINE=InnoDB;", function (err, result) {
+    if (err) throw err;
+    //console.log("Result: " + result);
+  });
   //type is 1-defaultServices 2-service 3-catering 4-combinedPackages
+  //description is default text before localization
   con.query("CREATE TABLE IF NOT EXISTS roomservice ( \
     id INTEGER AUTO_INCREMENT PRIMARY KEY, \
     name VARCHAR(100) NOT NULL, \

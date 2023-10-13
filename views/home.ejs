@@ -34,7 +34,7 @@
     <div class="row text-center my-2 my-md-5">
         <h5><%= t("you_can_rent") %></h5>
     </div>
-    <div class="row text-center my-2 my-md-5 flex">
+    <div class="row text-center my-2 my-md-5 border-bottom flex">
         <h5>
             <div class="btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" fill="currentColor" class="bi bi-wifi" viewBox="0 0 16 16">
@@ -58,30 +58,83 @@
             <div class="btn">6 oda</div>
         </h5>
     </div>
-    <div class="row">
+    <div class="row mt-5 mt-md-1">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3" style="min-width:240px">
                     <div class="row">
-                        <div class="card mb-3 col-6 col-lg-12">
+                        <div class="card mb-3 col-6 col-lg-12 appear-768" id="search-card">
                             <div class="card-body">
                                 <h5 class="card-title"><%= t("search_room") %></h5>
                                 <p class="card-text"><%= t("date") %></p>
-                                <p class="card-text"><%= t("time") %></p>
-                                <a href="#" class="btn btn-primary bg-gradient"><%= t("btn_search_room") %></a>
-                                <p class="card-text"><%= t("room_properties") %></p>
-                                <p class="card-text"><%= t("select") %></p>
-                                <ul>
-                                    <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
-                                    <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
-                                    <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
-                                    <li><input type="checkbox" name="room_prop" id="room_prop_0"><label for="room_prop_0"><%= t("prop_i") %></p></li>
-                                </ul>
+                                <p class="card-text"><%= t("time") %></p>                                
+                                <span class="card-text"><%= t("search_by_properties") %></span>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col g-2" style="width: 7em;min-width: 7em;">
+                                            <input type="checkbox" style="display:none" name="chkWeekSm1" id="chkWeekSm1" value="ates"> 
+                                            <label  class="colorDiv" for="chkWeekSm1"> ates</label>
+                                            </input>
+                                        </div> 
+                                        <div class="col g-2" style="width: 7em;min-width: 7em;">
+                                            <input type="checkbox" style="display:none" name="chkWeekSm2" id="chkWeekSm2" value="su"> 
+                                            <label  class="colorDiv" for="chkWeekSm2"> su</label>
+                                            </input>
+                                        </div> 
+                                        <div class="col g-2" style="width: 7em;min-width: 7em;">
+                                            <input type="checkbox" style="display:none" name="chkWeekSm3" id="chkWeekSm3" value="tahta"> 
+                                            <label  class="colorDiv" for="chkWeekSm3"> tahta</label>
+                                            </input>
+
+                                        </div> 
+                                        <div class="col g-2" style="width: 7em;min-width: 7em;">
+                                            <input type="checkbox" style="display:none" name="chkWeekSm4" id="chkWeekSm4" value="projection"> 
+                                            <label  class="colorDiv" for="chkWeekSm4"> projection</label>
+                                            </input>
+                                        </div>                                            
+                                    </div>
+
+                                </div>
+                                <a href="#" class="btn btn-primary bg-gradient btn-sm m-2"><%= t("btn_search_room") %></a>
                             </div>
                         </div>
+                        <div class="col disappear-768"><span class="d-block p-2 bg-light text-muted w-100 rounded" style="height: 3em;"><h5><%= t("search_by_date") %></h5></span></div>                        
                         <div id ="container" class="mb-3 col-6 col-lg-12">
                             <div id ="modularCalendar"></div>
-                        </div>                    
+                        </div>
+                        
+                    </div>
+                    <div class="row disappear-768">
+                        <div class="col mb-3">
+                                    
+                                    <span class="d-block p-2 bg-light text-muted w-100 rounded" style="height: 3em;"><h5><%= t("search_by_properties") %></h5></span>
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col g-2" style="max-width: 7em;min-width: 7em;">
+                                                <input type="checkbox" style="display:none" name="chkWeek1" id="chkWeek1" value="ates"> 
+                                                <label  class="colorDiv" for="chkWeek1"> ates</label>
+                                                </input>
+                                            </div> 
+                                            <div class="col g-2" style="max-width: 7em;min-width: 7em;">
+                                                <input type="checkbox" style="display:none" name="chkWeek2" id="chkWeek2" value="su"> 
+                                                <label  class="colorDiv" for="chkWeek2"> su</label>
+                                                </input>
+                                            </div> 
+                                            <div class="col g-2" style="max-width: 7em;min-width: 7em;">
+                                                <input type="checkbox" style="display:none" name="chkWeek3" id="chkWeek3" value="tahta"> 
+                                                <label  class="colorDiv" for="chkWeek3"> tahta</label>
+                                                </input>
+
+                                            </div> 
+                                            <div class="col g-2" style="max-width: 7em;min-width: 7em;">
+                                                <input type="checkbox" style="display:none" name="chkWeek4" id="chkWeek4" value="projection"> 
+                                                <label  class="colorDiv" for="chkWeek4"> projection</label>
+                                                </input>
+                                            </div>                                            
+                                        </div>
+
+                                    </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-9" style="min-width:313px">
@@ -98,9 +151,8 @@
                                             <div class="col-md-6  mb-3 mb-md-0">
                                                 <p class="card-text"><%= t("room.capacity") + element.capacity%></p>
                                                 <p class="card-text"><%= t("room.hourly_price") %>€ <%= element.cost_room %></p>
-                                                <p class="card-text"><%= t("room.person_price") %>€ <%= element.cost_person %></p>
-                                            </div>
-                                            <div class="col-md-6  mb-3 mb-md-0">
+                                                <p class="card-text">
+                                                    
                                                 <div class="row">
                                                     <div class="col" style="height: 100%">
                                                         <div class="card-text">

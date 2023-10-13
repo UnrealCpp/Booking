@@ -1,12 +1,9 @@
 const book = require('express').Router();
 const fetchRooms = require('../src/room');
 var ensureLogIn = require('connect-ensure-login').ensureLoggedIn;
+var locals = require('../config');
 //...
-var locals = {
-  title: 'KORNS Booking',
-  description: 'Page Description',
-  header: 'Page Header'
-};
+
 // Our app.use in the last file forwards a request to our book router.
 // So this route actually handles `/book` because it's the root route when a request to /book is forwarded to our router.
 book.get('/', ensureLogIn("../login"), fetchRooms, function(req, res, next) {

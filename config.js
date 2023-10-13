@@ -26,6 +26,12 @@ var STATUS = {
   "Nicht verfügbar"
 ]};
 
+var locals = {
+  title: 'KORNS Booking',
+  description: 'Page Description',
+  header: 'Page Header'
+};
+
 var calendar = {
   month: {
       tempDesign: 0,
@@ -68,4 +74,4 @@ var calendar = {
     }]
  };
 
-module.exports = {ROLES,calendar};
+module.exports = {ROLES,calendar,...locals};
