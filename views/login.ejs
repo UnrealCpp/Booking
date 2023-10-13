@@ -2,12 +2,11 @@
 <html lang="en">
 	<head>
 
-		<link rel="stylesheet" href="/css/login.css">
+		<link rel="stylesheet" href="/css/login.css?v=<%= locals.version %>">
 	</head>
 	<body>
 		<section class="prompt">
-			<h3>todos</h3>
-			<h1>Sign in</h1>
+			<h1><%= t("auth.signin") %></h1>
 			<% if (hasMessages) { %>
 			<section class="messages">
 				<% messages.forEach(function(message) { %>
@@ -17,20 +16,20 @@
 			<% } %>
 			<form action="/login/password" method="post">
 				<section>
-					<label for="username">Username</label>
+					<label for="username"><%= t("user.name") %></label>
 					<input id="username" name="username" type="text" autocomplete="username" required autofocus>
 				</section>
 				<section>
-					<label for="current-password">Password</label>
+					<label for="current-password"><%= t("user.pass") %></label>
 					<input id="current-password" name="password" type="password" autocomplete="current-password" required>
 				</section>
 				<input type="hidden" name="_csrf" value="<%= csrfToken %>">
-				<button class="btnSign" type="submit">Sign in</button>
+				<button class="btnSign" type="submit"><%= t("auth.signin") %></button>
 			</form>
 			<hr>
 			<a class="button google" href="/login/federated/google">Sign in with Google</a>
 			<hr>
-			<p class="help">Don't have an account? <a href="/signup">Sign up</a></p>
+			<p class="help">Don't have an account? <a href="/signup"><%= t("auth.register") %></a></p>
 		</section>
 	</body>
 </html>

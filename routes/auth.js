@@ -6,7 +6,7 @@ var GoogleStrategy = require('passport-google-oidc');
 //var db = require('../db');
 var conn = require('../dbmysql');
 var ROLES = require('../config');
-//const { locals } = require('../app');
+var locals = require('../config');
 //https://www.passportjs.org/tutorials/google/configure/
 //you registered the app with Google.
 //Then, added the client ID and secret in .env file.
@@ -151,7 +151,7 @@ router.get('/login', function(req, res, next) {
   //   header: 'Page Header',
   //   activeLogin:'active'
   //   };
-  res.render('login');
+  res.render('login',locals);
 });
 
 router.get('/login/federated/google', passport.authenticate('google'));
@@ -221,17 +221,17 @@ router.post('/logout', function(req, res, next) {
  * will be sent to the `POST /signup` route.
  */
 router.get('/signup', function(req, res, next) {
-  var locals={
-    signin: req.t("auth.signin"),
-    you_can_rent: req.t("you_can_rent"),
-    login: req.t("auth.login"),
-    register: req.t("auth.register"),
-    logout: req.t("auth.logout"),
-    homepage : req.t("homepage"),
-    account:req.t("auth.account"),
-    board:req.t("auth.board"),
-    reservations:req.t("auth.reservations")
-  }
+  // var locals={
+  //   signin: req.t("auth.signin"),
+  //   you_can_rent: req.t("you_can_rent"),
+  //   login: req.t("auth.login"),
+  //   register: req.t("auth.register"),
+  //   logout: req.t("auth.logout"),
+  //   homepage : req.t("homepage"),
+  //   account:req.t("auth.account"),
+  //   board:req.t("auth.board"),
+  //   reservations:req.t("auth.reservations")
+  // }
 
   res.render('signup',locals);
 });

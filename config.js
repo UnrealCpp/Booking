@@ -29,7 +29,8 @@ var STATUS = {
 var locals = {
   title: 'KORNS Booking',
   description: 'Page Description',
-  header: 'Page Header'
+  header: 'Page Header',
+  version: '1'
 };
 
 var calendar = {
