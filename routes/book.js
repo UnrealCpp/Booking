@@ -1,12 +1,12 @@
 const book = require('express').Router();
-const fetchRooms = require('../src/room');
+const room = require('../middleware/room');
 var ensureLogIn = require('connect-ensure-login').ensureLoggedIn;
 var locals = require('../config');
 //...
 
 // Our app.use in the last file forwards a request to our book router.
 // So this route actually handles `/book` because it's the root route when a request to /book is forwarded to our router.
-book.get('/', ensureLogIn("../login"), fetchRooms, function(req, res, next) {
+book.get('/', ensureLogIn("../login"), room.fetchRooms, function(req, res, next) {
   // res.send() our response here  
   let room = res.locals.rooms.filter((elem)=> elem.id==1);
   user_logged(req);
@@ -15,7 +15,7 @@ book.get('/', ensureLogIn("../login"), fetchRooms, function(req, res, next) {
 
 
 // A route to booking
-book.get('/:id',ensureLogIn("../login"), fetchRooms, function(req, res, next) {
+book.get('/:id',ensureLogIn("../login"), room.fetchRooms, function(req, res, next) {
   let param = req.params.id;
   let room = res.locals.rooms.filter((elem)=> elem.id==param);
   user_logged(req);

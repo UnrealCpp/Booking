@@ -1,5 +1,4 @@
 const room = require('express').Router();
-const fetchRooms = require('../src/room');
 //...
 
 // Our app.use in the last file forwards a request to our room router.
