@@ -20,7 +20,7 @@ function user_logged(req){
 
 var router = express.Router();
 /* GET home page. */
-router.get('/', room.getRoomSrvc, room.getSrvcRooms, room.fetchRooms, function(req, res, next) {  
+router.get('/', room.getRoomSrvc,  room.fetchRooms, function(req, res, next) {  
   //req.i18n.changeLanguage(lang);
   if(!fs.existsSync("./.env"))
     return res.render('setup', { randombytes: crypto.randomBytes(16).toString('hex') });
@@ -31,14 +31,14 @@ router.get('/', room.getRoomSrvc, room.getSrvcRooms, room.fetchRooms, function(r
   if (!req.user) { 
     locals.activeLogo = "active";
     user_logged(req);
-    res.render('home',{locals, srvc:res.locals.mySrv, myRooms:res.locals.myRooms}); 
+    res.render('home',{locals}); 
     locals.activeLogo = "";
     return;
   }
   next();
 }, function(req, res, next) {
   user_logged(req);
-  return res.render('home', { locals,user: req.user, srvc:res.locals.mySrv, myRooms:res.locals.myRooms, layout:'./layouts/layout_logged'});
+  return res.render('home', { locals,user: req.user, layout:'./layouts/layout_logged'});
 });
 router.get('/dashboard', function(req, res, next) {  
   user_logged(req);

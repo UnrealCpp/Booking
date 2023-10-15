@@ -132,7 +132,7 @@ connPool.getConnection(function(err, con) {
         (3, 'Sebald (2c)', 'fghfghfgh', 1, 'sebald2c.png', 60, 55, 66, 7878, 0, 30),\
         (4, 'Kleiner Liebling (1)', 'This room is 198 m² and there is a vintage bar just outside the door. It is good for presentations, meetings, celebration etc... ', 2, 'liebling1.png', 198, 500, 7, 55, 7, 30),\
         (5, 'Lorenz (2b)', 'fghfghfgh', 1, 'lorenz2b.png', 75, 55, 66, 7878, 0, 30),\
-        (6, 'Dürer (2a)', 'Small Room', 1, 'sebald2c.png', 25, 159.66, 7, 10, 7, 15)", function (err, result) {
+        (6, 'Dürer (2a)', 'Small Room', 1, 'durer.jpg', 25, 159.66, 7, 10, 7, 15)", function (err, result) {
           if (err) throw err;
           console.log(result.affectedRows + " Rows inserted to room table.");
         });

@@ -91,7 +91,18 @@ var conn = mysql.createPool({
         roomID,
         services
       }));
+    
+      const uniqueSrvc = [...new Set(rows.map(item => item.short_name))];
   
+      const serviceGroups = uniqueSrvc.map(shortName => {
+        const group = rows.filter(frow => frow.short_name === shortName);
+        return {
+          short: shortName,
+          rooms: group.map(mrow => (mrow.roomID)),
+        };
+      });
+      console.log(serviceGroups)
+      res.locals.mySrv = serviceGroups;
       // Now, 'result' contains the desired grouping
       console.log(result);
   
