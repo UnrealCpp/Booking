@@ -21,7 +21,14 @@
         "hourly_price":"Cost per Hour: ",
         "person_price":"Cost per Person: ",
         "btn_reserve":"Reserve",
-        "property_name":"dbProperty1"
+        "property_name":"dbProperty1",
+        "seminar":"Seminar",
+        "block":"Blocktafel",
+        "u_form":"U-Form",
+        "parl":"Parlament",
+        "chairs":"Stuhlreihen",
+        "bank":"Bankett",
+        "circle":"Stuhlkreis"
     },
     "select":"Select.",
     "prop_i":"Projection",

@@ -21,7 +21,14 @@
         "hourly_price":"Saatlik Kiralama Fiyatı: ",
         "person_price":"Kişi Başı Fiyat: ",
         "btn_reserve":"Rezervasyon Yap",
-        "property_name":"dbProperty1"
+        "property_name":"dbProperty1",
+        "seminar":"Seminer",
+        "block":"Blok",
+        "u_form":"U-Şekli",
+        "parl":"Parlament",
+        "chairs":"Sıralı",
+        "bank":"Ziyafet",
+        "circle":"Daire"
     },
     "select":"Seç",
     "prop_i":"Projeksiyon",

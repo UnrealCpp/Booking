@@ -7,7 +7,7 @@ var crypto = require('crypto');
 const {ROLES,calendar} = require('../config');
 var locals = require('../config');
 const checkIsInRole= require('../middleware/handle');
-const fetchRooms = require('../src/room');
+var fetchRooms = require('../src/room');
 // connect-ensure-login integrates seamlessly with Passport.
 
 // var locals = {
@@ -51,9 +51,35 @@ function fetchTodos(req, res, next) {
   console.timeEnd("mysql Select todos time: ");
 }
 
+function serviceByRoom(req, res, next) {
+    conn.query('SELECT * FROM roomservice_room JOIN roomservice ON roomserviceID=roomservice.id ',function(err, rows) {
+      if (err) { return next(err); }
+  
+      var srv_src = rows.map(function(row) {
+        return {
+          room_id: row.roomID,
+          service_id: row.roomserviceID,
+          tkey: row.i18name,
+          short: row.short_name,
+          name: row.name,
+          desc: row.description,
+          type: row.type,
+          img: row.picture,
+          cost: row.cost,
+          vat: row.cost_vat,
+          sort: row.sort,
+          group: row.groupID
+        }
+      });
+  
+      res.locals.mySrv = [...new Set(srv_src.map(item => item.short))];
+      next();
+    });
+  
+}
 var router = express.Router();
 /* GET home page. */
-router.get('/', fetchRooms, function(req, res, next) {
+router.get('/', fetchRooms, serviceByRoom, function(req, res, next) {  
   //req.i18n.changeLanguage(lang);
   if(!fs.existsSync("./.env"))
     return res.render('setup', { randombytes: crypto.randomBytes(16).toString('hex') });
@@ -64,7 +90,8 @@ router.get('/', fetchRooms, function(req, res, next) {
   if (!req.user) { 
     locals.activeLogo = "active";
     user_logged(req);
-    res.render('home',locals); 
+    
+    res.render('home',{locals,srvc:res.locals.mySrv}); 
     locals.activeLogo = "";
     return;
   }

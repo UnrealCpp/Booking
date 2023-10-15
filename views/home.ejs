@@ -1,4 +1,4 @@
-<script type="module" crossorigin src="/calendar/main.js"></script>
+<script type="module" crossorigin src="/calendar/main.js?v=<%= locals.version %>"></script>
 <script type="module">
     // Import the redrawCalendar function from the main.js module
     import { redraw } from '/calendar/main.js';
@@ -71,29 +71,14 @@
                                 <span class="card-text"><%= t("search_by_properties") %></span>
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div class="col g-2" style="width: 7em;min-width: 7em;">
-                                            <input type="checkbox" style="display:none" name="chkWeekSm1" id="chkWeekSm1" value="ates"> 
-                                            <label  class="colorDiv" for="chkWeekSm1"> ates</label>
-                                            </input>
-                                        </div> 
-                                        <div class="col g-2" style="width: 7em;min-width: 7em;">
-                                            <input type="checkbox" style="display:none" name="chkWeekSm2" id="chkWeekSm2" value="su"> 
-                                            <label  class="colorDiv" for="chkWeekSm2"> su</label>
-                                            </input>
-                                        </div> 
-                                        <div class="col g-2" style="width: 7em;min-width: 7em;">
-                                            <input type="checkbox" style="display:none" name="chkWeekSm3" id="chkWeekSm3" value="tahta"> 
-                                            <label  class="colorDiv" for="chkWeekSm3"> tahta</label>
-                                            </input>
-
-                                        </div> 
-                                        <div class="col g-2" style="width: 7em;min-width: 7em;">
-                                            <input type="checkbox" style="display:none" name="chkWeekSm4" id="chkWeekSm4" value="projection"> 
-                                            <label  class="colorDiv" for="chkWeekSm4"> projection</label>
-                                            </input>
-                                        </div>                                            
+                                        <% srvc.forEach((element,k) => { %>
+                                            <div class="col g-2" style="width: 7em;min-width: 7em;">
+                                                <input type="checkbox" style="display:none" name="chkWeekSm<%= k %>" id="chkWeekSm<%= k %>" value="ates"> 
+                                                <label  class="colorDiv" for="chkWeekSm<%= k %>"><%= element %></label>
+                                                </input>
+                                            </div> 
+                                        <% }) %>
                                     </div>
-
                                 </div>
                                 <a href="#" class="btn btn-primary bg-gradient btn-sm m-2"><%= t("btn_search_room") %></a>
                             </div>
@@ -110,27 +95,13 @@
                                     <span class="d-block p-2 bg-light text-muted w-100 rounded" style="height: 3em;"><h5><%= t("search_by_properties") %></h5></span>
                                     <div class="container-fluid">
                                         <div class="row">
-                                            <div class="col g-2" style="max-width: 7em;min-width: 7em;">
-                                                <input type="checkbox" style="display:none" name="chkWeek1" id="chkWeek1" value="ates"> 
-                                                <label  class="colorDiv" for="chkWeek1"> ates</label>
-                                                </input>
-                                            </div> 
-                                            <div class="col g-2" style="max-width: 7em;min-width: 7em;">
-                                                <input type="checkbox" style="display:none" name="chkWeek2" id="chkWeek2" value="su"> 
-                                                <label  class="colorDiv" for="chkWeek2"> su</label>
-                                                </input>
-                                            </div> 
-                                            <div class="col g-2" style="max-width: 7em;min-width: 7em;">
-                                                <input type="checkbox" style="display:none" name="chkWeek3" id="chkWeek3" value="tahta"> 
-                                                <label  class="colorDiv" for="chkWeek3"> tahta</label>
-                                                </input>
-
-                                            </div> 
-                                            <div class="col g-2" style="max-width: 7em;min-width: 7em;">
-                                                <input type="checkbox" style="display:none" name="chkWeek4" id="chkWeek4" value="projection"> 
-                                                <label  class="colorDiv" for="chkWeek4"> projection</label>
-                                                </input>
-                                            </div>                                            
+                                            <% srvc.forEach((element,k) => { %>
+                                                <div class="col g-2" style="width: 7em;min-width: 7em;">
+                                                    <input type="checkbox" style="display:none" name="chkWeek<%= k %>" id="chkWeek<%= k %>" value="ates"> 
+                                                    <label  class="colorDiv" for="chkWeek<%= k %>"><%= element %></label>
+                                                    </input>
+                                                </div> 
+                                            <% }) %>
                                         </div>
 
                                     </div>
@@ -142,7 +113,7 @@
                         <div class="card mb-3"  onclick="getEvents('<%= element.id %>',this)" id="card<%= element.id %>"> <!-- style="max-width: 540px;" -->
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img src="/img/<%= element.img %>.png" class="img-fluid room-image" alt="...">
+                                    <img src="/img/<%= element.img %>" class="img-fluid room-image" alt="...">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">

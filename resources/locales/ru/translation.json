@@ -21,7 +21,14 @@
         "hourly_price":"Почасовая стоимость аренды:",
         "person_price":"Почасовая стоимость аренды:",
         "btn_reserve":"Pезерв",
-        "property_name":"dbСвойство1"
+        "property_name":"dbСвойство1",
+        "seminar":"Seminar",
+        "block":"Blocktafel",
+        "u_form":"U-Form",
+        "parl":"Parlament",
+        "chairs":"Stuhlreihen",
+        "bank":"Bankett",
+        "circle":"Stuhlkreis"
     },
     "select":"Выбирать.",
     "prop_i":"Проекция",

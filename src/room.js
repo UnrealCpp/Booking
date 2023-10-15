@@ -8,13 +8,38 @@ var conn = mysql.createPool({
   password: process.env.MYSQL_PASS,
   database: process.env.MYSQL_DB_NAME
 });
+ 
 
-//changed createConnection to createPool. Now node server doesn't crash when mysql connection is lost (like restart db).  
+function serviceByRoom(req, res, next) {
+  conn.query('SELECT * FROM roomservice_room JOIN roomservice ON roomserviceID=roomservice.id ',function(err, rows) {
+    if (err) { return next(err); }
 
+    var srv_src = rows.map(function(row) {
+      return {
+        room_id: row.roomID,
+        service_id: row.roomserviceID,
+        tkey: row.i18name,
+        short: row.short_name,
+        name: row.name,
+        desc: row.description,
+        type: row.type,
+        img: row.picture,
+        cost: row.cost,
+        vat: row.cost_vat,
+        sort: row.sort,
+        group: row.groupID
+      }
+    });
+
+    res.locals.mySrv = [...new Set(srv_src.map(item => item.short))];
+    next();
+  });
+
+}
 function fetchRooms(req, res, next) {
     console.time("Select rooms time: ");
     conn.query('SELECT * FROM room',
-    function(err, rows) {
+    async function(err, rows) {
       if (err) { return next(err); }
       
       var rooms = rows.map(function(row) {
