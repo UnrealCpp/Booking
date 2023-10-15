@@ -270,26 +270,26 @@ connPool.getConnection(function(err, con) {
     ) ENGINE=InnoDB;", function (err, result) {
     if (err) throw err;
     if(!result.warningCount){
-      con.query("INSERT INTO `roomservice` (`i18name`, `name`, `description`, `type`, `picture`, `cost`, `sort`, `groupID`, `active`) VALUES\
-      ('rs.platform', 'Elevated Platform Stage', '50 cm height 7 meter width elevated stage for presentations and speeches', 1, NULL, '150.00', 0, 0, 1),\
-      ('rs.stagelights', 'Stage & Studio Lighting', NULL, 1, NULL, '75.00', 1, 0, 1),\
-      ('rs.projector','Projector', 'Height 20-120cm, 2m x 1m', 1, '', 42.20, 2, 0, 1),\
-      ('rs.flipchart','Flip chart with paper', 'Visualize your processes on our flip chart. Metal stand with a large pad that can be written on with markers.', 2, '', 10.00, 3, 0, 1),\
-      ('rs.metaplan','Metaplan wall / pin board covered with paper', '', 2, '', 10, 4, 0, 1),\
-      ('rs.prcase','Presenters case', 'Lockable, robust presentation case with carrying handle and carrying strap for a clear and orderly arrangement of items filled with scissors, glue sticks, masking tape, pincushions, cutter knives, flipchart pens, jumbo markers, marking pins, marking dots and various presentation cards.', 2, '', 30, 5, 0, 1),\
-      ('rs.staff','Staff surcharge per hour', '(e.g. buffet, champagne reception with service)', 2, '', 24.73, 6, 0, 1),\
-      ('rs.lectern','Lectern', '', 2, '', 25.21, 7, 0, 1),\
-      ('rs.4kled','Smart 4k LED TV - 65 inches', 'Flat screen LED TV with 65 inch and 4k Ulta HD For presentations, watching videos, video conferences, monitor, TV via DVBT2, etc... in any lighting condition! Internet capable | PurColor | HDR (High Dynamic Range) | Smart Remote | Autodetection ( automatic recognition of devices) rollable TV stand - height adjustable and with two shelves (e.g.: laptop and camera)', 1, '', 50.42, 8, 0, 1),\
-      ('rs.penpad','Pen and writing pad', 'Ballpoint pen and writing pad', 2, '', 2.94, 9, 0, 1),\
-      ('rs.tvadjustable','TV with electronic position adjustment (vertical and horizontal)', 'The screen can be tilted horizontally so that you can work on it like you would at a table.', 2, '', 90.0, 10, 0, 1),\
-      ('rs.seating','Rearrangement of seating', '', 2, '', 75.0, 11, 0, 1),\
-      ('rs.wireless','Wireless Internet access', '50 mbit', 2, '', 21, 12, 0, 1),\
-      ('rs.whiteboard','Whiteboard with board markers and magnets', '', 2, '', 10.00, 13, 0, 1),\
-      ('rs.alldaydrinks','Drinks flat rate all day', 'Per person/individually or combine with packages. <br>Drink as much as you want of non-alcoholic soft drinks, coffee and mineral water 0.5l.', 3, '', 15.55, 14, 1, 1),\
-      ('rs.halfdaydrinks','Drinks flat rate half day', 'Per person/individually or combine with packages. <br>Drink as much as you want of non-alcoholic soft drinks, coffee and mineral water 0.5l.', 3, '', 10.50, 15, 1, 1),\
-      ('rs.coffeebreak','No. 3 coffee break', 'Per person, with a minimum number depending on the room. <br>3. (Sweet) coffee break : pastries & pastries - 1x hot drink for free', 3, '', 7.29, 16, 1, 1),\
-      ('rs.','name', 'desc', 3, '', 10.00, 17, 1, 1),\
-      ('rs.cake','Cake / cake according to customer requirements at daily price', '', 3, '', 0.00, 100, 15, 1)", function (err, result) {
+      con.query("INSERT INTO `roomservice` (`id`, `i18name`, `short_name`, `name`, `description`, `type`, `picture`, `cost`, `cost_vat`, `sort`, `groupID`, `active`) VALUES\
+      (1, 'rs.platform', 'Stage', 'Elevated Platform Stage', '50 cm height 7 meter width elevated stage for presentations and speeches', 1, NULL, '150.00', 7, 0, 0, 1),\
+      (2, 'rs.stagelights', 'Lighting', 'Stage & Studio Lighting', NULL, 1, NULL, '75.00', 7, 1, 0, 1),\
+      (3, 'rs.projector', 'Projection', 'Projector', 'Height 20-120cm, 2m x 1m', 1, '', '42.20', 7, 2, 0, 1),\
+      (4, 'rs.flipchart', NULL, 'Flip chart with paper', 'Visualize your processes on our flip chart. Metal stand with a large pad that can be written on with markers.', 2, '', '10.00', 7, 3, 0, 1),\
+      (5, 'rs.metaplan', NULL, 'Metaplan wall / pin board covered with paper', '', 2, '', '10.00', 7, 4, 0, 1),\
+      (6, 'rs.prcase', NULL, 'Presenters case', 'Lockable, robust presentation case with carrying handle and carrying strap for a clear and orderly arrangement of items filled with scissors, glue sticks, masking tape, pincushions, cutter knives, flipchart pens, jumbo markers, marking pins, marking dots and various presentation cards.', 2, '', '30.00', 7, 5, 0, 1),\
+      (7, 'rs.staff', NULL, 'Staff surcharge per hour', '(e.g. buffet, champagne reception with service)', 2, '', '24.73', 7, 6, 0, 1),\
+      (8, 'rs.lectern', NULL, 'Lectern', '', 2, '', '25.21', 7, 7, 0, 1),\
+      (9, 'rs.4kled', '65 inch TV', 'Smart 4k LED TV - 65 inches', 'Flat screen LED TV with 65 inch and 4k Ulta HD For presentations, watching videos, video conferences, monitor, TV via DVBT2, etc... in any lighting condition! Internet capable | PurColor | HDR (High Dynamic Range) | Smart Remote | Autodetection ( automatic recognition of devices) rollable TV stand - height adjustable and with two shelves (e.g.: laptop and camera)', 1, '', '50.42', 7, 8, 0, 1),\
+      (10, 'rs.penpad', NULL, 'Pen and writing pad', 'Ballpoint pen and writing pad', 2, '', '2.94', 7, 9, 0, 1),\
+      (11, 'rs.tvadjustable', NULL, 'TV with electronic position adjustment (vertical and horizontal)', 'The screen can be tilted horizontally so that you can work on it like you would at a table.', 2, '', '90.00', 7, 10, 0, 1),\
+      (12, 'rs.seating', NULL, 'Rearrangement of seating', '', 2, '', '75.00', 7, 11, 0, 1),\
+      (13, 'rs.wireless', NULL, 'Wireless Internet access', '50 mbit', 2, '', '21.00', 7, 12, 0, 1),\
+      (14, 'rs.whiteboard', NULL, 'Whiteboard with board markers and magnets', '', 2, '', '10.00', 7, 13, 0, 1),\
+      (15, 'rs.alldaydrinks', NULL, 'Drinks flat rate all day', 'Per person/individually or combine with packages. <br>Drink as much as you want of non-alcoholic soft drinks, coffee and mineral water 0.5l.', 3, '', '15.55', 7, 14, 1, 1),\
+      (16, 'rs.halfdaydrinks', NULL, 'Drinks flat rate half day', 'Per person/individually or combine with packages. <br>Drink as much as you want of non-alcoholic soft drinks, coffee and mineral water 0.5l.', 3, '', '10.50', 7, 15, 1, 1),\
+      (17, 'rs.coffeebreak', NULL, 'No. 3 coffee break', 'Per person, with a minimum number depending on the room. <br>3. (Sweet) coffee break : pastries & pastries - 1x hot drink for free', 3, '', '7.29', 7, 16, 1, 1),\
+      (18, 'rs.', NULL, 'name', 'desc', 3, '', '10.00', 7, 17, 1, 1),\
+      (19, 'rs.cake', NULL, 'Cake / cake according to customer requirements at daily price', '', 3, '', '0.00', 7, 100, 15, 1);", function (err, result) {
         if (err) throw err;
         console.log(result.affectedRows + " Rows inserted to roomservice table.");
       });
@@ -334,7 +334,13 @@ connPool.getConnection(function(err, con) {
     roomID INTEGER \
     ) ENGINE=InnoDB;", function (err, result) {
     if (err) throw err;
-    //console.log("Result: " + result);
+    if(!result.warningCount){
+      con.query("INSERT INTO `roomservice_room` (`roomserviceID`, `roomID`) VALUES\
+      (1, 1),(1, 2),(2, 1),(3, 1),(3, 2),(3, 3),(9, 1),(9, 2);", function (err, result) {
+        if (err) throw err;
+        console.log(result.affectedRows + " Rows inserted to roomservice_room table.");
+      });
+    }   
   });
   con.query("CREATE TABLE IF NOT EXISTS roomservice_order ( \
     roomserviceID INTEGER, \
