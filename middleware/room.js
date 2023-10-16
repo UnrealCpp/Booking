@@ -91,7 +91,7 @@ var conn = mysql.createPool({
         roomID,
         services
       }));
-    
+      ///---------------////
       const uniqueSrvc = [...new Set(rows.map(item => item.short_name))];
   
       const serviceGroups = uniqueSrvc.map(shortName => {

@@ -30,7 +30,7 @@ var locals = {
   title: 'KORNS Booking',
   description: 'Page Description',
   header: 'Page Header',
-  version: '1'
+  version: '1.2'
 };
 
 var calendar = {

@@ -4,6 +4,7 @@
     import { redraw } from '/calendar/main.js';
     window.onclickRedraw= onclickRedraw;
     window.getEvents= getEvents;
+    window.filterSrvc= filterSrvc;
     // Example: Call the redrawCalendar function when needed
     // For example, you can call it when a button is clicked
     // const button = document.getElementById("btnRedraw"); // Replace with your actual button element
@@ -11,6 +12,7 @@
     //     redraw();
     // });
     var clickedCard = 0;
+    var displayCards = new Map();
     function onclickRedraw(y=null,m=null){
          redraw(y,m);
          
@@ -23,6 +25,31 @@
         clickedCard=roomid;
         //div.style.backgroundColor = '#f5edeabb';
         div.classList.add("selected-card");
+    }
+    function filterSrvc(list=null,_div){
+        let _list = list.split(",");
+        const shTags = document.getElementsByClassName("short-tags");
+        
+        const collection = document.getElementsByClassName("room-info");
+
+        if(_div.children[0].checked)
+            displayCards.set(_div.children[0].id,_list);
+        else
+            displayCards.delete(_div.children[0].id);
+        for (let i = 0; i < collection.length; i++) {
+            if(displayCards.size>0)
+                collection[i].classList.add("d-none");
+            else
+                collection[i].classList.remove("d-none");
+        }
+        for (const [key, value] of displayCards) {
+
+            console.log(`${key} = ${value}`);
+            value.forEach(room_id => {
+                console.log("card"+room_id);
+                document.getElementById("card"+room_id).classList.remove("d-none");
+            });                
+        }
     }
   </script>
 <link rel="stylesheet" href="/css/home.css?v=<%= locals.version %>">
@@ -72,7 +99,7 @@
                                 <div class="container-fluid">
                                     <div class="row">
                                         <% mySrv.forEach((element,k) => { %>
-                                            <div class="col g-2" style="width: 7em;min-width: 7em;">
+                                                <div class="col g-2 short-tags" style="width: 7em;min-width: 7em;" onclick="filterSrvc('<%= element.rooms %>',this)">
                                                 <input type="checkbox" style="display:none" name="chkWeekSm<%= k %>" id="chkWeekSm<%= k %>" value="<%= k %>"> 
                                                 <label  class="colorDiv" for="chkWeekSm<%= k %>"><%= element.short %> <%= //element.rooms[0] %></label>
                                                 </input>
@@ -110,7 +137,7 @@
                 </div>
                 <div class="col-lg-9" style="min-width:313px">
                     <% rooms.forEach(element => { %> 
-                        <div class="card mb-3"  onclick="getEvents('<%= element.id %>',this)" id="card<%= element.id %>"> <!-- style="max-width: 540px;" -->
+                        <div class="card mb-3 room-info"  onclick="getEvents('<%= element.id %>',this)" id="card<%= element.id %>"> <!-- style="max-width: 540px;" -->
                             <div class="row g-0">
                                 <div class="col-md-4">
                                     <img src="/img/<%= element.img %>" class="img-fluid room-image" alt="...">
@@ -118,24 +145,24 @@
                                 <div class="col-md-8">
                                     <div class="card-body">
                                         <h5 class="card-title"><%= t("room.name"+element.type) + element.name %></h5>
-                                        <div class="room-cont row">
-                                            <div class="col-md-6  mb-3 mb-md-0">
+                                        <div class="room-cont row mb-1">
+                                            <div class="col-md-6 mb-3 mb-md-0 brdr-rght">
                                                 <p class="card-text"><%= t("room.capacity") + element.capacity%></p>
                                                 <p class="card-text"><%= t("room.hourly_price") %>€ <%= element.cost_room %></p>
-                                                <p class="card-text">
                                                     
-                                                <div class="row">
-                                                    <div class="col" style="height: 100%">
-                                                        <div class="card-text">
-                                                            <% myRooms.forEach(row => {
-                                                                if (row.roomID === element.id) {
-                                                                    row.services.forEach(srv => { %>  <small class="text-muted m-2"><%= srv %></small>      <% });
-                                                                }
-                                                            }) %>                                                        
-                                                        </div>
-                                                    </div>                                                        
-                                                </div>
-
+                                            </div>                                                
+                                            <div class="col" >
+                                                
+                                                <% myRooms.forEach(row => {
+                                                    if (row.roomID === element.id) {
+                                                        row.services.forEach(srv => { %>  
+                                                            <div class="card-text" style="max-width: 10em;">
+                                                                <small class="text-muted m-1"><img src="/icon/bi-check2-square.svg" /> <%= srv %></small>
+                                                            </div>     
+                                                        <% });
+                                                    }
+                                                }) %>   
+                                                
                                             </div>
                                         </div>                                        
                                         <a href="/book/<%= element.id %>" class="btn btn-primary bg-gradient d-block"><%= t("room.btn_reserve") %></a>

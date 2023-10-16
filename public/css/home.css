@@ -13,6 +13,10 @@ img {
 .room-props,.room-services{
         min-width: 250px;
     }
+.brdr-rght{
+  border: solid var(--bs-card-border-color);
+  border-width: 0 1px 0 0 ;
+}
 .selected-card{
   background: #fff9f6;
 }
@@ -23,10 +27,8 @@ img {
   text-align: center;
   color: rgb(15, 15, 15);
   width: 100%;
-  height: 2em;
   padding-top: 0.4em;
-  font-size: medium;
-  font-weight: 600;
+  font-weight: 400;
   border-radius: 8px;
   background-color: #d4d4d4;
   transition: 0.5s;
@@ -57,7 +59,9 @@ input:checked ~ .colorDiv {
     .room-image {
     border-radius: .4em .4em 0 0 ;
     }
-
+    .brdr-rght{ 
+      border-width: 0 0 0 0 ;
+    }
     .appear-768{
       display: none;
     }
