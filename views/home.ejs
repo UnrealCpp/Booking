@@ -28,14 +28,16 @@
     }
     function filterSrvc(list=null,_div){
         let _list = list.split(",");
-        const shTags = document.getElementsByClassName("short-tags");
-        
+        //const shTags = document.getElementsByClassName("short-tags");
+        let thisChecked = _div.children[0].checked;
+        document.getElementById("chkWeekSm"+_div.children[0].value).checked = thisChecked;
+        document.getElementById("chkWeek"+_div.children[0].value).checked = thisChecked;
         const collection = document.getElementsByClassName("room-info");
 
         if(_div.children[0].checked)
-            displayCards.set(_div.children[0].id,_list);
+            displayCards.set("tag"+_div.children[0].value,_list);
         else
-            displayCards.delete(_div.children[0].id);
+            displayCards.delete("tag"+_div.children[0].value);
         for (let i = 0; i < collection.length; i++) {
             if(displayCards.size>0)
                 collection[i].classList.add("d-none");
@@ -123,8 +125,8 @@
                                     <div class="container-fluid">
                                         <div class="row">
                                             <% mySrv.forEach((element,k) => { %>
-                                                <div class="col g-2" style="width: 7em;min-width: 7em;">
-                                                    <input type="checkbox" style="display:none" name="chkWeek<%= k %>" id="chkWeek<%= k %>" value="ates"> 
+                                                <div class="col g-2" style="width: 7em;min-width: 7em;" onclick="filterSrvc('<%= element.rooms %>',this)">
+                                                    <input type="checkbox" style="display:none" name="chkWeek<%= k %>" id="chkWeek<%= k %>" value="<%= k %>"> 
                                                     <label  class="colorDiv" for="chkWeek<%= k %>"><%= element.short %></label>
                                                     </input>
                                                 </div> 
