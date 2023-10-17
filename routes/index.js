@@ -88,22 +88,27 @@ router.get('/calendarconf/:year/:month', function(req, res, next) {
   console.log(cal);
   res.json(cal);
 });
-
-router.post('/', ensureLogIn, function(req, res, next) {
-  req.body.title = req.body.title.trim();
-  next();
-}, function(req, res, next) {
-  if (req.body.title !== '') { return next(); }
-  return res.redirect('/' + (req.body.filter || ''));
-}, function(req, res, next) {
-  conn.query('INSERT INTO todos (owner_id, title, completed) VALUES (?, ?, ?)', [
-    req.user.id,
-    req.body.title,
-    req.body.completed == true ? 1 : null
-  ], function(err) {
-    if (err) { return next(err); }
-    return res.redirect('/' + (req.body.filter || ''));
-  });
-});
+// router.post('/book',ensureLogIn("../login"), room.postReservation, function(req, res, next) {
+//   //INSERT INTO `room_reservation`(`roomID`, `date`, `time_from`, `time_to`) VALUES (4,"2023-11-11","80000","120000");
+//   let myId = req.body.rezervasyon_tarihi;
+//   console.log(myId);
+//   return res.redirect('/book');
+// });
+// router.post('/', ensureLogIn, function(req, res, next) {
+//   req.body.title = req.body.title.trim();
+//   next();
+// }, function(req, res, next) {
+//   if (req.body.title !== '') { return next(); }
+//   return res.redirect('/' + (req.body.filter || ''));
+// }, function(req, res, next) {
+//   conn.query('INSERT INTO todos (owner_id, title, completed) VALUES (?, ?, ?)', [
+//     req.user.id,
+//     req.body.title,
+//     req.body.completed == true ? 1 : null
+//   ], function(err) {
+//     if (err) { return next(err); }
+//     return res.redirect('/' + (req.body.filter || ''));
+//   });
+// });
 
 module.exports = {router,locals};

@@ -1,0 +1,68 @@
+
+
+<h1>List Of Reservations</h1>
+<a href="/" class="btn btn-primary">Back</a>
+<div class="container-fluid">        
+    <div class="row">
+        <div class="col">
+            ROOMID
+        </div>
+        <div class="col">
+            ENTRY DATE
+        </div>
+        <div class="col">
+            START
+        </div>
+        <div class="col">
+            END
+        </div>
+    </div>
+    <% list._list.forEach(element => { %>
+        <div class="row">
+            <div class="col">
+                <%= element.id %>
+            </div>
+            <div class="col">
+                <%= element.date.toISOString().slice(0,10) %>
+            </div>
+            <div class="col">
+                <%= element.start %>
+            </div>
+            <div class="col">
+                <%= element.end %>
+            </div>
+        </div>
+    <% }) %>
+</div><br>
+<div class="container-fluid">        
+    <div class="row">
+        <div class="col">
+            ROOMID
+        </div>
+        <div class="col">
+            ALL DATES
+        </div>
+        <div class="col">
+            START
+        </div>
+        <div class="col">
+            END
+        </div>
+    </div>
+    <% list._listAll.forEach(element => { %>
+        <div class="row">
+            <div class="col">
+                <%= element.id %>
+            </div>
+            <div class="col">
+                <%= element.date.toISOString().slice(0,10) %>
+            </div>
+            <div class="col">
+                <%= element.start %>
+            </div>
+            <div class="col">
+                <%= element.end %>
+            </div>
+        </div>
+    <% }) %>
+</div>

@@ -52,7 +52,8 @@
     "passport-google-oidc": "^0.1.0",
     "passport-local": "^1.0.0",
     "pluralize": "^8.0.0",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.0.2",
+    "validator": "^13.11.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

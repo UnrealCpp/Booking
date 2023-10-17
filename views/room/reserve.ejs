@@ -1,8 +1,42 @@
 <link rel="stylesheet" href="/css/reserve.css?v=<%= locals.version %>">
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <form action="/book/" method="post">
+<script type="text/javascript" src="https://unpkg.com/validator@latest/validator.min.js"></script>
+<script type="module">
+    document.addEventListener("DOMContentLoaded", function() {
+        var elements = document.getElementsByTagName("INPUT");
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].oninvalid = function(e) {
+                e.target.setCustomValidity("");
+                if (!e.target.validity.valid) {
+                    e.target.setCustomValidity("<%= t('error.blank') %>");
+                }
+            };
+            elements[i].oninput = function(e) {
+                e.target.setCustomValidity("");
+            };
+        }
+    })
+    validator.isEmail('foo@bar.com'); //=> true
+</script>
+<!-- 
+id: row.id,
+name: row.name,
+text: row.description,
+type: row.type,
+img: row.picture,
+capacity: row.person_capacity,
+cost_room: row.cost_room,
+//discount_room,surcharge_room,
+vat: row.cost_room_vat,
+cost_person: row.cost_person,
+person_vat: row.cost_person_vat,
+prep: row.prep_minute,
+active: row.active -->
+<form action="/book/" method="post">
+    <input type="hidden" name="room_id" value="<%= room.id %>">
+    <input type="hidden" name="cost" value="<%= room.id %>">
+    <div class="container">
+        <div class="row">
+            <div class="col">                
                 <div class="card mb-3" id="card<%= bookId %>"> <!-- style="max-width: 540px;" -->
                     <div class="row g-0">
                         <div class="col-lg-4">
@@ -13,81 +47,69 @@
                                 <h5 class="card-title"><%= t("room.name"+room.type) + room.name %></h5>
                                 <div class="room-cont row">
                                     <div class="col-lg-6  mb-3 mb-lg-0">
-                                        <input type="text" name="rezervasyon_tarihi" id="rezervasyon_tarihi" autocomplete="off" placeholder="Rezervasyon Tarihi" required="" class="hasDatepicker">
+                                        <input type="date" name="res_date" id="res_date" autocomplete="off" placeholder="Rezervasyon Tarihi" class="hasDatepicker" value="2023-10-17" required>
+                                        <input type="time" name="res_start" id="res_start" autocomplete="off" placeholder="Start" class="hasTime"  value="09:00" required>
+                                        <input type="time" name="res_end" id="res_end" autocomplete="off" placeholder="End" class="hasTime" value="13:00" required>
+
                                     </div>
-                                    <div class="col-lg-6  mb-3 mb-lg-0">
-                                        <div class="row">
-                                            <div class="col" style="height: 100%">
-                                                <div class="card-text">
-                                                    <small class="text-muted m-2"><%= t("prop_i") %></small>
-                                                    <small class="text-muted m-2"><%= t("prop_i") %></small>
-                                                    <small class="text-muted m-2"><%= t("prop_i") %></small>
-                                                    <small class="text-muted m-2"><%= t("prop_i") %></small>
-                                                    <small class="text-muted m-2"><%= t("prop_i") %></small>
-                                                
-                                                </div>
-                                            </div>                                                        
-                                        </div>
+
+                                </div>
+                                <div class="row">                                        
+                                    <div class="d-flex flex-wrap">
+                                        <% for( let i = 0; i < 17; i++ ) { %>
+                                            <div  class="p-1">
+                                                <input type="button" class="btn btn-secondary m-0 available-btns" id="btnHour<% if (i<3) { %>0<% } %><%=7+i %>00" value="<% if (i<3) { %>0<% } %><%=7+i %>:00">
+                                            </div>
+                                            <div  class="p-1">
+                                                <input type="button" class="btn btn-secondary m-0 available-btns" id="btnHour<% if (i<3) { %>0<% } %><%=7+i %>30" value="<% if (i<3) { %>0<% } %><%=7+i %>:30">
+                                            </div>
+                                        <% } %>                                    
                                     </div>
-                                </div>                  
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>                
+            </div>
+        </div>                                        
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <button class="btn btn-primary" id="reserve_date">Rezervasyonu Tamamla</button>
+        <div class="row">
+            <div class="section_wrapper oturma_planlari_wrapper">
+                <h3 class="section_title"><%= t("room.seating_plan") %></h3>
+                <div class="section_content oturma_planlari">
+                    <% seatings.forEach(element => { %>
+                        <label for="seating<%= element.seating_id %>">
+                            <div class="oturma_plani">
+                                <span><%=  t("room."+element.desc) %></span>
+                                <img src="/img/<%= element.img %>" class="oturma_plani_img gd" alt="Plan <%= element.seating_id %>">
+                                <span><%= element.capacity %> <%= t("room.person") %></span>
+                                <input type="radio" value="<%= element.seating_id %>" name="seating" id="seating<%= element.seating_id %>" required>
+                            </div>
+                        </label>
+                    <% }) %>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="section_wrapper oturma_planlari_wrapper">
-            <h3 class="section_title">Oturma Planı</h3>
-            <div class="section_content oturma_planlari">
-                                    <div class="oturma_plani">
-                    <span>Seminar</span>
-                    <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Seminar.jpg" class="oturma_plani_img gd" alt="Plan 1">
-                    <span>40 Personen</span>
-                    <input type="radio" value="Seminer" name="oturma_plani" id="oturma_plani1">
+        <div class="row">
+            <div class="section_wrapper second_section_wrapper">
+                <h3 class="section_title"><%= t("reserve.optional_wishes") %></h3>
+                <div class="section_content oturma_planlari">
+                    <textarea id="rex" name="rex" rows="5" cols="90" style="width:100%;"></textarea>
                 </div>
-                <div class="oturma_plani">
-                    <span>Blocktafel</span>
-                    <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Blocktafel.jpg" class="oturma_plani_img gd" alt="Plan 1">
-                    <span>40 Personen</span>
-                    <input type="radio" value="Blocktafel" name="oturma_plani" id="oturma_plani2">
-                </div>
-                <div class="oturma_plani">
-                    <span>U-Form</span>
-                    <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/U-Form.jpg" class="oturma_plani_img gd" alt="Plan 1">
-                    <span>40 Personen</span>
-                    <input type="radio" value="U-Form" name="oturma_plani" id="oturma_plani3">
-                </div>
-                <div class="oturma_plani">
-                    <span>Parlament</span>
-                    <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Parlament.jpg" class="oturma_plani_img gd" alt="Plan 1">
-                    <span>40 Personen</span>
-                    <input type="radio" value="Parlament" name="oturma_plani" id="oturma_plani4">
-                </div>
-                <div class="oturma_plani">
-                    <span>Stuhlreihen</span>
-                    <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Stuhlreihen.jpg" class="oturma_plani_img gd" alt="Plan 1">
-                    <span>40 Personen</span>
-                    <input type="radio" value="Stuhlreihen" name="oturma_plani" id="oturma_plani5">
-                </div>
-                <div class="oturma_plani">
-                    <span>Bankett</span>
-                    <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Bankett.jpg" class="oturma_plani_img gd" alt="Plan 1">
-                    <span>40 Personen</span>
-                    <input type="radio" value="Bankett" name="oturma_plani" id="oturma_plani6">
-                </div>
-                <div class="oturma_plani">
-                    <span>Stuhlkreis</span>
-                    <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Stuhlkreis.jpg" class="oturma_plani_img gd" alt="Plan 1">
-                    <span>40 Personen</span>
-                    <input type="radio" value="Stuhlkreis" name="oturma_plani" id="oturma_plani7">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="section_wrapper second_section_wrapper">
+                <h3 class="section_title"><%= t("reserve.options") %></h3>
+                <div class="section_content oturma_planlari">
                 </div>
             </div>
         </div>
     </div>
-</div>
-
+</form>
+<!-- xzczxc-------------------------------------------------------------------------------------------------------------------- -->
 <form id="rezervasyon_yap" method="POST">
     <input type="hidden" name="the_action">
     <input type="hidden" name="oda_saatlik_ucreti">
@@ -95,97 +117,8 @@
     <input type="hidden" name="sec_saat_fiyati">
     <input type="hidden" name="ozelliklerin_fiyati">
     <input type="hidden" name="hizmetlerin_fiyati">
-    <input type="hidden" name="toplam_fiyat">
-    <div class="toplanti_odasi">
-        <div class="toplanti_odasi_image">
-            <img class="room_image" src="https://adrestasarim.com.tr/korn/wp-content/uploads/2023/04/751_2_korns1-400x205.png" alt="Test Odası">
-        </div>
-        <div class="toplanti_odasi_content">
-            <h3 class="room-title">Test Odası</h3>
-            <div class="rezervasyon_tarihi">
-                <label for="rezervasyon_tarihi">Rezervasyon Tarihi</label>
-                <input type="text" name="rezervasyon_tarihi" id="rezervasyon_tarihi" autocomplete="off" placeholder="Rezervasyon Tarihi" required="" class="hasDatepicker">
-                <button class="remove_button"><i class="fas fa-times"></i></button>
-            </div>
-
-            <div class="rezervasyon_saati">
-                <label>Rezervasyon Saati</label>
-                <div class="baslangic_saati timepicker_containers">
-                    <div class="times">
-                        <div class="time_input">
-                            <input disabled="" type="text" autocomplete="off" name="baslangic_saati" id="baslangic_saati" placeholder="Başlangıç Saati">
-                            <button class="remove_button"><i class="fas fa-times"></i></button>
-                        </div>
-                        <span>-</span>
-                        <div class="time_input">
-                            <input disabled="" type="text" autocomplete="off" name="bitis_saati" id="bitis_saati" placeholder="Bitiş Saati">
-                            <button class="remove_button"><i class="fas fa-times"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="kisi_sayisi">
-                <label>Kişi Sayısı <i id="kisi_basi_fiyat_info" title="Kişi Başı Ücret: 400 -EUR" class="fa-light fa-circle-info"></i></label>
-                <div class="quantity">
-                                                <input type="number" name="kisi_sayisi" max="100" id="kisi_sayisi" min="2" value="100"><div class="quantity-nav"><button tabindex="-1" class="quantity-button quantity-up"></button><button tabindex="-1" class="quantity-button quantity-down"></button></div>
-                </div>
-            </div>
-            <div class="rezervasyon_notu">
-                <label for="rezervasyon_notu">Notunuz</label>
-                <div>
-                    <textarea name="rezervasyon_notu" id="rezervasyon_notu" cols="30" rows="3"></textarea>
-                </div>
-            </div>
-        </div>
-    </div>
+    <input type="hidden" name="toplam_fiyat">   
     
-    <div class="section_wrapper oturma_planlari_wrapper">
-        <h3 class="section_title">Oturma Planı</h3>
-        <div class="section_content oturma_planlari">
-                                <div class="oturma_plani">
-                <span>Seminar</span>
-                <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Seminar.jpg" class="oturma_plani_img gd" alt="Plan 1">
-                <span>40 Personen</span>
-                <input type="radio" value="Seminer" name="oturma_plani" id="oturma_plani1">
-            </div>
-            <div class="oturma_plani">
-                <span>Blocktafel</span>
-                <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Blocktafel.jpg" class="oturma_plani_img gd" alt="Plan 1">
-                <span>40 Personen</span>
-                <input type="radio" value="Blocktafel" name="oturma_plani" id="oturma_plani2">
-            </div>
-            <div class="oturma_plani">
-                <span>U-Form</span>
-                <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/U-Form.jpg" class="oturma_plani_img gd" alt="Plan 1">
-                <span>40 Personen</span>
-                <input type="radio" value="U-Form" name="oturma_plani" id="oturma_plani3">
-            </div>
-            <div class="oturma_plani">
-                <span>Parlament</span>
-                <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Parlament.jpg" class="oturma_plani_img gd" alt="Plan 1">
-                <span>40 Personen</span>
-                <input type="radio" value="Parlament" name="oturma_plani" id="oturma_plani4">
-            </div>
-            <div class="oturma_plani">
-                <span>Stuhlreihen</span>
-                <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Stuhlreihen.jpg" class="oturma_plani_img gd" alt="Plan 1">
-                <span>40 Personen</span>
-                <input type="radio" value="Stuhlreihen" name="oturma_plani" id="oturma_plani5">
-            </div>
-            <div class="oturma_plani">
-                <span>Bankett</span>
-                <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Bankett.jpg" class="oturma_plani_img gd" alt="Plan 1">
-                <span>40 Personen</span>
-                <input type="radio" value="Bankett" name="oturma_plani" id="oturma_plani6">
-            </div>
-            <div class="oturma_plani">
-                <span>Stuhlkreis</span>
-                <img src="https://adrestasarim.com.tr/korn/wp-content/plugins/toplanti-odasi-rezervasyon/includes/images/Stuhlkreis.jpg" class="oturma_plani_img gd" alt="Plan 1">
-                <span>40 Personen</span>
-                <input type="radio" value="Stuhlkreis" name="oturma_plani" id="oturma_plani7">
-            </div>
-        </div>
-    </div>
     <div class="section_wrapper second_section_wrapper">
         <h3 class="section_title">Ek Oda Özellikleri</h3>
         <div class="section_content oda_ozellikleri">                        <h4 class="section_sub_title">İstediğiniz özellik listede yok mu? Aşağıdaki ekleme butonunu kullanarak dilediğiniz kadar özel talepte bulunabilirsiniz.</h4>

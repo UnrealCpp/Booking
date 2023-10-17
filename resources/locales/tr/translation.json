@@ -22,13 +22,16 @@
         "person_price":"Kişi Başı Fiyat: ",
         "btn_reserve":"Rezervasyon Yap",
         "property_name":"dbProperty1",
+        "seating_plan":"Sandalye Düzeni",
         "seminar":"Seminer",
         "block":"Blok",
         "u_form":"U-Şekli",
         "parl":"Parlament",
         "chairs":"Sıralı",
         "bank":"Ziyafet",
-        "circle":"Daire"
+        "circle":"Daire",
+        "cinema":"Sinema",
+        "person":"Kişi"
     },
     "select":"Seç",
     "prop_i":"Projeksiyon",
@@ -47,6 +50,10 @@
         "account":"Hesap Bilgileri",
         "board":"Pano",
         "reservations":"Rezervasyonlar"
+    },
+    "error":{
+        "blank":"Bu alanı doldurmanız gerekiyor.",
+        "required":"Lütfen bir seçeneği seçin."
     }
 
 }

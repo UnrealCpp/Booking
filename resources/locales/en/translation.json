@@ -22,13 +22,16 @@
         "person_price":"Cost per Person: ",
         "btn_reserve":"Reserve",
         "property_name":"dbProperty1",
+        "seating_plan":"Chair Arrangement",
         "seminar":"Seminar",
-        "block":"Blocktafel",
+        "block":"Block",
         "u_form":"U-Form",
-        "parl":"Parlament",
-        "chairs":"Stuhlreihen",
-        "bank":"Bankett",
-        "circle":"Stuhlkreis"
+        "parl":"Parliament",
+        "chairs":"Rows of chairs",
+        "bank":"Banquet",
+        "circle":"Circle",
+        "cinema":"Cinema",
+        "person":"Person"
     },
     "select":"Select.",
     "prop_i":"Projection",
@@ -47,6 +50,11 @@
         "account":"Account",
         "board":"Board",
         "reservations":"Reservations"
+    },
+    "error":{
+        "blank":"This field cannot be left blank.",
+        "required":"You must select one to proceed."
     }
+
 
 }
