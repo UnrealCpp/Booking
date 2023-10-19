@@ -7,16 +7,11 @@ var locals = require('../config');
 
 // Our app.use in the last file forwards a request to our book router.
 // So this route actually handles `/book` because it's the root route when a request to /book is forwarded to our router.
-book.get('/', ensureLogIn("../login"), room.fetchRooms, function(req, res, next) {
-  // res.send() our response here  
-  let room = res.locals.rooms.filter((elem)=> elem.id==1);
-  user_logged(req);
-
-  res.render('room/reserve',{locals, bookId:"1",room:room[0], layout:"./layouts/layout_logged", user: req?.user}); 
+book.get('/', ensureLogIn("../login"), function(req, res, next) { 
+  return res.redirect('/'); 
 });
 book.get('/list/:id/:date',function(req, res, next) { 
-  res.locals._getReservations={day:req.params.date,room:req.params.id};
-
+  res.locals._getReservations={day:new Date(req.params.date),room:req.params.id};
   next();
 },room.getReservations,function(req, res, next) {
   // console.log(res.locals._getReservations);
@@ -28,7 +23,12 @@ book.get('/list/:id/:date',function(req, res, next) {
 });
 
 // A route to booking
-book.get('/:id',ensureLogIn("../login"), room.fetchRooms,room.getRoomSeatings, function(req, res, next) {
+book.get('/:id',ensureLogIn("../login"), function(req, res, next) { 
+  //////////////////////////////////////////////////////const dayFormatter = Intl.DateTimeFormat("de-DE",{datestyle:"short"});
+  
+  res.locals._getReservations={day:new Date(),room:req.params.id};
+  next();
+},room.getReservations, room.fetchRooms,room.getRoomSeatings, function(req, res, next) {
   let param = req.params.id;
   let room = res.locals.rooms.filter((elem)=> elem.id==param);
   let seating_list = res.locals.seatings.filter((elem)=> elem.room_id==param);
@@ -52,7 +52,7 @@ book.post('/',ensureLogIn("../login"),function(req, res, next) {
   //let myId = res.locals._roomID;
   // console.log(res.locals._roomID)  ;
   // console.log("__________________");
-  // console.log(res.locals);
+  // console.log(res.locals._resDate);
   return res.redirect('/book/list/'+res.locals._roomID+'/'+res.locals._resDate); 
 });
 function user_logged(req){

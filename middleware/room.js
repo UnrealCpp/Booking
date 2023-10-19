@@ -59,7 +59,7 @@ var conn = mysql.createPool({
           rooms: group.map(mrow => (mrow.roomID)),
         };
       });
-      console.log(serviceGroups)
+      //console.log(serviceGroups)
       res.locals.mySrv = serviceGroups;
   
       next();
@@ -197,38 +197,56 @@ function subtractHours(e, t) {
 
   function getReservations(req, res, next){
 
-  let _date = res.locals._getReservations.day;
+  //let _date = new Date(res.locals._getReservations.day).toISOString().slice(0,10);
+// Assuming your original date string is "16.11.2023"
+const originalDate = res.locals._getReservations.day.toLocaleDateString("de-DE");
+
+// Split the original date string into day, month, and year parts
+const parts = originalDate.split('.');
+
+// Reconstruct the date in the desired format
+const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
+
+//console.log(formattedDate); // Output: "2023/11/16"
+
+  let _date = formattedDate;
   let _room = res.locals._getReservations.room;
   const query = 'SELECT * from room_reservation where roomID=? AND room_reservation.date=? ORDER BY time_from';//'SELECT * from room_reservation where roomID=? ORDER BY room_reservation.date,time_from';//
-  const values = [_room,_date];
+  const values = [_room,_date];    
+    // console.log(_date)  ;
+    // console.log("__________________");
+    // console.log(res.locals._getReservations);
   conn.query(query, values, (err, rows) => {
     if (err) {
       return next(err);
     }
-    let sorted_bookings = rows.map(function(row) {      
+    let sorted_bookings = rows.map(function(row) { 
       return {
         id: row.roomID,
-        date: utc(row.date),
+        date: new Date(row.date).toLocaleDateString("de-DE"),
         start: row.time_from,        
         end: row.time_to
       }
     });    
     res.locals._getReservations._list = sorted_bookings;
 
+    //if(process.env.NODE_ENV === "production"){res.locals._getReservations._listAll =sorted_bookings;next();return;}
     conn.query('SELECT * from room_reservation where roomID=? ORDER BY room_reservation.date,time_from', [_room], (err, rows) => {
       if (err) {
         return next(err);
       }
-      let sorted_bookingsAll = rows.map(function(row) {      
+    
+      let sorted_bookingsAll = rows.map(function(row) {       
+        //console.log(new Date(row.date).toLocaleDateString("de-DE"))
         return {
           id: row.roomID,
-          date: utc(row.date),
+          date: new Date(row.date).toLocaleDateString("de-DE"),
           start: row.time_from,        
           end: row.time_to
         }
       });    
       res.locals._getReservations._listAll = sorted_bookingsAll;
-      console.log("*********************************************")
+     // console.log("*********************************************")
   
       next();
     });
@@ -239,15 +257,21 @@ function postReservation(req, res, next){
   //console.log("req.body.rezervasyon_tarihi");
   //console.log(util.types.isDate(new Date(req.body.rezervasyon_tarihi)));
   //validator.toDate(req.body.res_date)  string to date or null if not valid
-  
+    let acceptableTime = new Date().getTime() - (1*60*60*1000);
+    let acceptableDate = new Date(acceptableTime).toISOString();
+    let before =  new Date(new Date(req.body.res_date).setHours(req.body.res_start.slice(0,2),req.body.res_start.slice(3,5))).toISOString();
+    let after =new Date().toISOString();
 
+  // if(!validator.isAfter(before,acceptableDate));
+  //   res.locals.messages.push("You must make reservations at least 2 hours before...<br>"+before+"<br> "+after);
 
   if(!validator.isDate(req.body.res_date))
     res.locals.messages.push("Reservation Date is invalid");
   
-  if(!validator.isAfter(subtractHours(new Date(req.body.res_date),23).toISOString()))
-    res.locals.messages.push("You cant reserve in to pastime!"+req.body.res_date+" "+new Date(req.body.res_date).toISOString());
-  
+  if(!validator.isAfter(before,after))
+    res.locals.messages.push(req.body.res_start.slice(0,2)+"You cant reserve in to pastime!"+before+" "+after);
+  //else res.locals.messages.push(req.body.res_start.slice(0,2)+"THAT PASSED :"+before+" "+after);
+
   // if(!validator.isAfter(req.body.res_date,new Date(-1).toISOString().slice(0,10)))
   //   res.locals.messages.push("You cant reserve in to pastime!"+req.body.res_date+" "+new Date(-1).toISOString().slice(0,10));
   

@@ -178,8 +178,8 @@ connPool.getConnection(function(err, con) {
   con.query("CREATE TABLE IF NOT EXISTS room_reservation ( \
     id INTEGER AUTO_INCREMENT PRIMARY KEY, \
     roomID INT NOT NULL, \
-    datetime TIMESTAMP, \
-    date DATE, \
+    datetime TIMESTAMP DEFAULT current_timestamp(), \
+    date DATETIME, \
     time_from TIME, \
     time_to TIME, \
     statusID TINYINT DEFAULT 1\
@@ -281,8 +281,18 @@ connPool.getConnection(function(err, con) {
     active BOOLEAN DEFAULT 1 \
     ) ENGINE=InnoDB;", function (err, result) {
       if (err) throw err;
-
-      
+      if(!result.warningCount){     
+        con.query("INSERT INTO `seat_plans_room` (`seat_plansID`, `roomID`, `capacity_room`, `cost_room`, `cost_room_vat`, `active`) VALUES\
+        (1, 1, 200, '0.00', 7, 1),(2, 1, 160, '0.00', 7, 1),(3, 1, 85, '0.00', 7, 1),(4, 1, 120, '0.00', 7, 1),(5, 1, 198, '0.00', 7, 1),(6, 1, 188, '0.00', 7, 1),(7, 1, 120, '0.00', 7, 1),\
+        (1, 2, 50, '0.00', 7, 1),(2, 2, 40, '0.00', 7, 1),(3, 2, 35, '0.00', 7, 1),(4, 2, 75, '0.00', 7, 1),(5, 2, 0, '0.00', 0, 0),(6, 2, 60, '0.00', 7, 1),(7, 2, 75, '0.00', 7, 1),(8, 2, 130, '0.00', 7, 1),\
+        (1, 3, 20, '0.00', 7, 1),(2, 3, 16, '0.00', 7, 1),(3, 3, 16, '0.00', 7, 1),(4, 3, 14, '0.00', 7, 1),(5, 3, 25, '0.00', 7, 1),(6, 3, 16, '0.00', 7, 1),(7, 3, 18, '0.00', 7, 1),\
+        (1, 4, 16, '0.00', 7, 1),(2, 4, 12, '0.00', 7, 1),(3, 4, 12, '0.00', 7, 1),(4, 4, 10, '0.00', 7, 1),(5, 4, 21, '0.00', 7, 1),(6, 4, 16, '0.00', 7, 1),(7, 4, 18, '0.00', 7, 1),\
+        (1, 5, 20, '0.00', 7, 1),(2, 5, 16, '0.00', 7, 1),(3, 5, 16, '0.00', 7, 1),(4, 5, 14, '0.00', 7, 1),(5, 5, 25, '0.00', 7, 1),(6, 5, 16, '0.00', 7, 1),(7, 5, 18, '0.00', 7, 1),\
+        (1, 6, 20, '0.00', 7, 1),(2, 6, 16, '0.00', 7, 1),(3, 6, 16, '0.00', 7, 1),(4, 6, 14, '0.00', 7, 1),(5, 6, 25, '0.00', 7, 1),(6, 6, 16, '0.00', 7, 1),(7, 6, 18, '0.00', 7, 1);", function (err, result) {
+          if (err) throw err;
+          console.log(result.affectedRows + " Rows inserted to room table.");
+        });
+    }  
   });
 
   //description is default name before localization

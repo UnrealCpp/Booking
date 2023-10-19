@@ -10,7 +10,7 @@ img {
     border-radius: .4em  0  0 .4em;
 }
 .container{
-    min-width: 475px;
+    min-width: 390px;
 }
 @media screen and (max-width: 992px) {
     .room-image {

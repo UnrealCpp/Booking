@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/css/reserve.css?v=<%= locals.version %>">
 <script type="text/javascript" src="https://unpkg.com/validator@latest/validator.min.js"></script>
-<script type="module">
+<!-- <script type="module">
     document.addEventListener("DOMContentLoaded", function() {
         var elements = document.getElementsByTagName("INPUT");
         for (var i = 0; i < elements.length; i++) {
@@ -16,6 +16,36 @@
         }
     })
     validator.isEmail('foo@bar.com'); //=> true
+</script> -->
+<script type="module">
+    document.addEventListener("DOMContentLoaded", function() {
+        var buttons = document.getElementsByClassName("available-btns");
+        var date_div = document.getElementById("res_date");
+        var _list = "<%= JSON.stringify(_getReservations._listAll) %>" ;
+        _list = _list.replaceAll("&#34;","\"");
+        let data = JSON.parse(_list)
+        console.log(data);
+        let selectedDate = new Date(date_div.value);
+        console.log(new Date(selectedDate).toLocaleDateString("de-DE"))
+        data.forEach(element => {
+            let d= new Date(element.date);
+            let nd=new Date(element.date).setHours(24);
+            let hms = element.start.split(":");
+            let hms2 = element.end.split(":");
+            //console.log(hms)
+            let start = new Date(d.getFullYear(),d.getMonth(),d.getDate(),...hms).toLocaleDateString();
+            let end = new Date(d.getFullYear(),d.getMonth(),d.getDate(),...hms2).toLocaleDateString();
+            
+            
+            //console.log(d);
+
+            if(validator.isBefore(element.date.toString(),start.toString()) && validator.isBefore(new Date(nd).toString(),end.toString())){
+                console.log(element.date+" "+start+"-"+end);
+            }
+
+        });
+
+    })
 </script>
 <!-- 
 id: row.id,
@@ -47,9 +77,9 @@ active: row.active -->
                                 <h5 class="card-title"><%= t("room.name"+room.type) + room.name %></h5>
                                 <div class="room-cont row">
                                     <div class="col-lg-6  mb-3 mb-lg-0">
-                                        <input type="date" name="res_date" id="res_date" autocomplete="off" placeholder="Rezervasyon Tarihi" class="hasDatepicker" value="2023-10-17" required>
-                                        <input type="time" name="res_start" id="res_start" autocomplete="off" placeholder="Start" class="hasTime"  value="09:00" required>
-                                        <input type="time" name="res_end" id="res_end" autocomplete="off" placeholder="End" class="hasTime" value="13:00" required>
+                                        <input type="date" name="res_date" id="res_date" autocomplete="off" placeholder="Rezervasyon Tarihi" class="hasDatepicker" value="2023-10-19" required>
+                                        <input type="time" name="res_start" id="res_start" autocomplete="off" placeholder="Start" class="hasTime"  value="18:01" required>
+                                        <input type="time" name="res_end" id="res_end" autocomplete="off" placeholder="End" class="hasTime" value="19:00" required>
 
                                     </div>
 
@@ -63,7 +93,7 @@ active: row.active -->
                                             <div  class="p-1">
                                                 <input type="button" class="btn btn-secondary m-0 available-btns" id="btnHour<% if (i<3) { %>0<% } %><%=7+i %>30" value="<% if (i<3) { %>0<% } %><%=7+i %>:30">
                                             </div>
-                                        <% } %>                                    
+                                        <% } %>                                        
                                     </div>
                                 </div>
                             </div>
@@ -74,6 +104,13 @@ active: row.active -->
         </div>                                        
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <button class="btn btn-primary" id="reserve_date">Rezervasyonu Tamamla</button>
+        <div class="row">
+            <div class="col">
+                <% _getReservations._listAll.forEach(element => { %>
+                    <%= element.date %>  <%= element.start %> <%= element.end %> <br>
+                <% }) %>
+            </div>
+        </div>
         <div class="row">
             <div class="section_wrapper oturma_planlari_wrapper">
                 <h3 class="section_title"><%= t("room.seating_plan") %></h3>
