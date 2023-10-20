@@ -12,6 +12,9 @@ img {
 .container{
     min-width: 390px;
 }
+.available-btns{    
+    background: var(--bs-success);
+}
 @media screen and (max-width: 767px) {
     .room-image {
     border-radius: .4em .4em 0 0 ;

@@ -90,7 +90,7 @@ router.get('/calendarconf/:id',function(req, res, next) {
   const hourTo = element.end.split(':');
     
     calendar.events.push({
-      name:"element.id",
+      name:hour[0]+" to "+hourTo[0],
       paramStart:[parts[2],parts[1],parts[0],hour[0],hour[1],hour[2]],
       paramEnd:[parts[2],parts[1],parts[0],hourTo[0],hourTo[1],hourTo[2]]
     });
