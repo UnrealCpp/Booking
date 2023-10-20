@@ -30,7 +30,7 @@ var locals = {
   title: 'KORNS Booking',
   description: 'Page Description',
   header: 'Page Header',
-  version: '1.2'
+  version: '1.3'
 };
 
 var calendar = {
@@ -56,22 +56,22 @@ var calendar = {
     {
       name:"some Org1.",
       paramStart:[2023, 7, 1, 11, 30, 0],
-      paramStart:[2023, 7, 1, 13, 30, 0]
+      paramEnd:[2023, 7, 1, 13, 30, 0]
     },
     {
       name:"some Org2.",
       paramStart:[2023, 7, 10, 11, 30, 0],
-      paramStart:[2023, 7, 10, 13, 30, 0]
+      paramEnd:[2023, 7, 10, 13, 30, 0]
     },
     {
       name:"some Org3.",
       paramStart:[2023, 7, 20, 11, 30, 0],
-      paramStart:[2023, 7, 20, 13, 30, 0]
+      paramEnd:[2023, 7, 20, 13, 30, 0]
     },
     {
       name:"some Org4.",
       paramStart:[2023, 7, 30, 11, 30, 0],
-      paramStart:[2023, 7, 30, 13, 30, 0]
+      paramEnd:[2023, 7, 30, 13, 30, 0]
     }]
  };
 

@@ -17,6 +17,26 @@
     })
     validator.isEmail('foo@bar.com'); //=> true
 </script> -->
+<script type="module" crossorigin src="/calendar/main.js?v=<%= locals.version %>"></script>
+<link rel="stylesheet" href="/calendar/style.css?v=<%= locals.version %>">
+<script type="module">
+    // Import the redrawCalendar function from the main.js module
+    import { redraw } from '/calendar/main.js';
+
+    window.getEvents= getEvents;
+    var clickedCard = 0;
+
+    function getEvents(roomid=null,div){
+        if (clickedCard) {
+            //document.getElementById("card"+clickedCard).style.backgroundColor = '';
+            document.getElementById("card"+clickedCard).classList.remove("selected-card");
+        }
+        clickedCard=roomid;
+        //div.style.backgroundColor = '#f5edeabb';
+        div.classList.add("selected-card");
+        fetch("/calendarconf/"+roomid).then(()=>redraw());
+    }
+  </script>
 <script type="module">
     document.addEventListener("DOMContentLoaded", function() {
         var buttons = document.getElementsByClassName("available-btns");
@@ -69,39 +89,46 @@ active: row.active -->
             <div class="col">                
                 <div class="card mb-3" id="card<%= bookId %>"> <!-- style="max-width: 540px;" -->
                     <div class="row g-0">
-                        <div class="col-lg-4">
+                        <div class="col-md-7">
                             <img src="/img/<%= room.img %>" class="img-fluid room-image" alt="Room <%= room.name %>">
                         </div>
-                        <div class="col-lg-8">
+                        <div class="col">
                             <div class="card-body">
                                 <h5 class="card-title"><%= t("room.name"+room.type) + room.name %></h5>
-                                <div class="room-cont row">
-                                    <div class="col-lg-6  mb-3 mb-lg-0">
-                                        <input type="date" name="res_date" id="res_date" autocomplete="off" placeholder="Rezervasyon Tarihi" class="hasDatepicker" value="2023-10-19" required>
-                                        <input type="time" name="res_start" id="res_start" autocomplete="off" placeholder="Start" class="hasTime"  value="18:01" required>
-                                        <input type="time" name="res_end" id="res_end" autocomplete="off" placeholder="End" class="hasTime" value="19:00" required>
 
-                                    </div>
-
-                                </div>
-                                <div class="row">                                        
-                                    <div class="d-flex flex-wrap">
-                                        <% for( let i = 0; i < 17; i++ ) { %>
-                                            <div  class="p-1">
-                                                <input type="button" class="btn btn-secondary m-0 available-btns" id="btnHour<% if (i<3) { %>0<% } %><%=7+i %>00" value="<% if (i<3) { %>0<% } %><%=7+i %>:00">
-                                            </div>
-                                            <div  class="p-1">
-                                                <input type="button" class="btn btn-secondary m-0 available-btns" id="btnHour<% if (i<3) { %>0<% } %><%=7+i %>30" value="<% if (i<3) { %>0<% } %><%=7+i %>:30">
-                                            </div>
-                                        <% } %>                                        
+                                <div class="row">
+                                    <div id ="container" class="mb-3 col">
+                                        <div id ="modularCalendar"></div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>                
             </div>
-        </div>                                        
+        </div>
+        <div class="row">                                        
+            <div class="d-flex flex-wrap">
+                <% for( let i = 0; i < 17; i++ ) { %>
+                    <div  class="p-1">
+                        <input type="button" class="btn btn-secondary m-0 available-btns" id="btnHour<% if (i<3) { %>0<% } %><%=7+i %>00" value="<% if (i<3) { %>0<% } %><%=7+i %>:00">
+                    </div>
+                    <div  class="p-1">
+                        <input type="button" class="btn btn-secondary m-0 available-btns" id="btnHour<% if (i<3) { %>0<% } %><%=7+i %>30" value="<% if (i<3) { %>0<% } %><%=7+i %>:30">
+                    </div>
+                <% } %>                                        
+            </div>
+        </div>         
+        <div class="room-cont row">
+            <div class="col-lg-6  mb-3 mb-lg-0">
+                <input type="date" name="res_date" id="res_date" autocomplete="off" placeholder="Rezervasyon Tarihi" class="hasDatepicker" value="2023-10-19" required>
+                <input type="time" name="res_start" id="res_start" autocomplete="off" placeholder="Start" class="hasTime"  value="18:01" required>
+                <input type="time" name="res_end" id="res_end" autocomplete="off" placeholder="End" class="hasTime" value="19:00" required>
+
+            </div>
+
+        </div>                     
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <button class="btn btn-primary" id="reserve_date">Rezervasyonu Tamamla</button>
         <div class="row">

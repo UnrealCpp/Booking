@@ -25,6 +25,7 @@
         clickedCard=roomid;
         //div.style.backgroundColor = '#f5edeabb';
         div.classList.add("selected-card");
+        fetch("/calendarconf/"+roomid).then(()=>redraw());
     }
     function filterSrvc(list=null,_div){
         let _list = list.split(",");

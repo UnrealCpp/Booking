@@ -75,6 +75,29 @@ router.get('/calendarconf', function(req, res, next) {
   //console.log(calendar.month); 
   res.json(calendar);
 });
+router.get('/calendarconf/:id',function(req, res, next) { 
+  res.locals._getReservations={day:new Date(),room:req.params.id};
+  next();
+}, room.getReservations,function(req, res, next) { 
+  console.log(res.locals._getReservations._listAll);
+  calendar.events.length=0;
+  res.locals._getReservations._listAll.forEach(element => {
+    
+  const parts = element.date.split('.');
+  parts[1]=parseInt( parts[1])-1;
+  const originalDate = element.start;
+  const hour = element.start.split(':');
+  const hourTo = element.end.split(':');
+    
+    calendar.events.push({
+      name:"element.id",
+      paramStart:[parts[2],parts[1],parts[0],hour[0],hour[1],hour[2]],
+      paramEnd:[parts[2],parts[1],parts[0],hourTo[0],hourTo[1],hourTo[2]]
+    });
+  });
+  //console.log(calendar.month); 
+  res.json(calendar);
+});
 router.get('/change/:lang', function(req, res, next) { 
     locals.lang=req.params.lang;
     res.redirect(req.get('referer'));

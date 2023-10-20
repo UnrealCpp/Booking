@@ -1,10 +1,10 @@
-const w = (l, e) => {
-  const t = l[e];
-  return t ? typeof t == "function" ? t() : Promise.resolve(t) : new Promise((a, s) => {
-    (typeof queueMicrotask == "function" ? queueMicrotask : setTimeout)(s.bind(null, new Error("Unknown variable dynamic import: " + e)));
+const p = (o, e) => {
+  const t = o[e];
+  return t ? typeof t == "function" ? t() : Promise.resolve(t) : new Promise((a, i) => {
+    (typeof queueMicrotask == "function" ? queueMicrotask : setTimeout)(i.bind(null, new Error("Unknown variable dynamic import: " + e)));
   });
 };
-class h {
+class g {
   constructor(e, t, a) {
     this.name = e, this.start = new Date(...t), this.startUtc = this.start.getUTCHours() + ":" + this.start.getMinutes() + " UTC", this.end = new Date(...a), this.endUtc = this.end.getUTCHours() + ":" + this.end.getMinutes() + " UTC", this.location = [], this.year = this.start.getFullYear(), this.month = this.start.getMonth(), this.day = this.start.getDate();
   }
@@ -34,7 +34,7 @@ class h {
     return this.subtractHours(t, a);
   }
 }
-class T {
+class v {
   constructor(e, t = null) {
     this.year = e, this.yearly = [{ y: e, events: [] }], t && this.addEvent(t);
   }
@@ -67,7 +67,7 @@ class T {
     });
   }
   getEventsForMonth(e, t) {
-    return this.getEventsForYear(t)?.events.filter((s) => s.month === e);
+    return this.getEventsForYear(t)?.events.filter((i) => i.month === e);
   }
   findByDate() {
   }
@@ -81,18 +81,18 @@ class T {
       return Math.floor(Math.random() * (a - t) + t);
     }
     for (let t = 0; t < 500; t++) {
-      let a = e(2022, 2025), s = e(1, 30), i = e(0, 12);
-      this.addEvent(new h(
+      let a = e(2022, 2025), i = e(1, 30), n = e(0, 12);
+      this.addEvent(new g(
         "rand" + t,
-        [a, i, s, e(0, 24), 0, 0],
-        [a, i, s, e(0, 24), e(0, 270), 0]
+        [a, n, i, e(0, 24), 0, 0],
+        [a, n, i, e(0, 24), e(0, 270), 0]
       ));
     }
     this.sortByMonth();
   }
   //
 }
-class p {
+class m {
   constructor(e, t) {
     const a = /* @__PURE__ */ new Date();
     this.week = a.getDay(), this.today = a.getDate(), typeof t < "u" && a.getFullYear() !== t && (a.setFullYear(t), this.week = null, this.today = null), typeof e < "u" && a.getMonth() !== e && (a.setMonth(e), this.week = null, this.today = null), this.month = a.getMonth(), this.year = a.getFullYear(), this.lastDate = new Date(this.year, this.month + 1, 0), this.dayzero = a.getDate(a.setDate(0)), a.setDate(this.dayzero + 1), this.date = a, this.monthPrev = this.getPrevMonth(a), this.dayList = this.populate();
@@ -107,15 +107,15 @@ class p {
   }
   populate() {
     const e = [];
-    let t = this.monthPrev.getDate(), a = (this.date.getDay() + 6) % 7, s = (7 - this.lastDate.getDay()) % 7, i = this.lastDate.getDate();
-    for (let r = 0; r < a + i + s; r++)
-      r < a ? e.push(
+    let t = this.monthPrev.getDate(), a = (this.date.getDay() + 6) % 7, i = (7 - this.lastDate.getDay()) % 7, n = this.lastDate.getDate();
+    for (let s = 0; s < a + n + i; s++)
+      s < a ? e.push(
         {
-          id: r,
-          d: t + r,
+          id: s,
+          d: t + s,
           t: 0
         }
-      ) : r < a + i ? e.push({ id: r, d: r - a + 1, t: this.today === r - a + 1 ? "today" : 1 }) : e.push({ id: r, d: r - a - i + 1, t: 0 });
+      ) : s < a + n ? e.push({ id: s, d: s - a + 1, t: this.today === s - a + 1 ? "today" : 1 }) : e.push({ id: s, d: s - a - n + 1, t: 0 });
     return e;
   }
   getThisDay() {
@@ -128,7 +128,7 @@ class p {
     console.log("date: " + this.date.toDateString()), console.log("prevMonthDate: " + this.monthPrev.toDateString()), console.log(this.dayList);
   }
 }
-class E {
+class D {
   constructor(e) {
     if (e?.locale)
       switch (e.locale) {
@@ -173,35 +173,35 @@ class E {
       return;
     }
     let a = [];
-    e.map((i, r) => {
-      r < 8 && i.d === 1 && (this.firstday = r), a = [], r >= this.firstday && i.t !== 0 && (a = this.events?.filter((c) => c.day === i.d));
-      const o = document.createElement("div");
-      o.classList.add("eventDot");
-      const n = document.createElement("div");
-      n.classList.add("day");
+    e.map((n, s) => {
+      s < 8 && n.d === 1 && (this.firstday = s), a = [], s >= this.firstday && n.t !== 0 && (a = this.events?.filter((c) => c.day === n.d));
+      const l = document.createElement("div");
+      l.classList.add("eventDot");
+      const r = document.createElement("div");
+      r.classList.add("day");
       const d = document.createElement("p");
-      d.innerText = i.d, i.t != 0 && n.addEventListener("click", (c) => {
+      d.innerText = n.d, n.t != 0 && r.addEventListener("click", (c) => {
         this.calDayClicked(c, this.multipleSelect);
-      }), n.appendChild(d), i.t === "today" ? n.classList.add("_today") : i.t === 1 && n.classList.add("_day"), n.id = "calDay" + r, o.style.visibility = "hidden", n.appendChild(o), a?.length && (o.style.visibility = "visible", a.map((c) => {
-        o.style.visibility == "visible" && n.appendChild(o.cloneNode());
+      }), r.appendChild(d), n.t === "today" ? r.classList.add("_today") : n.t === 1 && r.classList.add("_day"), r.id = "calDay" + s, l.style.visibility = "hidden", a?.length && (l.style.visibility = "visible", a.map((c) => {
+        l.style.visibility == "visible" && r.appendChild(l.cloneNode());
         const y = document.createElement("div");
-        y.classList.add("event"), y.innerText = c.name.slice(0, 10), n.appendChild(y);
-      })), document.querySelector(".calBody").appendChild(n);
+        y.classList.add("event"), y.innerText = c.name.slice(0, 10), r.appendChild(y);
+      })), document.querySelector(".calBody").appendChild(r);
     });
-    let s = performance.timeOrigin + performance.now() - t;
-    console.log("Time for PopulateDays : " + s + " milliseconds");
+    let i = performance.timeOrigin + performance.now() - t;
+    console.log("Time for PopulateDays : " + i + " milliseconds");
   }
   daysWeekly() {
     document.querySelector(".calBody").innerHTML = "", console.log(this.display);
     let e = [];
     for (let t = 0; t < 14; t++) {
       let a = this.daylist[t];
-      t < 8 && a.d === 1 && (this.firstday = t), e = [], t >= this.firstday && a.today !== void 0 && (e = this.events?.filter((i) => i.day === a.d));
-      const s = document.createElement("div");
-      s.classList.add("week"), s.innerText = a.d, a.today === 1 ? s.classList.add("_today") : a.today !== void 0 && s.classList.add("_day"), s.id = "calDay" + t, e?.length && e.map((i) => {
-        const r = document.createElement("div");
-        r.classList.add("event"), r.innerText = i.name.slice(0, 8), s.appendChild(r);
-      }), document.querySelector(".calBody").appendChild(s);
+      t < 8 && a.d === 1 && (this.firstday = t), e = [], t >= this.firstday && a.today !== void 0 && (e = this.events?.filter((n) => n.day === a.d));
+      const i = document.createElement("div");
+      i.classList.add("week"), i.innerText = a.d, a.today === 1 ? i.classList.add("_today") : a.today !== void 0 && i.classList.add("_day"), i.id = "calDay" + t, e?.length && e.map((n) => {
+        const s = document.createElement("div");
+        s.classList.add("event"), s.innerText = n.name.slice(0, 8), i.appendChild(s);
+      }), document.querySelector(".calBody").appendChild(i);
     }
   }
   daysDaily() {
@@ -221,16 +221,16 @@ class E {
     t.innerHTML = e;
   }
   windowEvents(e) {
-    const t = this.weekNames[0], a = this.weekNames[1], s = document.getElementById("container");
+    const t = this.weekNames[0], a = this.weekNames[1], i = document.getElementById("container");
     document.getElementById("modularCalendar");
-    function i(r) {
-      s.offsetWidth <= 600 ? e.map((o, n) => {
-        o.innerHTML = t[n];
-      }) : e.map((o, n) => {
-        o.innerHTML = a[n];
+    function n(s) {
+      i.offsetWidth <= 600 ? e.map((l, r) => {
+        l.innerHTML = t[r];
+      }) : e.map((l, r) => {
+        l.innerHTML = a[r];
       });
     }
-    window.addEventListener("resize", i);
+    window.addEventListener("resize", n);
   }
   calDayClicked(e, t) {
     let a = document.querySelectorAll(".cal-selected");
@@ -252,7 +252,7 @@ class E {
   show() {
   }
 }
-const k = {
+const w = {
   month: {
     tempDesign: 1,
     // startMonth: 7,
@@ -293,57 +293,57 @@ const k = {
       paramEnd: [2023, 7, 30, 13, 30, 0]
     }
   ]
-}, m = [];
-var v, u = k;
-b();
-function b(l = null, e = null) {
+}, u = [];
+var f, h = w;
+T();
+function T(o = null, e = null) {
   let t = "/calendarconf";
-  e && l && (t += "/" + l + "/" + e), fetch(t).then(function(a) {
+  e && o && (t += "/" + o + "/" + e), fetch(t).then(function(a) {
     if (a.ok)
-      return v = a.clone(), a.json();
+      return f = a.clone(), a.json();
   }).then(function(a) {
-    u = a;
+    h = a;
   }, function(a) {
-    console.log("Error parsing JSON from response:", a, v), v.text();
+    console.log("Error parsing JSON from response:", a, f), f.text();
   }).then(function(a) {
-    L();
-    const s = document.querySelectorAll("div.calWeek");
-    m.length = 0, Array.from(s).map((i) => {
-      m.push(i);
+    k();
+    const i = document.querySelectorAll("div.calWeek");
+    u.length = 0, Array.from(i).map((n) => {
+      u.push(n);
     });
   });
 }
-function L() {
-  const l = u.month.tempDesign;
-  l && w(/* @__PURE__ */ Object.assign({ "./template1.css": () => import("./template1-a8db76f7.js") }), `./template${l}.css`);
-  let e = u.month.startMonth || (/* @__PURE__ */ new Date()).getUTCMonth(), t = u.month.startYear || (/* @__PURE__ */ new Date()).getUTCFullYear(), a = performance.timeOrigin + performance.now();
-  const s = [2023, 9, 22, 10, 30, 0], i = [2023, 9, 22, 18, 30, 0], r = new h("Birthday org.", s, i);
-  var o = new T(r.year, r);
-  o.addEvent(new h("Another org.", [2023, 8, 1, 11, 30, 0], [2023, 8, 1, 13, 30, 0])), o.addEvent(new h("Anodsfsther org.", [2023, 8, 12, 11, 30, 0], [2023, 8, 12, 13, 30, 0])), o.addEvent(new h("fgAnodsfsther org.", [2023, 8, 12, 14, 30, 0], [2023, 8, 12, 17, 30, 0])), o.addEvent(new h("Tsfsther org.", [2023, 8, 31, 11, 30, 0], [2023, 8, 31, 13, 30, 0]));
-  let n = new p(e, t);
-  o.test(), o.addEvent(new h("TodayEvent", [2023, n.month, n.today, 11, 30, 0], [2023, n.month, n.today - 1, 13, 30, 0]));
-  const d = new E(u.month);
-  if (d.calendar) {
-    d.setEvents(o.getEventsForMonth(e, t));
-    const { btnL: f, btnR: g } = d.addButtons();
-    d.header(n.getThisDay()), d.days(n.getDaylist()), d.windowEvents(m);
-    var c = () => {
-      e === 0 ? (t--, e = 11) : e--, n = new p(e, t), d.setEvents(o.getEventsForMonth(e, t)), d.days(n.getDaylist()), d.update(n.getThisDay());
-    }, y = () => {
-      e === 11 ? (t++, e = 0) : e++, n = new p(e, t), d.setEvents(o.getEventsForMonth(e, t)), d.days(n.getDaylist()), d.update(n.getThisDay());
+function k() {
+  const o = h.month.tempDesign;
+  o && p(/* @__PURE__ */ Object.assign({ "./template1.css": () => import("./template1-a8db76f7.js") }), `./template${o}.css`);
+  let e = h.month.startMonth || (/* @__PURE__ */ new Date()).getUTCMonth(), t = h.month.startYear || (/* @__PURE__ */ new Date()).getUTCFullYear(), a = performance.timeOrigin + performance.now();
+  var i = new v(t);
+  h.events.forEach((d) => {
+    i.addEvent(new g(d.name, d.paramStart, d.paramEnd));
+  });
+  let n = new m(e, t);
+  const s = new D(h.month);
+  if (s.calendar) {
+    s.setEvents(i.getEventsForMonth(e, t));
+    const { btnL: d, btnR: c } = s.addButtons();
+    s.header(n.getThisDay()), s.days(n.getDaylist()), s.windowEvents(u);
+    var l = () => {
+      e === 0 ? (t--, e = 11) : e--, n = new m(e, t), s.setEvents(i.getEventsForMonth(e, t)), s.days(n.getDaylist()), s.update(n.getThisDay());
+    }, r = () => {
+      e === 11 ? (t++, e = 0) : e++, n = new m(e, t), s.setEvents(i.getEventsForMonth(e, t)), s.days(n.getDaylist()), s.update(n.getThisDay());
     };
-    f.onclick = c, g.onclick = y;
-    let D = performance.timeOrigin + performance.now() - a;
-    console.log("Time for Month class : " + D + " milliseconds");
+    d.onclick = l, c.onclick = r;
+    let y = performance.timeOrigin + performance.now() - a;
+    console.log("Time for Month class : " + y + " milliseconds");
   }
   document.addEventListener("DOMContentLoaded", function() {
-    const f = document.querySelectorAll("div.calWeek");
-    Array.from(f).map((g) => {
-      m.push(g);
+    const d = document.querySelectorAll("div.calWeek");
+    Array.from(d).map((c) => {
+      u.push(c);
     });
   });
 }
 export {
-  L as buildCalendar,
-  b as redraw
+  k as buildCalendar,
+  T as redraw
 };
