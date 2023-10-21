@@ -34,9 +34,10 @@
         "person":"Person"
     },
     "reserve":{
-        "date":"Reserve the room and proceed to next step "
+        "date":"Reserve the room and proceed to the next step "
     },
     "next":"Next",
+    "reset":"Reset",
     "select":"Select.",
     "prop_i":"Projection",
     "user": {

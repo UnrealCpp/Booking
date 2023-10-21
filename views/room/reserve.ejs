@@ -24,9 +24,11 @@
     import { redraw } from '/calendar/main.js';
     window.bookRes=bookRes;
     window.firstClick=firstClick;
+    window.resetBtn=resetBtn;
 
     fetch("/calendarconf/<%= room.id %>").then(()=>redraw(null,null,cb));
-    var cb = ()=>{
+    var cb = ()=>{        
+        document.getElementById("btn-reset").classList.add("d-none");
         var days = document.getElementsByClassName("_day");
         var today = document.getElementsByClassName("_today");
         var month =document.getElementById("mc-title").getAttribute("mc-utc-date")?.slice(5,7);
@@ -78,13 +80,14 @@
                     findDay=evt.target.parentElement.firstChild.innerText;
                 }else findDay = evt.target.outerText;
                 let date = {year,month,_day:findDay};
-                console.log(evt)
+                //console.log(evt)
                 //zerofill
                 if(date._day<10) date._day = "0"+date._day;
                 if(date.month<10 && date.month.length<2) date.month = "0"+date.month;
 
                 document.getElementById("res_date").value=date.year+"-"+date.month+"-"+date._day;
                 sessionStorage.setItem("date",JSON.stringify(date));
+                sessionStorage.setItem("data",JSON.stringify(data));
                 fillHoursByDay(date,data);
             });
         }
@@ -100,7 +103,7 @@
                 _evList.push(v);
         });
         //console.log(_evList)
-        sessionStorage.setItem("data",JSON.stringify(_evList));
+        sessionStorage.setItem("evList",JSON.stringify(_evList));
         var buttons = document.getElementsByClassName("available-btns");
         for (const slot of buttons) {
             slot.classList.remove("btn-danger");
@@ -183,12 +186,19 @@
         firstClick = 0;
         
     }
+    function resetBtn(){
+        let session_date = JSON.parse(sessionStorage.getItem("date"));
+        let session_data = JSON.parse(sessionStorage.getItem("data"));
+        fillHoursByDay(session_date,session_data);
+        
+        document.getElementById("reserve_date").classList.add("disabled");
+        document.getElementById("btn-reset").classList.add("d-none");
+    }
     function disableHoursBefore(_val){
         var _buttons = document.getElementsByClassName("available-btns");
         var disableBefore = 0;
-        let _bookData= JSON.parse(sessionStorage.getItem("data"));
-        for (const reservation of _bookData) {
-            console.log(reservation)
+        let _bookData= JSON.parse(sessionStorage.getItem("evList"));
+        for (const reservation of _bookData) {            
             let _compVal = reservation.start.slice(0,5);
             
             if(_val<_compVal){
@@ -239,6 +249,8 @@
             }
         }
         document.getElementById("btn-reset").classList.remove("d-none");
+        
+        document.getElementById("reserve_date").classList.remove("disabled");
     }
   </script>
 <script type="module">
@@ -321,7 +333,7 @@ active: row.active -->
                 Next, select event finish time.
             </div>
             <div class="col d-none" id="hours-info3">
-                You can proceed to next stage or click another time to change your event start time.
+                You can proceed to next stage or click Reset button.
             </div>
             <div class="d-flex flex-wrap">
                 <% for( let i = 0; i < 17; i++ ) { %>
@@ -331,7 +343,10 @@ active: row.active -->
                     <div  class="p-1">
                         <input type="button" onclick="bookRes(this)" class="btn btn-sm btn-success m-0 available-btns" id="btnHour<% if (i<3) { %>0<% } %><%=7+i %>30" value="<% if (i<3) { %>0<% } %><%=7+i %>:30">
                     </div>
-                <% } %>                                        
+                <% } %>                         
+                <div  class="p-1">
+                        <input type="button" onclick="resetBtn()" class="btn btn-sm btn-primary m-0 d-none" id="btn-reset" value="<%= t("reset") %>">
+                </div>                                   
             </div>
         </div>
         <div class="room-cont row">
@@ -344,8 +359,8 @@ active: row.active -->
 
         </div>
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-        <label for="reserve_date"><%= t("reserve.date") %></label>
-        <button class="btn btn-primary" id="reserve_date"><%= t("next") %></button>
+        <label><%= t("reserve.date") %></label>
+        <button class="btn btn-primary disabled" id="reserve_date"><%= t("next") %></button>
 
         <div class="row">
             <div class="section_wrapper oturma_planlari_wrapper">

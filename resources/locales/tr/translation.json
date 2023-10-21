@@ -33,6 +33,11 @@
         "cinema":"Sinema",
         "person":"Kişi"
     },
+    "reserve":{
+        "date":"Odayı ayırtıp sonraki aşamaya geçebilirsiniz "
+    },
+    "next":"İleri",
+    "reset":"Sıfırla",
     "select":"Seç",
     "prop_i":"Projeksiyon",
     "user": {
