@@ -15,7 +15,7 @@ img {
 .available-btns{    
     width: 4.5em;
     height: 2.2em;
-    background: var(--bs-success);
+    /* background: var(--bs-success); */
 }
 @media screen and (max-width: 767px) {
     .room-image {

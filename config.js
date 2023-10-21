@@ -6,7 +6,7 @@ const ROLES = {
   Manager: "Manager"
 }
 var STATUS = {
-  "en":[
+  en:[
   "Appointment available",
   "Booked event",
   "Current booking",
@@ -15,7 +15,7 @@ var STATUS = {
   "maintenance",
   "company holidays",
   "Not available"
-],"de":[
+],de:[
   "Termin verfügbar",
   "Gebuchte Veranstaltung",
   "Aktuelle Buchung",
@@ -30,7 +30,7 @@ var locals = {
   title: 'KORNS Booking',
   description: 'Page Description',
   header: 'Page Header',
-  version: '1.4.0'
+  version: '1.4.1'
 };
 
 var calendar = {
@@ -75,4 +75,4 @@ var calendar = {
     }]
  };
 
-module.exports = {ROLES,calendar,...locals};
+module.exports = {ROLES,STATUS,calendar,...locals};

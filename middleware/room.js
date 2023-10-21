@@ -211,7 +211,8 @@ const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
 
   let _date = formattedDate;
   let _room = res.locals._getReservations.room;
-  const query = 'SELECT * from room_reservation where roomID=? AND room_reservation.date=? ORDER BY time_from';//'SELECT * from room_reservation where roomID=? ORDER BY room_reservation.date,time_from';//
+  //const query = 'SELECT * from room_reservation where roomID=? AND room_reservation.date=? ORDER BY time_from';//'SELECT * from room_reservation where roomID=? ORDER BY room_reservation.date,time_from';//
+  const query = 'SELECT rs.id,`roomID`,`date`,`time_from`,`time_to`,`i18name`,`description` FROM `room_reservation` as rs INNER JOIN status ON status.id = statusID where roomID=? AND rs.date=? ORDER BY time_from';//'SELECT * from room_reservation where roomID=? ORDER BY room_reservation.date,time_from';//
   const values = [_room,_date];    
     // console.log(_date)  ;
     // console.log("__________________");
@@ -225,13 +226,16 @@ const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
         id: row.roomID,
         date: new Date(row.date).toLocaleDateString("de-DE"),
         start: row.time_from,        
-        end: row.time_to
+        end: row.time_to,
+        status_i18:row.i18name,
+        status_desc:row.description
       }
     });    
     res.locals._getReservations._list = sorted_bookings;
 
     //if(process.env.NODE_ENV === "production"){res.locals._getReservations._listAll =sorted_bookings;next();return;}
-    conn.query('SELECT * from room_reservation where roomID=? ORDER BY room_reservation.date,time_from', [_room], (err, rows) => {
+    //conn.query('SELECT * from room_reservation where roomID=? ORDER BY room_reservation.date,time_from', [_room], (err, rows) => {
+    conn.query('SELECT rs.id,`roomID`,`date`,`time_from`,`time_to`,`i18name`,`description` FROM `room_reservation` as rs INNER JOIN status ON status.id = statusID where roomID=? ORDER BY rs.date,time_from', [_room], (err, rows) => {
       if (err) {
         return next(err);
       }
@@ -242,7 +246,9 @@ const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
           id: row.roomID,
           date: new Date(row.date).toLocaleDateString("de-DE"),
           start: row.time_from,        
-          end: row.time_to
+          end: row.time_to,
+          status_i18:row.i18name,
+          status_desc:row.description
         }
       });    
       res.locals._getReservations._listAll = sorted_bookingsAll;

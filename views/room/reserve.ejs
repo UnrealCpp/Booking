@@ -49,7 +49,8 @@
             }
             
         }
-            //console.log(data)
+
+        //console.log(data)
         if(today.length){
             today[0].addEventListener("click",(evt)=>{
                 //console.log(today[0].children[0].innerText);
@@ -58,6 +59,7 @@
                 //zerofill
                 if(date._day<10) date._day = "0"+date._day;
                 document.getElementById("res_date").value=date.year+"-"+date.month+"-"+date._day;
+                sessionStorage.setItem("date",JSON.stringify(date));
                 fillHoursByDay(date,data);
             });
         }            
@@ -71,17 +73,24 @@
             }
                 days[index].addEventListener("click",(evt)=>{
                 //console.log(days[index].children[0].innerText);
-                let date = {year,month,_day:evt.target.outerText};
+                let findDay;
+                if(evt.target.classList.contains("eventDot")){
+                    findDay=evt.target.parentElement.firstChild.innerText;
+                }else findDay = evt.target.outerText;
+                let date = {year,month,_day:findDay};
+                console.log(evt)
                 //zerofill
                 if(date._day<10) date._day = "0"+date._day;
                 if(date.month<10 && date.month.length<2) date.month = "0"+date.month;
 
                 document.getElementById("res_date").value=date.year+"-"+date.month+"-"+date._day;
+                sessionStorage.setItem("date",JSON.stringify(date));
                 fillHoursByDay(date,data);
             });
         }
     }
     function fillHoursByDay(day,_data) {
+        firstClick = 0;
         document.getElementById("hours-row").classList.remove("d-none");
         var _evList=[];
         _data.forEach((v,i,arr)=>{
@@ -91,7 +100,7 @@
                 _evList.push(v);
         });
         //console.log(_evList)
-
+        sessionStorage.setItem("data",JSON.stringify(_evList));
         var buttons = document.getElementsByClassName("available-btns");
         for (const slot of buttons) {
             slot.classList.remove("btn-danger");
@@ -104,7 +113,7 @@
 
 
             for (const slot of buttons) {
-                if (bookingEndTime > slot.value && bookingStartTime < slot.value) {
+                if (bookingEndTime > slot.value && bookingStartTime <= slot.value) {
                     // Conflict with this booking
                     //console.log(`Booking on ${booking.date} conflicts with time slot ${slot.value}.`);
                     slot.classList.add("btn-danger");
@@ -119,12 +128,20 @@
         if(firstClick===0){
             firstClick = _this.value.replace(":","");
             if(firstClick>2300) {alert("<%= t('error.start_time') %>");firstClick = 0;return;}
+            document.getElementById("hours-info1").classList.add("d-none");
+            document.getElementById("hours-info2").classList.remove("d-none");
+            document.getElementById("hours-info3").classList.add("d-none");
             document.getElementById("res_end").value="00:00";
             document.getElementById("res_start").value=_this.value;
+            disableHoursBefore(_this.value);
         } else if(_this.value.replace(":","")<=firstClick) return;
         else {
             document.getElementById("res_end").value=_this.value;
             firstClick = 0;
+            disableRest(_this.value);
+            document.getElementById("hours-info1").classList.add("d-none");
+            document.getElementById("hours-info2").classList.add("d-none");
+            document.getElementById("hours-info3").classList.remove("d-none");
         }       
         return;
         var _buttons = document.getElementsByClassName("available-btns");
@@ -165,6 +182,63 @@
        
         firstClick = 0;
         
+    }
+    function disableHoursBefore(_val){
+        var _buttons = document.getElementsByClassName("available-btns");
+        var disableBefore = 0;
+        let _bookData= JSON.parse(sessionStorage.getItem("data"));
+        for (const reservation of _bookData) {
+            console.log(reservation)
+            let _compVal = reservation.start.slice(0,5);
+            
+            if(_val<_compVal){
+
+                let tVal = _compVal.replace(":","");
+                let tBtn = document.getElementById("btnHour"+tVal);
+                tBtn.classList.remove("btn-danger");
+                tBtn.classList.remove("disabled");
+                tBtn.classList.add("btn-success");
+                break;
+            }
+        }
+        for (const _btn of _buttons) {
+            if(_val === _btn.value){
+                _btn.classList.remove("btn-danger");
+                _btn.classList.remove("btn-success");
+                _btn.classList.add("btn-secondary");
+                disableBefore = 1;                
+            }
+            if(!disableBefore){
+                //_btn.classList.add("btn-danger");
+                _btn.classList.add("disabled");
+                //_btn.classList.remove("btn-success");
+                //_btn.classList.remove("btn-secondary");
+            }
+        }
+    }
+    function disableRest(_val){
+        var _buttons = document.getElementsByClassName("available-btns");
+        var disableAfter = 0;
+        for (const _btn of _buttons) {
+            if(_val === _btn.value){
+                _btn.classList.remove("btn-danger");
+                _btn.classList.remove("btn-success");
+                _btn.classList.add("btn-secondary");
+                disableAfter = 1;                
+            }
+            if(disableAfter){
+                //_btn.classList.add("btn-danger");
+                _btn.classList.add("disabled");
+                //_btn.classList.remove("btn-success");
+                //_btn.classList.remove("btn-secondary");
+            }else if(!_btn.classList.contains("disabled")){
+                _btn.classList.remove("btn-danger");
+                _btn.classList.remove("btn-success");
+                _btn.classList.add("btn-secondary");
+                _btn.classList.add("disabled");
+            }
+        }
+        document.getElementById("btn-reset").classList.remove("d-none");
     }
   </script>
 <script type="module">
@@ -239,7 +313,16 @@ active: row.active -->
                 </div>                
             </div>
         </div>
-        <div class="row d-none" id="hours-row">                                        
+        <div class="row d-none" id="hours-row">
+            <div class="col" id="hours-info1">
+                First, select your event time.
+            </div>
+            <div class="col d-none" id="hours-info2">
+                Next, select event finish time.
+            </div>
+            <div class="col d-none" id="hours-info3">
+                You can proceed to next stage or click another time to change your event start time.
+            </div>
             <div class="d-flex flex-wrap">
                 <% for( let i = 0; i < 17; i++ ) { %>
                     <div  class="p-1">
@@ -250,7 +333,7 @@ active: row.active -->
                     </div>
                 <% } %>                                        
             </div>
-        </div>         
+        </div>
         <div class="room-cont row">
             <div class="col-lg-6  mb-3 mb-lg-0">
                 <input type="date" name="res_date" id="res_date" autocomplete="off" placeholder="Rezervasyon Tarihi" class="hasDatepicker" value="2023-10-19" required>
@@ -259,7 +342,7 @@ active: row.active -->
 
             </div>
 
-        </div>                     
+        </div>
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <label for="reserve_date"><%= t("reserve.date") %></label>
         <button class="btn btn-primary" id="reserve_date"><%= t("next") %></button>

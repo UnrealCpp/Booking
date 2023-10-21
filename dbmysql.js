@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 var crypto = require('crypto');
-var {ROLES} = require('./config');
+var {ROLES,STATUS} = require('./config');
 require('dotenv').config();
 var connPool = mysql.createPool({
   connectionLimit : 10,
@@ -260,14 +260,22 @@ connPool.getConnection(function(err, con) {
     }    //console.log("Result: " + result);
   });
   //id 1-en 1-de 1-tr 2-en 2-de..
-    //lang VARCHAR(10) NOT NULL, \  BU NE BEYA????
+    // \  BU NE BEYA????
   //lang en de ru tr
   con.query("CREATE TABLE IF NOT EXISTS status ( \
-    id INTEGER NOT NULL,\
-    name VARCHAR(50) NOT NULL \
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,\
+    description VARCHAR(50) NOT NULL,\
+    i18name varchar(20),\
+    lang VARCHAR(10) NOT NULL\
     ) ENGINE=InnoDB;", function (err, result) {
     if (err) throw err;
-    //console.log("Result: " + result);
+    if(!result.warningCount){
+      STATUS.en.forEach((val,key) => {
+        con.query("INSERT INTO status (i18name,description,lang) VALUES (?,?,?)", ["st_"+key,val,"en"], function (err, result) {
+          if (err) throw err;
+        }); 
+      }); 
+    }
   });
 
 
