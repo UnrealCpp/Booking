@@ -49,7 +49,7 @@ app.set('view engine', 'ejs');
 
 app.locals.pluralize = require('pluralize');
 
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

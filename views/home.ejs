@@ -5,6 +5,7 @@
     window.onclickRedraw= onclickRedraw;
     window.getEvents= getEvents;
     window.filterSrvc= filterSrvc;
+    window.callback= callback;
     // Example: Call the redrawCalendar function when needed
     // For example, you can call it when a button is clicked
     // const button = document.getElementById("btnRedraw"); // Replace with your actual button element
@@ -18,6 +19,7 @@
          
         }
     function getEvents(roomid=null,div){
+        document.getElementById("container").setAttribute("style","opacity:100%");
         if (clickedCard) {
             //document.getElementById("card"+clickedCard).style.backgroundColor = '';
             document.getElementById("card"+clickedCard).classList.remove("selected-card");
@@ -25,7 +27,7 @@
         clickedCard=roomid;
         //div.style.backgroundColor = '#f5edeabb';
         div.classList.add("selected-card");
-        fetch("/calendarconf/"+roomid).then(()=>redraw());
+        fetch("/calendarconf/"+roomid).then(()=>redraw(null,null,callback));
     }
     function filterSrvc(list=null,_div){
         let _list = list.split(",");
@@ -47,12 +49,27 @@
         }
         for (const [key, value] of displayCards) {
 
-            console.log(`${key} = ${value}`);
+            //console.log(`${key} = ${value}`);
             value.forEach(room_id => {
-                console.log("card"+room_id);
+                //console.log("card"+room_id);
                 document.getElementById("card"+room_id).classList.remove("d-none");
             });                
         }
+    }
+    function callback(){
+
+    }
+    var prevScrollpos = window.pageYOffset;
+    window.onscroll = function() {
+        var currentScrollPos = window.pageYOffset;
+        
+        if(currentScrollPos<300 && window.innerWidth<401)
+            document.getElementById("container").setAttribute("style","opacity:0%");
+        //else document.getElementById("container").setAttribute("style","opacity:100%");
+    }
+    window.onresize=function(){
+        if(window.innerWidth>400)
+            document.getElementById("container").setAttribute("style","opacity:100%");
     }
   </script>
 <link rel="stylesheet" href="/css/home.css?v=<%= locals.version %>">
@@ -113,7 +130,7 @@
                                 <a href="#" class="btn btn-primary bg-gradient btn-sm m-2"><%= t("btn_search_room") %></a>
                             </div>
                         </div>
-                        <div class="col disappear-768"><span class="d-block p-2 bg-light text-muted w-100 rounded" style="height: 3em;"><h5><%= t("search_by_date") %></h5></span></div>                        
+                        <div class="col disappear-768 contParent"><span class="d-block p-2 bg-light text-muted w-100 rounded" style="height: 3em;"><h6><strong><%= t("search_by_date") %></strong></h6></span></div>                        
                         <div id ="container" class="mb-3 col-6 col-lg-12">
                             <div id ="modularCalendar"></div>
                         </div>
@@ -122,7 +139,7 @@
                     <div class="row disappear-768">
                         <div class="col mb-3">
                                     
-                                    <span class="d-block p-2 bg-light text-muted w-100 rounded" style="height: 3em;"><h5><%= t("search_by_properties") %></h5></span>
+                                    <span class="d-block p-2 bg-light text-muted w-100 rounded" style="height: 3em;"><h6><strong><%= t("search_by_properties") %></strong></h6></span>
                                     <div class="container-fluid">
                                         <div class="row">
                                             <% mySrv.forEach((element,k) => { %>
@@ -140,7 +157,7 @@
                 </div>
                 <div class="col-lg-9" style="min-width:313px">
                     <% rooms.forEach(element => { %> 
-                        <div class="card mb-3 room-info"  onclick="getEvents('<%= element.id %>',this)" id="card<%= element.id %>"> <!-- style="max-width: 540px;" -->
+                        <div class="card mb-3 room-info"  onclick="getEvents('<%= element.id %>',this,callback())" id="card<%= element.id %>"> <!-- style="max-width: 540px;" -->
                             <div class="row g-0">
                                 <div class="col-md-4">
                                     <img src="/img/<%= element.img %>" class="img-fluid room-image" alt="...">

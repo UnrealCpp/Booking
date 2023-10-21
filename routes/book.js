@@ -39,7 +39,7 @@ book.get('/:id',ensureLogIn("../login"), function(req, res, next) {
 });
 
 function fillOccupiedBookingHours(_bookings){
-  console.log(_bookings);
+  //console.log(_bookings);
 
 }
 

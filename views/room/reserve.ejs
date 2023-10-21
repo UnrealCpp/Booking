@@ -31,6 +31,8 @@
         var today = document.getElementsByClassName("_today");
         var month =document.getElementById("mc-title").getAttribute("mc-utc-date")?.slice(5,7);
         var year  =document.getElementById("mc-title").innerText.split(" ")[1];
+        var _compDay = new Date(document.getElementById("mc-title").getAttribute("mc-utc-date"));
+        
         //if(month<10) month = "0"+month;
         var _list = "<%= JSON.stringify(_getReservations._listAll) %>" ;
         _list = _list.replaceAll("&#34;","\"");
@@ -47,7 +49,7 @@
             }
             
         }
-            console.log(data)
+            //console.log(data)
         if(today.length){
             today[0].addEventListener("click",(evt)=>{
                 //console.log(today[0].children[0].innerText);
@@ -58,9 +60,16 @@
                 document.getElementById("res_date").value=date.year+"-"+date.month+"-"+date._day;
                 fillHoursByDay(date,data);
             });
-        }
+        }            
+
         for (let index = 0; index < days.length; index++) {
-            days[index].addEventListener("click",(evt)=>{
+            _compDay.setUTCDate(days[index].children[0].innerText);
+            //console.log("brwsr/reserveejs _compday:"+_compDay.toISOString());
+            if(new Date()>_compDay){  
+                days[index].addEventListener("click",(evt)=>{document.getElementById("hours-row").classList.add("d-none");});                
+                continue;
+            }
+                days[index].addEventListener("click",(evt)=>{
                 //console.log(days[index].children[0].innerText);
                 let date = {year,month,_day:evt.target.outerText};
                 //zerofill
@@ -150,7 +159,7 @@
             }else if(hour === hCompare){
                 arrayComp.push(_this);
             }
-            hCompare+=30;      console.log(hCompare)       
+            hCompare+=30;     // console.log(hCompare)       
         }
         
        
@@ -253,13 +262,7 @@ active: row.active -->
         </div>                     
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <button class="btn btn-primary" id="reserve_date">Rezervasyonu Tamamla</button>
-        <div class="row">
-            <div class="col">
-                <% _getReservations._listAll.forEach(element => { %>
-                    <%= element.date %>  <%= element.start %> <%= element.end %> <br>
-                <% }) %>
-            </div>
-        </div>
+
         <div class="row">
             <div class="section_wrapper oturma_planlari_wrapper">
                 <h3 class="section_title"><%= t("room.seating_plan") %></h3>
@@ -296,80 +299,13 @@ active: row.active -->
     </div>
 </form>
 <!-- xzczxc-------------------------------------------------------------------------------------------------------------------- -->
-<form id="rezervasyon_yap" method="POST">
-    <input type="hidden" name="the_action">
-    <input type="hidden" name="oda_saatlik_ucreti">
-    <input type="hidden" name="hesaplanan_saat">
-    <input type="hidden" name="sec_saat_fiyati">
-    <input type="hidden" name="ozelliklerin_fiyati">
-    <input type="hidden" name="hizmetlerin_fiyati">
-    <input type="hidden" name="toplam_fiyat">   
-    
-    <div class="section_wrapper second_section_wrapper">
-        <h3 class="section_title">Ek Oda Özellikleri</h3>
-        <div class="section_content oda_ozellikleri">                        <h4 class="section_sub_title">İstediğiniz özellik listede yok mu? Aşağıdaki ekleme butonunu kullanarak dilediğiniz kadar özel talepte bulunabilirsiniz.</h4>
-                <div id="eklenen_ozellik_istekleri" class="eklenen_istekler"></div>
-                <div id="yeni_ozellik_ekle" class="yeni_istek_butonu">Özellik Talebi Ekle</div>
-                <div id="ozellik_ekleme_kutusu" class="ozel_istek_ekleme_kutusu_wrapper hidden">
-                    <div class="ozel_istek_ekleme_kutusu">
-                        <div class="group_1">
-                            <label for="ozellik_adi">Eklemek istediğiniz özelliğin adı:</label>
-                            <input type="text" tabindex="0" class="istek_adi" name="ozellik_adi" id="ozellik_adi">
-                            <label for="ozellik_adedi">Bu özellik için miktar belirtin:</label>
-                            <div class="quantity">
-                                <input type="number" tabindex="0" class="istek_adedi" name="ozellik_adedi" id="ozellik_adedi" min="1" value="1"><div class="quantity-nav"><button tabindex="-1" class="quantity-button quantity-up"></button><button tabindex="-1" class="quantity-button quantity-down"></button></div>
-                            </div>
-                        </div>
-                        <div class="group_2">
-                            <label for="ozellik_aciklamasi">Özelliğe ait detaylar:</label>
-                            <textarea tabindex="0" class="istek_aciklamasi" name="ozellik_aciklamasi" id="ozellik_aciklamasi"></textarea>
-                        </div>
-                    </div>
-                    <div id="ozellik_ekleme_error_wrapper" class="hidden"></div>
-                        <input type="hidden" name="ozellik_istekleri" id="ozellik_istekleri">
-                        <button tabindex="0" class="istegi_ekle" value="ozellik" id="ozelligi_ekle">Özelliği Ekle</button>
-                </div>                </div>
+<div class="row">
+    <div class="col">
+        <% _getReservations._listAll.forEach(element => { %>
+            <%= element.date %>  <%= element.start %> <%= element.end %> <br>
+        <% }) %>
     </div>
-    <div class="section_wrapper">                        <div class="oda_ek_hizmetleri section_content">
-                    <h3>Catering</h3>
-                    <p>Aşağıda listelenen yiyecek seçeneklerini küçük bir ek ücret karşılığında toplantınıza dahil edebilirsiniz.</p>                                <div class="ek_hizmet_accordion_wrapper">                                </div>                        </div>                    <div class="section_content">
-                <h4 class="section_sub_title">İstediğiniz hizmet listede yok mu? Aşağıdaki ekleme butonunu kullanarak dilediğiniz kadar özel hizmet talebinde bulunabilirsiniz.</h4>
-                <div id="eklenen_hizmet_istekleri" class="eklenen_istekler"></div>
-                <div id="yeni_hizmet_ekle" class="yeni_istek_butonu">Hizmet Talebi Ekle</div>
-                <div id="hizmet_ekleme_kutusu" class="ozel_istek_ekleme_kutusu_wrapper hidden">
-                    <div class="ozel_istek_ekleme_kutusu">
-                        <div class="group_1">
-                            <label for="hizmet_adi">Eklemek istediğiniz hizmetin adı:</label>
-                            <input tabindex="0" type="text" class="istek_adi" name="hizmet_adi" id="hizmet_adi">
-                            <label for="hizmet_adedi">Bu hizmet için miktar belirtin:</label>
-                            <div class="quantity">
-                                <input tabindex="0" type="number" class="istek_adedi" name="hizmet_adedi" id="hizmet_adedi" min="1" value="1"><div class="quantity-nav"><button tabindex="-1" class="quantity-button quantity-up"></button><button tabindex="-1" class="quantity-button quantity-down"></button></div>
-                            </div>
-                        </div>
-                        <div class="group_2">
-                            <label for="hizmet_aciklamasi">Hizmete ait detaylar:</label>
-                            <textarea tabindex="0" class="istek_aciklamasi" name="hizmet_aciklamasi" id="hizmet_aciklamasi"></textarea>
-                        </div>
-                    </div>
-                    <div id="hizmet_ekleme_error_wrapper" class="hidden"></div>
-                    <input type="hidden" name="hizmet_istekleri" id="hizmet_istekleri">
-                    <button tabindex="0" id="hizmeti_ekle" value="hizmet" class="istegi_ekle">Özelliği Ekle</button>
-                </div>
-            </div>            </div>
-    <div class="section_wrapper">
-        <h3 class="section_title hesaplanan_fiyat_h3">Seçtiğiniz Kriterlere Göre Hesaplanan Fiyat</h3>
-<div class="section_content hesaplanan_fiyat">
-<span>Oda Saatlik Ücreti</span>:<span class="price"><span id="room_price_per_hours">0</span> -EUR</span>
-<span><span id="selected_duration"></span> Saatlik Ücret</span>:<span class="price"><span id="selected_duration_price">0</span> -EUR</span>
-<span>Oda Özellikleri Toplam Ücret</span>:<span class="price"><span id="room_properties_price">0</span> -EUR</span>
-<span>Oda Ek Hizmetleri Toplam Ücret</span>:<span class="price"><span id="room_services_price">0</span> -EUR</span>
-<span>Toplam KDV Ücreti</span>:<span class="price"><span id="total_kdv">0</span> -EUR</span>
-<hr>
-<span>Toplam</span>:<span class="price"><span id="total_price">0</span> -EUR</span>
 </div>
-        <button id="rezervasyonu_olustur">Rezervasyonu Tamamla</button>
-    </div>
-</form>
 <style>
     .odalar_wrapper {
     max-width: 1024px;

@@ -264,7 +264,8 @@ function postReservation(req, res, next){
 
   // if(!validator.isAfter(before,acceptableDate));
   //   res.locals.messages.push("You must make reservations at least 2 hours before...<br>"+before+"<br> "+after);
-
+  res.locals._roomID = req.body.room_id;
+  res.locals._resDate = req.body.res_date;
   if(!validator.isDate(req.body.res_date))
     res.locals.messages.push("Reservation Date is invalid");
   
@@ -292,7 +293,7 @@ function postReservation(req, res, next){
 
   if(res.locals.messages.length)
     return next("err");
-  
+
     //if returns more than 0 rows then its conflict
     // SELECT * FROM (SELECT * FROM room_reservation WHERE roomID=1 AND room_reservation.date ='2023-11-15') AS q1 WHERE time_to > '8:00:00' AND time_from < '9:40:00';
     // SELECT * FROM room_reservation WHERE roomID=1 AND room_reservation.date ='2023-11-15' AND time_to > '8:00:00' AND time_from < '9:40:00';
@@ -322,8 +323,7 @@ function postReservation(req, res, next){
     //   res.locals.bookingList = bookingList;
     //   return bookingList;
     // })
-    res.locals._roomID = req.body.room_id;
-    res.locals._resDate = req.body.res_date;
+
 
     next();
   });

@@ -79,7 +79,7 @@ router.get('/calendarconf/:id',function(req, res, next) {
   res.locals._getReservations={day:new Date(),room:req.params.id};
   next();
 }, room.getReservations,function(req, res, next) { 
-  console.log(res.locals._getReservations._listAll);
+  //console.log(res.locals._getReservations._listAll);
   calendar.events.length=0;
   res.locals._getReservations._listAll.forEach(element => {
     
@@ -108,7 +108,7 @@ router.get('/calendarconf/:year/:month', function(req, res, next) {
   let cal  = JSON.parse(JSON.stringify(calendar));
   cal.month.startYear=req.params.year;
   cal.month.startMonth=req.params.month;
-  console.log(cal);
+  //console.log(cal);
   res.json(cal);
 });
 // router.post('/book',ensureLogIn("../login"), room.postReservation, function(req, res, next) {
