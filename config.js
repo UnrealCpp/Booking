@@ -40,7 +40,7 @@ var calendar = {
       // startYear:2023,
       divId:"modularCalendar",
       width:"800px",
-      locale:"tr",
+      locale:"de-DE",
       localeWeek : {
         tr:[
             ["Pt","Sa","Ça","Pe","Cu","Ct","Pz"],

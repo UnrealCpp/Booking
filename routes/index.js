@@ -8,6 +8,7 @@ const {ROLES,calendar} = require('../config');
 var locals = require('../config');
 const checkIsInRole= require('../middleware/handle');
 var room = require('../middleware/room');
+const { config } = require('dotenv');
 // connect-ensure-login integrates seamlessly with Passport.
 
 function user_logged(req){
@@ -100,6 +101,7 @@ router.get('/calendarconf/:id',function(req, res, next) {
 });
 router.get('/change/:lang', function(req, res, next) { 
     locals.lang=req.params.lang;
+    calendar.month.locale=req.params.lang;
     res.redirect(req.get('referer'));
 
 });

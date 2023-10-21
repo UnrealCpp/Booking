@@ -118,7 +118,7 @@
     function bookRes(_this){
         if(firstClick===0){
             firstClick = _this.value.replace(":","");
-            if(firstClick>2300) {alert("Başlangıç Saatini daha erken seçmelisiniz");firstClick = 0;return;}
+            if(firstClick>2300) {alert("<%= t('error.start_time') %>");firstClick = 0;return;}
             document.getElementById("res_end").value="00:00";
             document.getElementById("res_start").value=_this.value;
         } else if(_this.value.replace(":","")<=firstClick) return;
@@ -243,10 +243,10 @@ active: row.active -->
             <div class="d-flex flex-wrap">
                 <% for( let i = 0; i < 17; i++ ) { %>
                     <div  class="p-1">
-                        <input type="button" onclick="bookRes(this)" class="btn btn-success m-0 available-btns" id="btnHour<% if (i<3) { %>0<% } %><%=7+i %>00" value="<% if (i<3) { %>0<% } %><%=7+i %>:00">
+                        <input type="button" onclick="bookRes(this)" class="btn btn-sm btn-success m-0 available-btns" id="btnHour<% if (i<3) { %>0<% } %><%=7+i %>00" value="<% if (i<3) { %>0<% } %><%=7+i %>:00">
                     </div>
                     <div  class="p-1">
-                        <input type="button" onclick="bookRes(this)" class="btn btn-success m-0 available-btns" id="btnHour<% if (i<3) { %>0<% } %><%=7+i %>30" value="<% if (i<3) { %>0<% } %><%=7+i %>:30">
+                        <input type="button" onclick="bookRes(this)" class="btn btn-sm btn-success m-0 available-btns" id="btnHour<% if (i<3) { %>0<% } %><%=7+i %>30" value="<% if (i<3) { %>0<% } %><%=7+i %>:30">
                     </div>
                 <% } %>                                        
             </div>
@@ -261,7 +261,8 @@ active: row.active -->
 
         </div>                     
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-        <button class="btn btn-primary" id="reserve_date">Rezervasyonu Tamamla</button>
+        <label for="reserve_date"><%= t("reserve.date") %></label>
+        <button class="btn btn-primary" id="reserve_date"><%= t("next") %></button>
 
         <div class="row">
             <div class="section_wrapper oturma_planlari_wrapper">
@@ -293,6 +294,8 @@ active: row.active -->
             <div class="section_wrapper second_section_wrapper">
                 <h3 class="section_title"><%= t("reserve.options") %></h3>
                 <div class="section_content oturma_planlari">
+
+
                 </div>
             </div>
         </div>

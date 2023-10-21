@@ -52,8 +52,9 @@
         "reservations":"Rezervasyonlar"
     },
     "error":{
-        "blank":"Bu alanı doldurmanız gerekiyor.",
-        "required":"Lütfen bir seçeneği seçin."
+        "blank":"This field cannot be left blank.",
+        "required":"You must select one to proceed.",
+        "start_time":"Başlangıç Saatini daha erken seçmelisiniz"
     }
 
 }

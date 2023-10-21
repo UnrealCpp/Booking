@@ -33,6 +33,10 @@
         "cinema":"кинотеатр",
         "person":"человек"
     },
+    "reserve":{
+        "date":"Забронируйте номер и перейдите к следующему шагу"
+    },
+    "next":"Следующий",
     "select":"Выбирать.",
     "prop_i":"Проекция",
     "user": {
@@ -47,6 +51,11 @@
         "register":"Зарегистрироваться",
         "logout":"выход",
         "dont_have_acc_q":"У вас нет аккаунта?"
+    },
+    "error":{
+        "blank":"This field cannot be left blank.",
+        "required":"You must select one to proceed.",
+        "start_time":"Вам следует выбрать время начала раньше"
     }
 
 }

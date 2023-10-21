@@ -33,6 +33,10 @@
         "cinema":"Kino",
         "person":"Personen"
     },
+    "reserve":{
+        "date":"Reservieren Sie das Zimmer und fahren Sie mit dem nächsten Schritt fort "
+    },
+    "next":"Nächste",
     "select":"Wählen",
     "prop_i":"Projektion",
     "user": {
@@ -50,6 +54,11 @@
         "account":"Konto",
         "board":"Panel",
         "reservations":"Reservierung"
+    },
+    "error":{
+        "blank":"This field cannot be left blank.",
+        "required":"You must select one to proceed.",
+        "start_time":"Sie sollten eine frühere Startzeit wählen"
     }
 
 }
